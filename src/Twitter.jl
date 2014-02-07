@@ -8,15 +8,22 @@ module Twitter
 
 using Codecs, HttpCommon, Requests, JSON
 
-export twitterauth, 			#Authentication function
-	   twittercred, 			#Authentication object
-	   twgetappauth,			#GET helper function for application_only endpoints
-	   get_user_timeline,			#public API function
-	   search_tweets,			#public API function
-	   get_friends_ids,			#public API function
-	   get_followers_ids,		#public API function
-	   get_friends_list,		#public API function
-	   get_followers_list		#public API function
+export twitterauth, 						#Authentication function
+	   twittercred, 						#Authentication object
+	   twgetappauth,						#GET helper function for application_only endpoints
+	   get_user_timeline,					#public API function
+	   search_tweets,						#public API function
+	   get_friends_ids,						#public API function
+	   get_followers_ids,					#public API function
+	   get_friends_list,					#public API function
+	   get_followers_list,					#public API function
+	   get_help_configuration,				#public API function
+	   get_help_privacy,					#public API function
+	   get_help_tos,						#public API function
+	   get_application_rate_limit_status	#public API function
+
+#External files by API section
+include("help.jl")
 
 #############################################################
 #
@@ -720,37 +727,6 @@ end
 # OAuth Functions - One big TODO
 #
 #############################################################
-
-#############################################################
-#
-# Help Functions
-#
-#############################################################
-
-function get_help_configuration()
-	#Requires user context
-	error("Twitter API not fully implemented")
-end
-
-function get_help_languages()
-	#Requires user context
-	error("Twitter API not fully implemented")
-end
-
-function get_help_privacy()
-	#Requires user context
-	error("Twitter API not fully implemented")
-end
-
-function get_help_tos()
-	#Requires user context
-	error("Twitter API not fully implemented")
-end
-
-function get_application_rate_limit_status()
-	#Requires user context
-	error("Twitter API not fully implemented")
-end
 
 
 end # module
