@@ -6,7 +6,7 @@ Twitter.jl is a Julia package to work with the Twitter API v1.1. The beginning f
 
 ##Twitter.jl API
 
-In general, the theme of the functions in this package is to require one main argument in the function call, then have a second optional keyword argument that takes a `Dict` of optional arguments to customize the API call. This is done to keep the function signatures from being huge, as well as to make it simple to get data from the Twitter API for the most common use cases.
+In general, the theme of the functions in this package is to require one main argument in the function call, then have a second optional keyword argument that takes a `Dict` of arguments to customize the API call. This is done to keep the function signatures from being huge, as well as to make it simple to get data from the Twitter API for the most common use cases.
 
 While in development, most function calls will return one long string of JSON (but of Julia type `ASCIIString`). It is planned to write parsers for each type of call to return either JSON, a Dict or a DataFrame.
 
@@ -16,7 +16,7 @@ Also note that the API is subject to change at will until this package is regest
 
 Authentication is accomplished by creating an application on [dev.twitter.com](https://dev.twitter.com). Once your application is setup, you can access your consumer_key, consumer_token, oauth_token and oauth_secret from the "Details" tab of the application.
 
-This package does not currently support on-the-fly OAuth authentication. 
+This package does not currently support on-the-fly, pop-up a browser-type OAuth authentication. 
 
 ##Code examples
 

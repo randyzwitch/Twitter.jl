@@ -20,7 +20,8 @@ export twitterauth, 						#Authentication function
 	   get_help_configuration,				#public API function
 	   get_help_privacy,					#public API function
 	   get_help_tos,						#public API function
-	   get_application_rate_limit_status	#public API function
+	   get_application_rate_limit_status,	#public API function
+	   get_help_languages					#public API function
 
 #External files by API section
 include("help.jl")
@@ -101,6 +102,45 @@ function twgetappauth(endpoint, defaultarg, defaultval, options)
     return response
 end
 
+function oauth_header(httpmethod::String, baseurl::String, status::String)                
+    
+    #Format input strings
+    baseurl = encodeURI(baseurl)
+    httpmethod = encodeURI(uppercase(httpmethod))
+    
+    #status = encodeURI(status)
+    
+    #keys
+    oauth_consumer_key = encodeURI(twittercred.consumer_key)
+    oauth_consumer_secret = encodeURI(twittercred.consumer_secret)
+    oauth_token = encodeURI(twittercred.oauth_token)
+    oauth_token_secret = encodeURI(twittercred.oauth_secret)
+    
+    #nonce - 32 random alphanumeric characters
+    oauth_nonce = encodeURI(randstring(32))
+    
+    #timestamp in seconds, moving to UTC
+    oauth_timestamp = @sprintf("%.0f", time())
+    
+    #parameter_string
+    #Apparently, this is only correct for special case of posting tweets
+    #TODO: Needs to be able to sort keys on the fly, not just have single "status" argument
+    parameter_string = encodeURI("oauth_consumer_key=$(oauth_consumer_key)&oauth_nonce=$(oauth_nonce)&oauth_signature_method=HMAC-SHA1&oauth_timestamp=$(oauth_timestamp)&oauth_token=$(oauth_token)&oauth_version=1.0&status=$(status)")
+
+    #signature_base_string
+    #Works up to here with hard-coded examples
+    signature_base_string = "$(httpmethod)&$(baseurl)&$(parameter_string)"
+    
+    #Signing key
+    signing_key = "$(oauth_consumer_secret)&$(oauth_token_secret)"
+    
+    #Calculate signature
+    oauth_sig = encodeURI(base64(hmacsha1_digest(signature_base_string, signing_key)))
+    
+    return "OAuth oauth_consumer_key=\"$(oauth_consumer_key)\", oauth_nonce=\"$(oauth_nonce)\", oauth_signature=\"$(oauth_sig)\", oauth_signature_method=\"HMAC-SHA1\", oauth_timestamp=\"$(oauth_timestamp)\", oauth_token=\"$(oauth_token)\", oauth_version=\"1.0\""
+    
+end
+
 #############################################################
 #
 # Timelines Functions
@@ -160,9 +200,21 @@ function destroy_single_tweet()
 	error("Twitter API not fully implemented")
 end
 
-function post_status_update()
-	#Requires user context
-	error("Twitter API not fully implemented")
+#Need to make this more generalized using keyword argument
+#Also need to figure out proper oauth_header function call structure
+function post_status_update(status::String)
+    status = encodeURI(status)
+    
+    #Build oauth_header
+    oauth_header_val = oauth_header("POST", "https://api.twitter.com/1.1/statuses/update.json", status)
+    
+    return Requests.post(URI("https://api.twitter.com/1.1/statuses/update.json"), 
+                    "status=$status", 
+                    {"Content-Type" => "application/x-www-form-urlencoded",
+                    "Authorization" => oauth_header_val,
+                    "Connection" => "close",
+                    "Accept" => "*/*"})
+    
 end
 
 function get_retweet()
@@ -727,6 +779,5 @@ end
 # OAuth Functions - One big TODO
 #
 #############################################################
-
 
 end # module

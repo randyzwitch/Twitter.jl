@@ -4,12 +4,13 @@
 #
 #############################################################
 
+#Possible candidate for refactoring, literally same code different endpoint each time
 function get_help_configuration()
     
 	response = get(URI("https://api.twitter.com/1.1/help/configuration.json");
                    headers = {"Authorization" => "Bearer $(twittercred.auth_only_bearer_token)"})
     
-    #Currently, just returns Response object from Requests.jl
+    #Currently, just return parsed response.data object as Dict
 	if response.status == 200
 		return response
 	else
@@ -23,7 +24,7 @@ function get_help_languages()
 	response = get(URI("https://api.twitter.com/1.1/help/languages.json");
                    headers = {"Authorization" => "Bearer $(twittercred.auth_only_bearer_token)"})
     
-    #Currently, just returns Response object from Requests.jl
+    #Currently, just return parsed response.data object as Dict
 	if response.status == 200
 		return response
 	else
@@ -37,7 +38,7 @@ function get_help_privacy()
 	response = get(URI("https://api.twitter.com/1.1/help/privacy.json");
                    headers = {"Authorization" => "Bearer $(twittercred.auth_only_bearer_token)"})
     
-    #Currently, just returns Response object from Requests.jl
+    #Currently, just return parsed response.data object as Dict
 	if response.status == 200
 		return response
 	else
@@ -51,7 +52,7 @@ function get_help_tos()
 	response = get(URI("https://api.twitter.com/1.1/help/tos.json");
                    headers = {"Authorization" => "Bearer $(twittercred.auth_only_bearer_token)"})
     
-    #Currently, just returns Response object from Requests.jl
+    #Currently, just return parsed response.data object as Dict
 	if response.status == 200
 		return response
 	else
@@ -67,7 +68,7 @@ function get_application_rate_limit_status()
 	response = get(URI("https://api.twitter.com/1.1/application/rate_limit_status.json");
                    headers = {"Authorization" => "Bearer $(twittercred.auth_only_bearer_token)"})
     
-    #Currently, just returns Response object from Requests.jl
+    #Currently, just return parsed response.data object as Dict
 	if response.status == 200
 		return response
 	else
