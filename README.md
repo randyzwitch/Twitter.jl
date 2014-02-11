@@ -88,3 +88,14 @@ Given the authenticated nature of the Twitter API, it's unlikely that testing wi
 ##Licensing
 
 Twitter.jl is licensed under the [MIT "Expat" license](https://github.com/randyzwitch/Twitter.jl/blob/master/LICENSE.md)
+
+##TODO
+
+Everything, including:
+
+- Working API calls for functions, returning string/JSON
+- Extend functions from just taking a single argument to incorporating options Dict
+- Parser for returned data/custom types
+- Keyword arguments for type of data structure desired as returned object (JSON, Dict, DataFrame, etc.)
+- Make interface more Julian, clean up any oddities
+- Ability to save keys to file, remove need for authentication each time
