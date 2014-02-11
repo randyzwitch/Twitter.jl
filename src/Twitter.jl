@@ -6,6 +6,7 @@ module Twitter
 #
 #############################################################
 
+import AWS.Crypto.hmacsha1_digest
 using Codecs, HttpCommon, Requests, JSON
 
 export twitterauth, 						#Authentication function
@@ -21,10 +22,13 @@ export twitterauth, 						#Authentication function
 	   get_help_privacy,					#public API function
 	   get_help_tos,						#public API function
 	   get_application_rate_limit_status,	#public API function
-	   get_help_languages					#public API function
+	   get_help_languages,					#public API function
+	   oauth_header, 						#Helper function
+	   post_status_update   				#public API function
 
 #External files by API section
 include("help.jl")
+include("spam.jl")
 
 #############################################################
 #
@@ -50,6 +54,7 @@ end
 #
 #############################################################
 
+#Function that builds global variable to hold authentication keys
 function twitterauth(consumer_key::ASCIIString, consumer_secret::ASCIIString; oauth_token::ASCIIString="", oauth_secret::ASCIIString="")
     #Create a global variable to hold return from this function
     global twittercred
@@ -102,33 +107,44 @@ function twgetappauth(endpoint, defaultarg, defaultval, options)
     return response
 end
 
-function oauth_header(httpmethod::String, baseurl::String, status::String)                
+#Use this function to build the header for every OAuth call
+function oauth_header(httpmethod::String, baseurl::String, options::Dict)                
     
-    #Format input strings
+    #Format non-parameter strings
     baseurl = encodeURI(baseurl)
     httpmethod = encodeURI(uppercase(httpmethod))
-    
-    #status = encodeURI(status)
-    
-    #keys
-    oauth_consumer_key = encodeURI(twittercred.consumer_key)
     oauth_consumer_secret = encodeURI(twittercred.consumer_secret)
-    oauth_token = encodeURI(twittercred.oauth_token)
     oauth_token_secret = encodeURI(twittercred.oauth_secret)
     
-    #nonce - 32 random alphanumeric characters
-    oauth_nonce = encodeURI(randstring(32))
+    #URI encode values for all keys passed in on options
+    for (k, v) in options
+        options["$(k)"] = encodeURI(v)
+    end
     
-    #timestamp in seconds, moving to UTC
-    oauth_timestamp = @sprintf("%.0f", time())
+    #keys for parameter string
+    options["oauth_consumer_key"] = encodeURI(twittercred.consumer_key)
+    options["oauth_nonce"] = encodeURI(randstring(32)) #32 random alphanumeric characters
+    options["oauth_signature_method"] = "HMAC-SHA1"
+    options["oauth_timestamp"] = @sprintf("%.0f", time()) #timestamp in seconds
+    options["oauth_token"] = encodeURI(twittercred.oauth_token)
+    options["oauth_version"] = "1.0"
     
-    #parameter_string
-    #Apparently, this is only correct for special case of posting tweets
-    #TODO: Needs to be able to sort keys on the fly, not just have single "status" argument
-    parameter_string = encodeURI("oauth_consumer_key=$(oauth_consumer_key)&oauth_nonce=$(oauth_nonce)&oauth_signature_method=HMAC-SHA1&oauth_timestamp=$(oauth_timestamp)&oauth_token=$(oauth_token)&oauth_version=1.0&status=$(status)")
+    #Get all available keys, sort them
+    optionskeys = collect(keys(options))
+    sort!(optionskeys)
 
+    #parameter_string
+    #Inspired by Requests.format_query_string
+    query_str = ""
+    for k in optionskeys
+        v = options["$(k)"] #get value for ordered key
+        query_str *= "$k=$v&"
+    end
+    query_str = chop(query_str) # remove the trailing &
+    
+    parameter_string = encodeURI(query_str) 
+    
     #signature_base_string
-    #Works up to here with hard-coded examples
     signature_base_string = "$(httpmethod)&$(baseurl)&$(parameter_string)"
     
     #Signing key
@@ -137,7 +153,7 @@ function oauth_header(httpmethod::String, baseurl::String, status::String)
     #Calculate signature
     oauth_sig = encodeURI(base64(hmacsha1_digest(signature_base_string, signing_key)))
     
-    return "OAuth oauth_consumer_key=\"$(oauth_consumer_key)\", oauth_nonce=\"$(oauth_nonce)\", oauth_signature=\"$(oauth_sig)\", oauth_signature_method=\"HMAC-SHA1\", oauth_timestamp=\"$(oauth_timestamp)\", oauth_token=\"$(oauth_token)\", oauth_version=\"1.0\""
+    return "OAuth oauth_consumer_key=\"$(options["oauth_consumer_key"])\", oauth_nonce=\"$(options["oauth_nonce"])\", oauth_signature=\"$(oauth_sig)\", oauth_signature_method=\"$(options["oauth_signature_method"])\", oauth_timestamp=\"$(options["oauth_timestamp"])\", oauth_token=\"$(options["oauth_token"])\", oauth_version=\"$(options["oauth_version"])\""
     
 end
 
@@ -200,16 +216,21 @@ function destroy_single_tweet()
 	error("Twitter API not fully implemented")
 end
 
-#Need to make this more generalized using keyword argument
-#Also need to figure out proper oauth_header function call structure
-function post_status_update(status::String)
-    status = encodeURI(status)
+#Need to make this more generalized using options keyword argument
+#Currently, function doesn't actually accept options
+function post_status_update(status::String; options = Dict())
+    
+    endpoint = "https://api.twitter.com/1.1/statuses/update.json"
+    
+    #Add status into options Dict (will get URI encoded automatically in oauth_header
+    #Need to URI encode for use in post request (can this be done better?)
+    options["status"] = status
     
     #Build oauth_header
-    oauth_header_val = oauth_header("POST", "https://api.twitter.com/1.1/statuses/update.json", status)
+    oauth_header_val = oauth_header("POST", endpoint, options)
     
     return Requests.post(URI("https://api.twitter.com/1.1/statuses/update.json"), 
-                    "status=$status", 
+                    "status=$(encodeURI(status))", 
                     {"Content-Type" => "application/x-www-form-urlencoded",
                     "Authorization" => oauth_header_val,
                     "Connection" => "close",
@@ -759,17 +780,6 @@ function get_trends_available()
 end
 
 function get_trends_closest()
-	#Requires user context
-	error("Twitter API not fully implemented")
-end
-
-#############################################################
-#
-# Spam Reporting Functions
-#
-#############################################################
-
-function post_users_report_spam()
 	#Requires user context
 	error("Twitter API not fully implemented")
 end
