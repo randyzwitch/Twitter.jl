@@ -45,7 +45,15 @@ export twitterauth, 						#Authentication function
 	   post_status_update,   				#public API function
 	   mentions_timeline,					#public API function
 	   home_timeline,						#public API function
-	   retweets_of_me						#public API function	
+	   retweets_of_me,						#public API function
+	   get_direct_messages,					#public API function
+	   get_direct_messages_sent,			#public API function
+	   get_account_settings,				#public API function	
+	   validate_credentials,				#public API function	
+	   get_blocks_list,						#public API function
+	   get_blocks_ids,						#public API function
+	   get_users_search,					#public API function
+	   get_users_contributees				#public API function
 
 #############################################################
 #

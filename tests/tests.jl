@@ -66,3 +66,35 @@ timeline_tweets = mentions_timeline(20)
 #Get n most recent retweets
 #https://dev.twitter.com/docs/api/1.1/get/statuses/retweets_of_me
 my_retweets = retweets_of_me(10)
+
+#Get n most recent direct messages
+#https://dev.twitter.com/docs/api/1.1/get/direct_messages
+my_dms = get_direct_messages(10)
+
+#Get n most recent direct messages sent
+#https://dev.twitter.com/docs/api/1.1/get/direct_messages/sent
+my_dms_sent = get_direct_messages_sent(10)
+
+#Get account settings
+#https://dev.twitter.com/docs/api/1.1/get/account/settings
+account_settings = get_account_settings()
+
+#Validate credentials
+#https://dev.twitter.com/docs/api/1.1/get/account/verify_credentials
+validated_credentials = validate_credentials()
+
+#Get Blocks List
+#https://dev.twitter.com/docs/api/1.1/get/blocks/list
+blocked_users = get_blocks_list()
+
+#Get Blocks IDs
+#https://dev.twitter.com/docs/api/1.1/get/blocks/ids
+blocked_ids = get_blocks_ids()
+
+#Get Users Search
+#https://dev.twitter.com/docs/api/1.1/get/users/search
+philly_users = get_users_search("philly")
+
+#Get users contributees
+#https://dev.twitter.com/docs/api/1.1/get/users/contributees
+user_contributees = get_users_contributees("randyzwitch")
