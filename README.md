@@ -79,6 +79,18 @@ rate_limit = get_application_rate_limit_status()
 #Post tweet to timeline
 #https://dev.twitter.com/docs/api/1.1/post/statuses/update
 post_tweet = post_status_update("If this is annoying, sorry. Tweeting from inside #julialang using only Julia code.")
+
+#Get n most recent tweets mentioning you
+#https://dev.twitter.com/docs/api/1.1/get/statuses/mentions_timeline
+last_20_mentions = mentions_timeline(20)
+
+#Get most recent tweets in your timeline
+#https://dev.twitter.com/docs/api/1.1/get/statuses/home_timeline
+timeline_tweets = mentions_timeline(20)
+
+#Get n most recent retweets
+#https://dev.twitter.com/docs/api/1.1/get/statuses/retweets_of_me
+my_retweets = retweets_of_me(10)
 ```
 
 ##Testing

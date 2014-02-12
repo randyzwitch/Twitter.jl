@@ -20,20 +20,24 @@ function destroy_single_tweet()
 end
 
 #Need to make this more generalized using options keyword argument
-#Currently, function doesn't actually accept options
+#Currently, function doesn't actually accept options, just status
 function post_status_update(status::String; options = Dict())
     
     endpoint = "https://api.twitter.com/1.1/statuses/update.json"
     
-    #Add status into options Dict (will get URI encoded automatically in oauth_header
-    #Need to URI encode for use in post request (can this be done better?)
+    #Add status into options Dict
     options["status"] = status
+
+    #URI encode values for all keys
+    for (k, v) in options
+        options["$(k)"] = encodeURI(v)
+    end
     
     #Build oauth_header
     oauth_header_val = oauth_header("POST", endpoint, options)
     
-    return Requests.post(URI("https://api.twitter.com/1.1/statuses/update.json"), 
-                    "status=$(encodeURI(status))", 
+    return Requests.post(URI(endpoint), 
+                    "status=$(options["status"])", 
                     {"Content-Type" => "application/x-www-form-urlencoded",
                     "Authorization" => oauth_header_val,
                     "Connection" => "close",

@@ -6,8 +6,8 @@ module Twitter
 #
 #############################################################
 
-import AWS.Crypto.hmacsha1_digest
-using Codecs, HttpCommon, Requests, JSON
+#import AWS.Crypto.hmacsha1_digest
+using Codecs, HttpCommon, Requests, JSON, Nettle
 
 #External files by API section
 include("dm.jl")
@@ -42,7 +42,10 @@ export twitterauth, 						#Authentication function
 	   get_application_rate_limit_status,	#public API function
 	   get_help_languages,					#public API function
 	   oauth_header, 						#Helper function
-	   post_status_update   				#public API function
+	   post_status_update,   				#public API function
+	   mentions_timeline,					#public API function
+	   home_timeline,						#public API function
+	   retweets_of_me						#public API function	
 
 #############################################################
 #
@@ -131,9 +134,9 @@ function oauth_header(httpmethod::String, baseurl::String, options::Dict)
     oauth_token_secret = encodeURI(twittercred.oauth_secret)
     
     #URI encode values for all keys passed in on options
-    for (k, v) in options
-        options["$(k)"] = encodeURI(v)
-    end
+    #for (k, v) in options
+    #    options["$(k)"] = encodeURI(v)
+    #end
     
     #keys for parameter string
     options["oauth_consumer_key"] = encodeURI(twittercred.consumer_key)
@@ -165,7 +168,11 @@ function oauth_header(httpmethod::String, baseurl::String, options::Dict)
     signing_key = "$(oauth_consumer_secret)&$(oauth_token_secret)"
     
     #Calculate signature
-    oauth_sig = encodeURI(base64(hmacsha1_digest(signature_base_string, signing_key)))
+    #oauth_sig = encodeURI(base64(hmacsha1_digest(signature_base_string, signing_key)))
+
+    h = HMACState(SHA1, signing_key)
+	update!(h, signature_base_string)
+	oauth_sig = encodeURI(base64(digest!(h)))
     
     return "OAuth oauth_consumer_key=\"$(options["oauth_consumer_key"])\", oauth_nonce=\"$(options["oauth_nonce"])\", oauth_signature=\"$(oauth_sig)\", oauth_signature_method=\"$(options["oauth_signature_method"])\", oauth_timestamp=\"$(options["oauth_timestamp"])\", oauth_token=\"$(options["oauth_token"])\", oauth_version=\"$(options["oauth_version"])\""
     
