@@ -19,7 +19,7 @@ function mentions_timeline(count::Int; options = Dict())
     end
     
     #Build oauth_header
-    oauth_header_val = oauth_header("GET", endpoint, options)
+    oauth_header_val = oauthheader("GET", endpoint, options)
     
     return Requests.get(URI("$(endpoint)?count=$(options["count"])"); 
                     headers = {"Content-Type" => "application/x-www-form-urlencoded",
@@ -29,21 +29,28 @@ function mentions_timeline(count::Int; options = Dict())
 
 end
 
-function get_user_timeline(screen_name::String; options = {})
+#This doesn't currently support options
+function get_user_timeline(screen_name::String; options = Dict())
     
-    #Make GET call using helper function
-    response = twgetappauth("https://api.twitter.com/1.1/statuses/user_timeline.json", 
-                            "screen_name",
-                            screen_name,
-                            options)
+    endpoint = "https://api.twitter.com/1.1/statuses/user_timeline.json"
     
-    #Currently, just returns Response object from Requests.jl
-	if response.status == 200
-		return response
-	else
-        #This will return the summary 
-		error(response)
-	end
+    #Add status into options Dict
+    options["screen_name"] = screen_name
+
+    #URI encode values for all keys
+    for (k, v) in options
+        options["$(k)"] = encodeURI(v)
+    end
+    
+    #Build oauth_header
+    oauth_header_val = oauthheader("GET", endpoint, options)
+    
+    return Requests.get(URI("$(endpoint)?screen_name=$(options["screen_name"])"); 
+                    headers = {"Content-Type" => "application/x-www-form-urlencoded",
+                    "Authorization" => oauth_header_val,
+                    "Connection" => "close",
+                    "Accept" => "*/*"})
+
 end
 
 #Home timeline
@@ -61,7 +68,7 @@ function home_timeline(count::Int; options = Dict())
     end
     
     #Build oauth_header
-    oauth_header_val = oauth_header("GET", endpoint, options)
+    oauth_header_val = oauthheader("GET", endpoint, options)
     
     return Requests.get(URI("$(endpoint)?count=$(options["count"])"); 
                     headers = {"Content-Type" => "application/x-www-form-urlencoded",
@@ -86,7 +93,7 @@ function retweets_of_me(count::Int; options = Dict())
     end
     
     #Build oauth_header
-    oauth_header_val = oauth_header("GET", endpoint, options)
+    oauth_header_val = oauthheader("GET", endpoint, options)
     
     return Requests.get(URI("$(endpoint)?count=$(options["count"])"); 
                     headers = {"Content-Type" => "application/x-www-form-urlencoded",

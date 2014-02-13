@@ -34,7 +34,7 @@ function post_status_update(status::String; options = Dict())
     end
     
     #Build oauth_header
-    oauth_header_val = oauth_header("POST", endpoint, options)
+    oauth_header_val = oauthheader("POST", endpoint, options)
     
     return Requests.post(URI(endpoint), 
                     "status=$(options["status"])", 

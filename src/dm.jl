@@ -19,7 +19,7 @@ function get_direct_messages(count::Int; options = Dict())
     end
     
     #Build oauth_header
-    oauth_header_val = oauth_header("GET", endpoint, options)
+    oauth_header_val = oauthheader("GET", endpoint, options)
     
     return Requests.get(URI("$(endpoint)?count=$(options["count"])"); 
                     headers = {"Content-Type" => "application/x-www-form-urlencoded",
@@ -44,7 +44,7 @@ function get_direct_messages_sent(count::Int; options = Dict())
     end
     
     #Build oauth_header
-    oauth_header_val = oauth_header("GET", endpoint, options)
+    oauth_header_val = oauthheader("GET", endpoint, options)
     
     return Requests.get(URI("$(endpoint)?count=$(options["count"])"); 
                     headers = {"Content-Type" => "application/x-www-form-urlencoded",

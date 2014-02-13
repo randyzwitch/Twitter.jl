@@ -4,75 +4,123 @@
 #
 #############################################################
 
-#Possible candidate for refactoring, literally same code different endpoint each time
-function get_help_configuration()
+#This doesn't currently support options
+function get_help_configuration(; options = Dict())
     
-	response = get(URI("https://api.twitter.com/1.1/help/configuration.json");
-                   headers = {"Authorization" => "Bearer $(twittercred.auth_only_bearer_token)"})
+    endpoint = "https://api.twitter.com/1.1/help/configuration.json"
     
-    #Currently, just return parsed response.data object as Dict
-	if response.status == 200
-		return response
-	else
-        #This will return the summary 
-		error(response)
-	end
+    #Add status into options Dict
+    #options["screen_name"] = screen_name
+
+    #URI encode values for all keys
+    #for (k, v) in options
+    #    options["$(k)"] = encodeURI(v)
+    #end
+    
+    #Build oauth_header
+    oauth_header_val = oauthheader("GET", endpoint, options)
+    
+    return Requests.get(URI(endpoint); 
+                    headers = {"Content-Type" => "application/x-www-form-urlencoded",
+                    "Authorization" => oauth_header_val,
+                    "Connection" => "close",
+                    "Accept" => "*/*"})
+
 end
 
-function get_help_languages()
+#This doesn't currently support options
+function get_help_languages(; options = Dict())
     
-	response = get(URI("https://api.twitter.com/1.1/help/languages.json");
-                   headers = {"Authorization" => "Bearer $(twittercred.auth_only_bearer_token)"})
+    endpoint = "https://api.twitter.com/1.1/help/languages.json"
     
-    #Currently, just return parsed response.data object as Dict
-	if response.status == 200
-		return response
-	else
-        #This will return the summary 
-		error(response)
-	end
+    #Add status into options Dict
+    #options["screen_name"] = screen_name
+
+    #URI encode values for all keys
+    #for (k, v) in options
+    #    options["$(k)"] = encodeURI(v)
+    #end
+    
+    #Build oauth_header
+    oauth_header_val = oauthheader("GET", endpoint, options)
+    
+    return Requests.get(URI(endpoint); 
+                    headers = {"Content-Type" => "application/x-www-form-urlencoded",
+                    "Authorization" => oauth_header_val,
+                    "Connection" => "close",
+                    "Accept" => "*/*"})
+
 end
 
-function get_help_privacy()
+#This doesn't currently support options
+function get_help_privacy(; options = Dict())
     
-	response = get(URI("https://api.twitter.com/1.1/help/privacy.json");
-                   headers = {"Authorization" => "Bearer $(twittercred.auth_only_bearer_token)"})
+    endpoint = "https://api.twitter.com/1.1/help/privacy.json"
     
-    #Currently, just return parsed response.data object as Dict
-	if response.status == 200
-		return response
-	else
-        #This will return the summary 
-		error(response)
-	end
+    #Add status into options Dict
+    #options["screen_name"] = screen_name
+
+    #URI encode values for all keys
+    #for (k, v) in options
+    #    options["$(k)"] = encodeURI(v)
+    #end
+    
+    #Build oauth_header
+    oauth_header_val = oauthheader("GET", endpoint, options)
+    
+    return Requests.get(URI(endpoint); 
+                    headers = {"Content-Type" => "application/x-www-form-urlencoded",
+                    "Authorization" => oauth_header_val,
+                    "Connection" => "close",
+                    "Accept" => "*/*"})
+
 end
 
-function get_help_tos()
+#This doesn't currently support options
+function get_help_tos(; options = Dict())
     
-	response = get(URI("https://api.twitter.com/1.1/help/tos.json");
-                   headers = {"Authorization" => "Bearer $(twittercred.auth_only_bearer_token)"})
+    endpoint = "https://api.twitter.com/1.1/help/tos.json"
     
-    #Currently, just return parsed response.data object as Dict
-	if response.status == 200
-		return response
-	else
-        #This will return the summary 
-		error(response)
-	end
+    #Add status into options Dict
+    #options["screen_name"] = screen_name
+
+    #URI encode values for all keys
+    #for (k, v) in options
+    #    options["$(k)"] = encodeURI(v)
+    #end
+    
+    #Build oauth_header
+    oauth_header_val = oauthheader("GET", endpoint, options)
+    
+    return Requests.get(URI(endpoint); 
+                    headers = {"Content-Type" => "application/x-www-form-urlencoded",
+                    "Authorization" => oauth_header_val,
+                    "Connection" => "close",
+                    "Accept" => "*/*"})
+
 end
 
 #TODO: Add resources keyword argument
 #https://dev.twitter.com/docs/api/1.1/get/application/rate_limit_status
-function get_application_rate_limit_status()
+function get_application_rate_limit_status(; options = Dict())
     
-	response = get(URI("https://api.twitter.com/1.1/application/rate_limit_status.json");
-                   headers = {"Authorization" => "Bearer $(twittercred.auth_only_bearer_token)"})
+    endpoint = "https://api.twitter.com/1.1/application/rate_limit_status.json"
     
-    #Currently, just return parsed response.data object as Dict
-	if response.status == 200
-		return response
-	else
-        #This will return the summary 
-		error(response)
-	end
+    #Add status into options Dict
+    #options["screen_name"] = screen_name
+
+    #URI encode values for all keys
+    #for (k, v) in options
+    #    options["$(k)"] = encodeURI(v)
+    #end
+    
+    #Build oauth_header
+    oauth_header_val = oauthheader("GET", endpoint, options)
+    
+    return Requests.get(URI(endpoint); 
+                    headers = {"Content-Type" => "application/x-www-form-urlencoded",
+                    "Authorization" => oauth_header_val,
+                    "Connection" => "close",
+                    "Accept" => "*/*"})
+
 end

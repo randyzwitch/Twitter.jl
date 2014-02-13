@@ -19,7 +19,7 @@ function get_user_suggestions_slug(slug::String; options = Dict())
     end
     
     #Build oauth_header
-    oauth_header_val = oauth_header("GET", endpoint, options)
+    oauth_header_val = oauthheader("GET", endpoint, options)
     
     return Requests.get(URI(endpoint); 
                     headers = {"Content-Type" => "application/x-www-form-urlencoded",
@@ -44,7 +44,7 @@ function get_user_suggestions(; options = Dict())
     end
     
     #Build oauth_header
-    oauth_header_val = oauth_header("GET", endpoint, options)
+    oauth_header_val = oauthheader("GET", endpoint, options)
     
     return Requests.get(URI(endpoint); 
                     headers = {"Content-Type" => "application/x-www-form-urlencoded",
@@ -56,7 +56,7 @@ end
 
 #Get user suggestions slug members
 #This doesn't currently support options
-function get_users_suggestions_slug_members(slug::String; options = Dict())
+function get_user_suggestions_slug_members(slug::String; options = Dict())
     
     endpoint = "https://api.twitter.com/1.1/users/suggestions/$(slug)/members.json"
     
@@ -69,7 +69,7 @@ function get_users_suggestions_slug_members(slug::String; options = Dict())
     end
     
     #Build oauth_header
-    oauth_header_val = oauth_header("GET", endpoint, options)
+    oauth_header_val = oauthheader("GET", endpoint, options)
     
     return Requests.get(URI(endpoint); 
                     headers = {"Content-Type" => "application/x-www-form-urlencoded",

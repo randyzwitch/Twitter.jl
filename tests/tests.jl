@@ -125,7 +125,7 @@ lists = get_lists("randyzwitch")
 
 #Get Lists Memberships
 #https://dev.twitter.com/docs/api/1.1/get/lists/memberships
-list_memberships = get_list_memberships("randyzwitch")
+list_memberships = get_lists_memberships("randyzwitch")
 
 #Get saved searches list
 #https://dev.twitter.com/docs/api/1.1/get/saved_searches/list

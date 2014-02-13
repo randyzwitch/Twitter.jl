@@ -19,7 +19,7 @@ function get_favorites_list(screen_name::String; options = Dict())
     end
     
     #Build oauth_header
-    oauth_header_val = oauth_header("GET", endpoint, options)
+    oauth_header_val = oauthheader("GET", endpoint, options)
     
     return Requests.get(URI("$(endpoint)?screen_name=$(options["screen_name"])"); 
                     headers = {"Content-Type" => "application/x-www-form-urlencoded",

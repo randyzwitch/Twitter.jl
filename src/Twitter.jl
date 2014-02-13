@@ -6,7 +6,6 @@ module Twitter
 #
 #############################################################
 
-#import AWS.Crypto.hmacsha1_digest
 using Codecs, HttpCommon, Requests, JSON, Nettle
 
 #External files by API section
@@ -29,7 +28,6 @@ include("users.jl")
 
 export twitterauth, 						#Authentication function
 	   twittercred, 						#Authentication object
-	   #twgetappauth,						#GET helper function for application_only endpoints
 	   get_user_timeline,					#public API function
 	   search_tweets,						#public API function
 	   get_friends_ids,						#public API function
@@ -41,7 +39,7 @@ export twitterauth, 						#Authentication function
 	   get_help_tos,						#public API function
 	   get_application_rate_limit_status,	#public API function
 	   get_help_languages,					#public API function
-	   #oauth_header, 						#Helper function
+	   oauthheader, 						#Helper function
 	   post_status_update,   				#public API function
 	   mentions_timeline,					#public API function
 	   home_timeline,						#public API function
@@ -56,8 +54,8 @@ export twitterauth, 						#Authentication function
 	   get_users_contributees,				#public API function
        get_users_contributors,              #public API function
        get_profile_banner,                  #public API function
-       get_users_suggestions_slug,          #public API function
-       get_users_suggestions,               #public API function
+       get_user_suggestions_slug,           #public API function
+       get_user_suggestions,                #public API function
        get_favorites_list,                  #public API function
        get_lists,                           #public API function
        get_lists_memberships,               #public API function
@@ -79,8 +77,9 @@ type TWCRED
     oauth_secret::ASCIIString
 end
 
-#Need parser type for Tweets data type
-#Need parser type for id data type
+#Tweets response object
+#Users response object
+
 
 #############################################################
 #
@@ -127,33 +126,14 @@ function twitterauth(consumer_key::ASCIIString, consumer_secret::ASCIIString; oa
     #TODO: Figure out how to do OAuth authentication directly, rather than user putting in credentials directly
 end
 
-#General function to handle all Twitter GET requests that can be handled by application_only authentication
-#Each function call will have one required argument whose value gets passed through
-function twgetappauth(endpoint, defaultarg, defaultval, options)
-    #Uses function from Requests to create query string from Dict
-    query_string = "$(Requests.format_query_str(options))"
-    
-    #URIencode for strings as defensive maneuver
-    defaultval = encodeURI(defaultval)
-
-	response = get(URI("$(endpoint)?$defaultarg=$defaultval$query_string");
-                   headers = {"Authorization" => "Bearer $(Twitter.twittercred.auth_only_bearer_token)"})
-    return response
-end
-
 #Use this function to build the header for every OAuth call
-function oauth_header(httpmethod::String, baseurl::String, options::Dict)                
+function oauthheader(httpmethod::String, baseurl::String, options::Dict)                
     
     #Format non-parameter strings
     baseurl = encodeURI(baseurl)
     httpmethod = encodeURI(uppercase(httpmethod))
     oauth_consumer_secret = encodeURI(twittercred.consumer_secret)
     oauth_token_secret = encodeURI(twittercred.oauth_secret)
-    
-    #URI encode values for all keys passed in on options
-    #for (k, v) in options
-    #    options["$(k)"] = encodeURI(v)
-    #end
     
     #keys for parameter string
     options["oauth_consumer_key"] = encodeURI(twittercred.consumer_key)
@@ -184,9 +164,7 @@ function oauth_header(httpmethod::String, baseurl::String, options::Dict)
     #Signing key
     signing_key = "$(oauth_consumer_secret)&$(oauth_token_secret)"
     
-    #Calculate signature
-    #oauth_sig = encodeURI(base64(hmacsha1_digest(signature_base_string, signing_key)))
-
+    #Calculate OAuth signature
     h = HMACState(SHA1, signing_key)
 	update!(h, signature_base_string)
 	oauth_sig = encodeURI(base64(digest!(h)))

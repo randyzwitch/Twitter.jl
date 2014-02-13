@@ -9,38 +9,52 @@ function get_friendships_no_retweets()
 	error("Twitter API not fully implemented")
 end
 
-function get_friends_ids(screen_name::String; options = {})
+#This doesn't currently support options
+function get_friends_ids(screen_name::String; options = Dict())
     
-    #Make GET call using helper function
-    response = twgetappauth("https://api.twitter.com/1.1/friends/ids.json", 
-                            "screen_name",
-                            screen_name,
-                            options)
+    endpoint = "https://api.twitter.com/1.1/friends/ids.json"
     
-    #Currently, just returns Response object from Requests.jl
-	if response.status == 200
-		return response
-	else
-        #This will return the summary 
-		error(response)
-	end
+    #Add status into options Dict
+    options["screen_name"] = screen_name
+
+    #URI encode values for all keys
+    for (k, v) in options
+        options["$(k)"] = encodeURI(v)
+    end
+    
+    #Build oauth_header
+    oauth_header_val = oauthheader("GET", endpoint, options)
+    
+    return Requests.get(URI("$(endpoint)?screen_name=$(options["screen_name"])"); 
+                    headers = {"Content-Type" => "application/x-www-form-urlencoded",
+                    "Authorization" => oauth_header_val,
+                    "Connection" => "close",
+                    "Accept" => "*/*"})
+
 end
 
-function get_followers_ids(screen_name::String; options = {})
+#This doesn't currently support options
+function get_followers_ids(screen_name::String; options = Dict())
     
-    #Make GET call using helper function
-    response = twgetappauth("https://api.twitter.com/1.1/followers/ids.json", 
-                            "screen_name",
-                            screen_name,
-                            options)
+    endpoint = "https://api.twitter.com/1.1/followers/ids.json"
     
-    #Currently, just returns Response object from Requests.jl
-	if response.status == 200
-		return response
-	else
-        #This will return the summary 
-		error(response)
-	end
+    #Add status into options Dict
+    options["screen_name"] = screen_name
+
+    #URI encode values for all keys
+    for (k, v) in options
+        options["$(k)"] = encodeURI(v)
+    end
+    
+    #Build oauth_header
+    oauth_header_val = oauthheader("GET", endpoint, options)
+    
+    return Requests.get(URI("$(endpoint)?screen_name=$(options["screen_name"])"); 
+                    headers = {"Content-Type" => "application/x-www-form-urlencoded",
+                    "Authorization" => oauth_header_val,
+                    "Connection" => "close",
+                    "Accept" => "*/*"})
+
 end
 
 function get_friendships_lookup()
@@ -78,36 +92,50 @@ function get_friendships_show()
 	error("Twitter API not fully implemented")
 end
 
-function get_friends_list(screen_name::String; options = {})
+#This doesn't currently support options
+function get_friends_list(screen_name::String; options = Dict())
     
-    #Make GET call using helper function
-    response = twgetappauth("https://api.twitter.com/1.1/friends/list.json", 
-                            "screen_name",
-                            screen_name,
-                            options)
+    endpoint = "https://api.twitter.com/1.1/friends/list.json"
     
-    #Currently, just returns Response object from Requests.jl
-	if response.status == 200
-		return response
-	else
-        #This will return the summary 
-		error(response)
-	end
+    #Add status into options Dict
+    options["screen_name"] = screen_name
+
+    #URI encode values for all keys
+    for (k, v) in options
+        options["$(k)"] = encodeURI(v)
+    end
+    
+    #Build oauth_header
+    oauth_header_val = oauthheader("GET", endpoint, options)
+    
+    return Requests.get(URI("$(endpoint)?screen_name=$(options["screen_name"])"); 
+                    headers = {"Content-Type" => "application/x-www-form-urlencoded",
+                    "Authorization" => oauth_header_val,
+                    "Connection" => "close",
+                    "Accept" => "*/*"})
+
 end
 
-function get_followers_list(screen_name::String; options = {})
+#This doesn't currently support options
+function get_followers_list(screen_name::String; options = Dict())
     
-    #Make GET call using helper function
-    response = twgetappauth("https://api.twitter.com/1.1/followers/list.json", 
-                            "screen_name",
-                            screen_name,
-                            options)
+    endpoint = "https://api.twitter.com/1.1/followers/list.json"
     
-    #Currently, just returns Response object from Requests.jl
-	if response.status == 200
-		return response
-	else
-        #This will return the summary 
-		error(response)
-	end
+    #Add status into options Dict
+    options["screen_name"] = screen_name
+
+    #URI encode values for all keys
+    for (k, v) in options
+        options["$(k)"] = encodeURI(v)
+    end
+    
+    #Build oauth_header
+    oauth_header_val = oauthheader("GET", endpoint, options)
+    
+    return Requests.get(URI("$(endpoint)?screen_name=$(options["screen_name"])"); 
+                    headers = {"Content-Type" => "application/x-www-form-urlencoded",
+                    "Authorization" => oauth_header_val,
+                    "Connection" => "close",
+                    "Accept" => "*/*"})
+
 end

@@ -11,7 +11,7 @@ function get_account_settings(; options = Dict())
     endpoint = "https://api.twitter.com/1.1/account/settings.json"
     
     #Build oauth_header
-    oauth_header_val = oauth_header("GET", endpoint, options)
+    oauth_header_val = oauthheader("GET", endpoint, options)
     
     return Requests.get(URI(endpoint); 
                     headers = {"Content-Type" => "application/x-www-form-urlencoded",
@@ -36,7 +36,7 @@ function validate_credentials(; options = Dict())
     #end
     
     #Build oauth_header
-    oauth_header_val = oauth_header("GET", endpoint, options)
+    oauth_header_val = oauthheader("GET", endpoint, options)
     
     return Requests.get(URI(endpoint); 
                     headers = {"Content-Type" => "application/x-www-form-urlencoded",
@@ -83,7 +83,7 @@ function get_blocks_list(; options = Dict())
     endpoint = "https://api.twitter.com/1.1/blocks/list.json"
     
     #Build oauth_header
-    oauth_header_val = oauth_header("GET", endpoint, options)
+    oauth_header_val = oauthheader("GET", endpoint, options)
     
     return Requests.get(URI(endpoint); 
                     headers = {"Content-Type" => "application/x-www-form-urlencoded",
@@ -100,7 +100,7 @@ function get_blocks_ids(; options = Dict())
     endpoint = "https://api.twitter.com/1.1/blocks/ids.json"
     
     #Build oauth_header
-    oauth_header_val = oauth_header("GET", endpoint, options)
+    oauth_header_val = oauthheader("GET", endpoint, options)
     
     return Requests.get(URI(endpoint); 
                     headers = {"Content-Type" => "application/x-www-form-urlencoded",
@@ -145,7 +145,7 @@ function get_users_search(q::String; options = Dict())
     end
     
     #Build oauth_header
-    oauth_header_val = oauth_header("GET", endpoint, options)
+    oauth_header_val = oauthheader("GET", endpoint, options)
     
         return Requests.get(URI("$(endpoint)?q=$(options["q"])"); 
                     headers = {"Content-Type" => "application/x-www-form-urlencoded",
@@ -170,7 +170,7 @@ function get_users_contributees(screen_name::String; options = Dict())
     end
     
     #Build oauth_header
-    oauth_header_val = oauth_header("GET", endpoint, options)
+    oauth_header_val = oauthheader("GET", endpoint, options)
     
     return Requests.get(URI("$(endpoint)?screen_name=$(options["screen_name"])"); 
                     headers = {"Content-Type" => "application/x-www-form-urlencoded",
@@ -195,7 +195,7 @@ function get_users_contributors(screen_name::String; options = Dict())
     end
     
     #Build oauth_header
-    oauth_header_val = oauth_header("GET", endpoint, options)
+    oauth_header_val = oauthheader("GET", endpoint, options)
     
     return Requests.get(URI("$(endpoint)?screen_name=$(options["screen_name"])"); 
                     headers = {"Content-Type" => "application/x-www-form-urlencoded",
@@ -230,7 +230,7 @@ function get_profile_banner(screen_name::String; options = Dict())
     end
     
     #Build oauth_header
-    oauth_header_val = oauth_header("GET", endpoint, options)
+    oauth_header_val = oauthheader("GET", endpoint, options)
     
     return Requests.get(URI("$(endpoint)?screen_name=$(options["screen_name"])"); 
                     headers = {"Content-Type" => "application/x-www-form-urlencoded",
