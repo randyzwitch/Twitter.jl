@@ -180,9 +180,29 @@ function get_users_contributees(screen_name::String; options = Dict())
 
 end
 
-function get_users_contributors()
-	#Requires user context
-	error("Twitter API not fully implemented")
+#Get users contributors
+#This doesn't currently support options
+function get_users_contributors(screen_name::String; options = Dict())
+    
+    endpoint = "https://api.twitter.com/1.1/users/contributors.json"
+    
+    #Add status into options Dict
+    options["screen_name"] = screen_name
+
+    #URI encode values for all keys
+    for (k, v) in options
+        options["$(k)"] = encodeURI(v)
+    end
+    
+    #Build oauth_header
+    oauth_header_val = oauth_header("GET", endpoint, options)
+    
+    return Requests.get(URI("$(endpoint)?screen_name=$(options["screen_name"])"); 
+                    headers = {"Content-Type" => "application/x-www-form-urlencoded",
+                    "Authorization" => oauth_header_val,
+                    "Connection" => "close",
+                    "Accept" => "*/*"})
+
 end
 
 function post_account_remove_profile_banner()
@@ -195,7 +215,27 @@ function post_account_update_profile_banner()
 	error("Twitter API not fully implemented")
 end
 
-function get_profile_banner()
-	#Requires user context
-	error("Twitter API not fully implemented")
+#Get profile banner
+#This doesn't currently support options
+function get_profile_banner(screen_name::String; options = Dict())
+    
+    endpoint = "https://api.twitter.com/1.1/users/profile_banner.json"
+    
+    #Add status into options Dict
+    options["screen_name"] = screen_name
+
+    #URI encode values for all keys
+    for (k, v) in options
+        options["$(k)"] = encodeURI(v)
+    end
+    
+    #Build oauth_header
+    oauth_header_val = oauth_header("GET", endpoint, options)
+    
+    return Requests.get(URI("$(endpoint)?screen_name=$(options["screen_name"])"); 
+                    headers = {"Content-Type" => "application/x-www-form-urlencoded",
+                    "Authorization" => oauth_header_val,
+                    "Connection" => "close",
+                    "Accept" => "*/*"})
+
 end

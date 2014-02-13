@@ -29,7 +29,7 @@ include("users.jl")
 
 export twitterauth, 						#Authentication function
 	   twittercred, 						#Authentication object
-	   twgetappauth,						#GET helper function for application_only endpoints
+	   #twgetappauth,						#GET helper function for application_only endpoints
 	   get_user_timeline,					#public API function
 	   search_tweets,						#public API function
 	   get_friends_ids,						#public API function
@@ -41,7 +41,7 @@ export twitterauth, 						#Authentication function
 	   get_help_tos,						#public API function
 	   get_application_rate_limit_status,	#public API function
 	   get_help_languages,					#public API function
-	   oauth_header, 						#Helper function
+	   #oauth_header, 						#Helper function
 	   post_status_update,   				#public API function
 	   mentions_timeline,					#public API function
 	   home_timeline,						#public API function
@@ -53,7 +53,16 @@ export twitterauth, 						#Authentication function
 	   get_blocks_list,						#public API function
 	   get_blocks_ids,						#public API function
 	   get_users_search,					#public API function
-	   get_users_contributees				#public API function
+	   get_users_contributees,				#public API function
+       get_users_contributors,              #public API function
+       get_profile_banner,                  #public API function
+       get_users_suggestions_slug,          #public API function
+       get_users_suggestions,               #public API function
+       get_favorites_list,                  #public API function
+       get_lists,                           #public API function
+       get_lists_memberships,               #public API function
+       get_saved_searches_list              #public API function
+
 
 #############################################################
 #

@@ -98,3 +98,37 @@ philly_users = get_users_search("philly")
 #Get users contributees
 #https://dev.twitter.com/docs/api/1.1/get/users/contributees
 user_contributees = get_users_contributees("randyzwitch")
+
+#Get users contributors
+#https://dev.twitter.com/docs/api/1.1/get/users/contributors
+user_contributors = get_users_contributors("randyzwitch")
+
+#Get profile banner
+#https://dev.twitter.com/docs/api/1.1/get/users/profile_banner
+profile_banner = get_profile_banner("randyzwitch")
+
+#Get user suggestions slug
+#https://dev.twitter.com/docs/api/1.1/get/users/suggestions/%3Aslug
+user_suggestions_slug = get_user_suggestions_slug("twitter")
+
+#Get user suggestions
+#https://dev.twitter.com/docs/api/1.1/get/users/suggestions
+user_suggestions = get_user_suggestions()
+
+#Get favorites list
+#https://dev.twitter.com/docs/api/1.1/get/favorites/list
+get_favorites = get_favorites_list("randyzwitch")
+
+#Get Lists
+#https://dev.twitter.com/docs/api/1.1/get/lists/list
+lists = get_lists("randyzwitch")
+
+#Get Lists Memberships
+#https://dev.twitter.com/docs/api/1.1/get/lists/memberships
+list_memberships = get_list_memberships("randyzwitch")
+
+#Get saved searches list
+#https://dev.twitter.com/docs/api/1.1/get/saved_searches/list
+saved_searches = get_saved_searches_list()
+
+
