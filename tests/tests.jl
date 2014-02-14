@@ -1,12 +1,8 @@
-#Authentication using only consumer_key and consumer_secret
-#Will only allow authentication of application_only endpoints, not user specific
-twitterauth("6nOtpXmf...", "sES5Zlj096St...")
-
 #Authentication using all 4 credentials
 twitterauth("6nOtpXmf...", 
-            "sES5Zlj096S...";
-            oauth_token = "98689850-Hj...",
-            oauth_secret = "UroqCVpWKIt...")
+            "sES5Zlj096S...",
+            "98689850-Hj...",
+            "UroqCVpWKIt...")
 
 #Search by user
 #https://dev.twitter.com/docs/api/1.1/get/statuses/user_timeline

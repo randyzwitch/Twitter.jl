@@ -13,10 +13,8 @@ function get_lists(screen_name::String; options = Dict())
     #Add status into options Dict
     options["screen_name"] = screen_name
 
-    #URI encode values for all keys
-    for (k, v) in options
-        options["$(k)"] = encodeURI(v)
-    end
+    #URI encode values for all keys in Dict
+    encodeURI(options)
     
     #Build oauth_header
     oauth_header_val = oauthheader("GET", endpoint, options)
@@ -48,10 +46,8 @@ function get_lists_memberships(screen_name::String; options = Dict())
     #Add status into options Dict
     options["screen_name"] = screen_name
 
-    #URI encode values for all keys
-    for (k, v) in options
-        options["$(k)"] = encodeURI(v)
-    end
+    #URI encode values for all keys in Dict
+    encodeURI(options)
     
     #Build oauth_header
     oauth_header_val = oauthheader("GET", endpoint, options)

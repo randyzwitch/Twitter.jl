@@ -28,10 +28,8 @@ function post_status_update(status::String; options = Dict())
     #Add status into options Dict
     options["status"] = status
 
-    #URI encode values for all keys
-    for (k, v) in options
-        options["$(k)"] = encodeURI(v)
-    end
+    #URI encode values for all keys in Dict
+    encodeURI(options)
     
     #Build oauth_header
     oauth_header_val = oauthheader("POST", endpoint, options)

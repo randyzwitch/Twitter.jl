@@ -13,10 +13,8 @@ function get_direct_messages(count::Int; options = Dict())
     #Add status into options Dict
     options["count"] = "$count"
 
-    #URI encode values for all keys
-    for (k, v) in options
-        options["$(k)"] = encodeURI(v)
-    end
+    #URI encode values for all keys in Dict
+    encodeURI(options)
     
     #Build oauth_header
     oauth_header_val = oauthheader("GET", endpoint, options)
@@ -38,10 +36,8 @@ function get_direct_messages_sent(count::Int; options = Dict())
     #Add status into options Dict
     options["count"] = "$count"
 
-    #URI encode values for all keys
-    for (k, v) in options
-        options["$(k)"] = encodeURI(v)
-    end
+    #URI encode values for all keys in Dict
+    encodeURI(options)
     
     #Build oauth_header
     oauth_header_val = oauthheader("GET", endpoint, options)

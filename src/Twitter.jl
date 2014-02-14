@@ -7,6 +7,7 @@ module Twitter
 #############################################################
 
 using Codecs, HttpCommon, Requests, JSON, Nettle
+import HttpCommon.encodeURI
 
 #External files by API section
 include("dm.jl")
@@ -72,7 +73,6 @@ export twitterauth, 						#Authentication function
 type TWCRED
     consumer_key::ASCIIString
     consumer_secret::ASCIIString
-    auth_only_bearer_token::ASCIIString
     oauth_token::ASCIIString
     oauth_secret::ASCIIString
 end
@@ -87,41 +87,19 @@ end
 #
 #############################################################
 
+#Extend encodeURI to work on Dicts
+function encodeURI(dict_of_parameters::Dict)
+    for (k, v) in dict_of_parameters
+        dict_of_parameters["$k"] = encodeURI(v)
+    end
+end
+
 #Function that builds global variable to hold authentication keys
-function twitterauth(consumer_key::ASCIIString, consumer_secret::ASCIIString; oauth_token::ASCIIString="", oauth_secret::ASCIIString="")
+function twitterauth(consumer_key::ASCIIString, consumer_secret::ASCIIString, oauth_token::ASCIIString, oauth_secret::ASCIIString)
     #Create a global variable to hold return from this function
     global twittercred
-    
-    #Do application_only authentication
-    #https://dev.twitter.com/docs/auth/application-only-auth
-        
-        #Build authentication string values
-        concat_consumer = "$(encodeURI(consumer_key)):$(encodeURI(consumer_secret))"
-        auth_header_value = base64(concat_consumer)
-    
-        #Call Twitter API to get bearer token
-        response = post(URI("https://api.twitter.com/oauth2/token"),
-                            "grant_type=client_credentials",
-                            {"Authorization" => "Basic $auth_header_value",
-                             "Content-Type" => "application/x-www-form-urlencoded;charset=UTF-8"})
-        
-    #If successful, convert data into Dict to get token, return TWCRED
-        if response.status == 200
-            response_dict = JSON.parse(response.data)
             
-            #Per Twitter docs, validate token_type as "bearer"
-            if response_dict["token_type"] == "bearer"
-                return twittercred = TWCRED(consumer_key,
-                                            consumer_secret,
-                                            response_dict["access_token"],
-                                            oauth_token,
-                                            oauth_secret)
-            else
-                error("API returned success, but didn't return 'bearer' token type. Error unknown, try again.")
-            end
-        else
-            error("Authentication failed. Please validate your consumer_key & consumer_secret and try again.")
-        end
+    return twittercred = TWCRED(consumer_key, consumer_secret, oauth_token, oauth_secret)
     
     #TODO: Figure out how to do OAuth authentication directly, rather than user putting in credentials directly
 end

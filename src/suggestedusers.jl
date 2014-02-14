@@ -9,14 +9,9 @@
 function get_user_suggestions_slug(slug::String; options = Dict())
     
     endpoint = "https://api.twitter.com/1.1/users/suggestions/$(slug).json"
-    
-    #Add status into options Dict
-    #options["slug"] = slug
 
-    #URI encode values for all keys
-    for (k, v) in options
-        options["$(k)"] = encodeURI(v)
-    end
+    #URI encode values for all keys in Dict
+    encodeURI(options)
     
     #Build oauth_header
     oauth_header_val = oauthheader("GET", endpoint, options)
@@ -34,14 +29,9 @@ end
 function get_user_suggestions(; options = Dict())
     
     endpoint = "https://api.twitter.com/1.1/users/suggestions.json"
-    
-    #Add status into options Dict
-    #options["slug"] = slug
 
-    #URI encode values for all keys
-    for (k, v) in options
-        options["$(k)"] = encodeURI(v)
-    end
+    #URI encode values for all keys in Dict
+    encodeURI(options)
     
     #Build oauth_header
     oauth_header_val = oauthheader("GET", endpoint, options)
@@ -59,14 +49,9 @@ end
 function get_user_suggestions_slug_members(slug::String; options = Dict())
     
     endpoint = "https://api.twitter.com/1.1/users/suggestions/$(slug)/members.json"
-    
-    #Add status into options Dict
-    #options["slug"] = slug
 
-    #URI encode values for all keys
-    for (k, v) in options
-        options["$(k)"] = encodeURI(v)
-    end
+    #URI encode values for all keys in Dict
+    encodeURI(options)
     
     #Build oauth_header
     oauth_header_val = oauthheader("GET", endpoint, options)
