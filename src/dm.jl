@@ -5,7 +5,6 @@
 #############################################################
 
 #Get Direct Messages
-#This doesn't currently support options
 function get_direct_messages(count::Int; options = Dict())
     
     endpoint = "https://api.twitter.com/1.1/direct_messages.json"
@@ -15,11 +14,14 @@ function get_direct_messages(count::Int; options = Dict())
 
     #URI encode values for all keys in Dict
     encodeURI(options)
+
+    #Build query string
+    query_str = Requests.format_query_str(options)
     
     #Build oauth_header
     oauth_header_val = oauthheader("GET", endpoint, options)
     
-    return Requests.get(URI("$(endpoint)?count=$(options["count"])"); 
+    return Requests.get(URI("$(endpoint)?$query_str"); 
                     headers = {"Content-Type" => "application/x-www-form-urlencoded",
                     "Authorization" => oauth_header_val,
                     "Connection" => "close",
@@ -28,7 +30,6 @@ function get_direct_messages(count::Int; options = Dict())
 end
 
 #Get Direct Messages Sent
-#This doesn't currently support options
 function get_direct_messages_sent(count::Int; options = Dict())
     
     endpoint = "https://api.twitter.com/1.1/direct_messages/sent.json"
@@ -38,11 +39,14 @@ function get_direct_messages_sent(count::Int; options = Dict())
 
     #URI encode values for all keys in Dict
     encodeURI(options)
+
+    #Build query string
+    query_str = Requests.format_query_str(options)
     
     #Build oauth_header
     oauth_header_val = oauthheader("GET", endpoint, options)
     
-    return Requests.get(URI("$(endpoint)?count=$(options["count"])"); 
+    return Requests.get(URI("$(endpoint)?$query_str");  
                     headers = {"Content-Type" => "application/x-www-form-urlencoded",
                     "Authorization" => oauth_header_val,
                     "Connection" => "close",
@@ -51,16 +55,13 @@ function get_direct_messages_sent(count::Int; options = Dict())
 end
 
 function get_direct_messages_show()
-	#Requires user context
 	error("Twitter API not fully implemented")
 end
 
 function post_direct_messages_destroy()
-	#Requires user context
 	error("Twitter API not fully implemented")
 end
 
 function post_direct_messages_send()
-	#Requires user context
 	error("Twitter API not fully implemented")
 end

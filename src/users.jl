@@ -4,16 +4,17 @@
 #
 #############################################################
 
-#Get Account Settings
-#This doesn't currently support options
 function get_account_settings(; options = Dict())
     
     endpoint = "https://api.twitter.com/1.1/account/settings.json"
+
+    #Build query string
+    query_str = Requests.format_query_str(options)
     
     #Build oauth_header
     oauth_header_val = oauthheader("GET", endpoint, options)
     
-    return Requests.get(URI(endpoint); 
+    return Requests.get(URI("$(endpoint)?$query_str");  
                     headers = {"Content-Type" => "application/x-www-form-urlencoded",
                     "Authorization" => oauth_header_val,
                     "Connection" => "close",
@@ -21,11 +22,12 @@ function get_account_settings(; options = Dict())
 
 end
 
-#Validate user credentials
-#This doesn't currently support options
 function validate_credentials(; options = Dict())
     
     endpoint = "https://api.twitter.com/1.1/account/verify_credentials.json"
+
+    #Build query string
+    query_str = Requests.format_query_str(options)
 
     #URI encode values for all keys in Dict
     encodeURI(options)
@@ -33,7 +35,7 @@ function validate_credentials(; options = Dict())
     #Build oauth_header
     oauth_header_val = oauthheader("GET", endpoint, options)
     
-    return Requests.get(URI(endpoint); 
+    return Requests.get(URI("$(endpoint)?$query_str");  
                     headers = {"Content-Type" => "application/x-www-form-urlencoded",
                     "Authorization" => oauth_header_val,
                     "Connection" => "close",
@@ -42,40 +44,35 @@ function validate_credentials(; options = Dict())
 end
 
 function post_account_settings()
-	#Requires user context
 	error("Twitter API not fully implemented")
 end
 
 function update_delivery_device()
-	#Requires user context
 	error("Twitter API not fully implemented")
 end
 
 function update_profile()
-	#Requires user context
 	error("Twitter API not fully implemented")
 end
 
 function update_profile_background()
-	#Requires user context
 	error("Twitter API not fully implemented")
 end
 
 function update_profile_colors()
-	#Requires user context
 	error("Twitter API not fully implemented")
 end
 
 function update_profile_image()
-	#Requires user context
 	error("Twitter API not fully implemented")
 end
 
-#Get Blocks List
-#This doesn't currently support options
 function get_blocks_list(; options = Dict())
     
     endpoint = "https://api.twitter.com/1.1/blocks/list.json"
+
+    #Build query string
+    query_str = Requests.format_query_str(options)
 
     #URI encode values for all keys in Dict
     encodeURI(options)
@@ -83,7 +80,7 @@ function get_blocks_list(; options = Dict())
     #Build oauth_header
     oauth_header_val = oauthheader("GET", endpoint, options)
     
-    return Requests.get(URI(endpoint); 
+    return Requests.get(URI("$(endpoint)?$query_str");  
                     headers = {"Content-Type" => "application/x-www-form-urlencoded",
                     "Authorization" => oauth_header_val,
                     "Connection" => "close",
@@ -91,11 +88,12 @@ function get_blocks_list(; options = Dict())
 
 end
 
-#Get Blocked IDs
-#This doesn't currently support options
 function get_blocks_ids(; options = Dict())
     
     endpoint = "https://api.twitter.com/1.1/blocks/ids.json"
+
+    #Build query string
+    query_str = Requests.format_query_str(options)
 
     #URI encode values for all keys in Dict
     encodeURI(options)
@@ -103,7 +101,7 @@ function get_blocks_ids(; options = Dict())
     #Build oauth_header
     oauth_header_val = oauthheader("GET", endpoint, options)
     
-    return Requests.get(URI(endpoint); 
+    return Requests.get(URI("$(endpoint)?$query_str");  
                     headers = {"Content-Type" => "application/x-www-form-urlencoded",
                     "Authorization" => oauth_header_val,
                     "Connection" => "close",
@@ -112,27 +110,21 @@ function get_blocks_ids(; options = Dict())
 end
 
 function post_blocks_create()
-	#Requires user context
 	error("Twitter API not fully implemented")
 end
 
 function post_blocks_destroy()
-	#Requires user context
 	error("Twitter API not fully implemented")
 end
 
 function get_users_lookup()
-	#Requires user context
 	error("Twitter API not fully implemented")
 end
 
 function get_users_show()
-	#Requires user context
 	error("Twitter API not fully implemented")
 end
 
-#Get users search
-#This doesn't currently support options
 function get_users_search(q::String; options = Dict())
     
     endpoint = "https://api.twitter.com/1.1/users/search.json"
@@ -140,13 +132,16 @@ function get_users_search(q::String; options = Dict())
     #Add status into options Dict
     options["q"] = q
 
+    #Build query string
+    query_str = Requests.format_query_str(options)
+
     #URI encode values for all keys in Dict
     encodeURI(options)
     
     #Build oauth_header
     oauth_header_val = oauthheader("GET", endpoint, options)
     
-        return Requests.get(URI("$(endpoint)?q=$(options["q"])"); 
+    return Requests.get(URI("$(endpoint)?$query_str"); 
                     headers = {"Content-Type" => "application/x-www-form-urlencoded",
                     "Authorization" => oauth_header_val,
                     "Connection" => "close",
@@ -154,8 +149,6 @@ function get_users_search(q::String; options = Dict())
 
 end
 
-#Get users contributees
-#This doesn't currently support options
 function get_users_contributees(screen_name::String; options = Dict())
     
     endpoint = "https://api.twitter.com/1.1/users/contributees.json"
@@ -165,11 +158,14 @@ function get_users_contributees(screen_name::String; options = Dict())
 
     #URI encode values for all keys in Dict
     encodeURI(options)
+
+    #Build query string
+    query_str = Requests.format_query_str(options)
     
     #Build oauth_header
     oauth_header_val = oauthheader("GET", endpoint, options)
     
-    return Requests.get(URI("$(endpoint)?screen_name=$(options["screen_name"])"); 
+    return Requests.get(URI("$(endpoint)?$query_str");  
                     headers = {"Content-Type" => "application/x-www-form-urlencoded",
                     "Authorization" => oauth_header_val,
                     "Connection" => "close",
@@ -177,8 +173,6 @@ function get_users_contributees(screen_name::String; options = Dict())
 
 end
 
-#Get users contributors
-#This doesn't currently support options
 function get_users_contributors(screen_name::String; options = Dict())
     
     endpoint = "https://api.twitter.com/1.1/users/contributors.json"
@@ -188,11 +182,14 @@ function get_users_contributors(screen_name::String; options = Dict())
 
     #URI encode values for all keys in Dict
     encodeURI(options)
+
+    #Build query string
+    query_str = Requests.format_query_str(options)
     
     #Build oauth_header
     oauth_header_val = oauthheader("GET", endpoint, options)
     
-    return Requests.get(URI("$(endpoint)?screen_name=$(options["screen_name"])"); 
+    return Requests.get(URI("$(endpoint)?$query_str");  
                     headers = {"Content-Type" => "application/x-www-form-urlencoded",
                     "Authorization" => oauth_header_val,
                     "Connection" => "close",
@@ -201,17 +198,13 @@ function get_users_contributors(screen_name::String; options = Dict())
 end
 
 function post_account_remove_profile_banner()
-	#Requires user context
 	error("Twitter API not fully implemented")
 end
 
 function post_account_update_profile_banner()
-	#Requires user context
 	error("Twitter API not fully implemented")
 end
 
-#Get profile banner
-#This doesn't currently support options
 function get_profile_banner(screen_name::String; options = Dict())
     
     endpoint = "https://api.twitter.com/1.1/users/profile_banner.json"
@@ -221,11 +214,14 @@ function get_profile_banner(screen_name::String; options = Dict())
 
     #URI encode values for all keys in Dict
     encodeURI(options)
+
+    #Build query string
+    query_str = Requests.format_query_str(options)
     
     #Build oauth_header
     oauth_header_val = oauthheader("GET", endpoint, options)
     
-    return Requests.get(URI("$(endpoint)?screen_name=$(options["screen_name"])"); 
+    return Requests.get(URI("$(endpoint)?$query_str");  
                     headers = {"Content-Type" => "application/x-www-form-urlencoded",
                     "Authorization" => oauth_header_val,
                     "Connection" => "close",

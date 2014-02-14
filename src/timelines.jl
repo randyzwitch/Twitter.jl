@@ -4,8 +4,6 @@
 #
 #############################################################
 
-#Mentions timeline
-#This doesn't currently support options, need to dynamically build query parameter string
 function mentions_timeline(count::Int; options = Dict())
     
     endpoint = "https://api.twitter.com/1.1/statuses/mentions_timeline.json"
@@ -15,11 +13,14 @@ function mentions_timeline(count::Int; options = Dict())
 
     #URI encode values for all keys in Dict
     encodeURI(options)
+
+    #Build query string
+    query_str = Requests.format_query_str(options)
     
     #Build oauth_header
     oauth_header_val = oauthheader("GET", endpoint, options)
     
-    return Requests.get(URI("$(endpoint)?count=$(options["count"])"); 
+    return Requests.get(URI("$(endpoint)?$query_str"); 
                     headers = {"Content-Type" => "application/x-www-form-urlencoded",
                     "Authorization" => oauth_header_val,
                     "Connection" => "close",
@@ -27,7 +28,6 @@ function mentions_timeline(count::Int; options = Dict())
 
 end
 
-#This doesn't currently support options
 function get_user_timeline(screen_name::String; options = Dict())
     
     endpoint = "https://api.twitter.com/1.1/statuses/user_timeline.json"
@@ -37,11 +37,14 @@ function get_user_timeline(screen_name::String; options = Dict())
 
     #URI encode values for all keys in Dict
     encodeURI(options)
+
+    #Build query string
+    query_str = Requests.format_query_str(options)
     
     #Build oauth_header
     oauth_header_val = oauthheader("GET", endpoint, options)
     
-    return Requests.get(URI("$(endpoint)?screen_name=$(options["screen_name"])"); 
+    return Requests.get(URI("$(endpoint)?$query_str");
                     headers = {"Content-Type" => "application/x-www-form-urlencoded",
                     "Authorization" => oauth_header_val,
                     "Connection" => "close",
@@ -49,8 +52,6 @@ function get_user_timeline(screen_name::String; options = Dict())
 
 end
 
-#Home timeline
-#This doesn't currently support options
 function home_timeline(count::Int; options = Dict())
     
     endpoint = "https://api.twitter.com/1.1/statuses/home_timeline.json"
@@ -60,11 +61,14 @@ function home_timeline(count::Int; options = Dict())
 
     #URI encode values for all keys in Dict
     encodeURI(options)
+
+    #Build query string
+    query_str = Requests.format_query_str(options)
     
     #Build oauth_header
     oauth_header_val = oauthheader("GET", endpoint, options)
     
-    return Requests.get(URI("$(endpoint)?count=$(options["count"])"); 
+    return Requests.get(URI("$(endpoint)?$query_str"); 
                     headers = {"Content-Type" => "application/x-www-form-urlencoded",
                     "Authorization" => oauth_header_val,
                     "Connection" => "close",
@@ -72,8 +76,6 @@ function home_timeline(count::Int; options = Dict())
 
 end
 
-#Retweets of me
-#This doesn't currently support options
 function retweets_of_me(count::Int; options = Dict())
     
     endpoint = "https://api.twitter.com/1.1/statuses/retweets_of_me.json"
@@ -83,11 +85,14 @@ function retweets_of_me(count::Int; options = Dict())
 
     #URI encode values for all keys in Dict
     encodeURI(options)
+
+    #Build query string
+    query_str = Requests.format_query_str(options)
     
     #Build oauth_header
     oauth_header_val = oauthheader("GET", endpoint, options)
     
-    return Requests.get(URI("$(endpoint)?count=$(options["count"])"); 
+    return Requests.get(URI("$(endpoint)?$query_str"); 
                     headers = {"Content-Type" => "application/x-www-form-urlencoded",
                     "Authorization" => oauth_header_val,
                     "Connection" => "close",

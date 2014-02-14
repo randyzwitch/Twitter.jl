@@ -5,17 +5,14 @@
 #############################################################
 
 function get_retweets()
-	#Requires user context
 	error("Twitter API not fully implemented")
 end
 
 function get_single_tweet()
-	#Requires user context
 	error("Twitter API not fully implemented")
 end
 
 function destroy_single_tweet()
-	#Requires user context
 	error("Twitter API not fully implemented")
 end
 
@@ -44,21 +41,17 @@ function post_status_update(status::String; options = Dict())
 end
 
 function get_retweet()
-	#Requires user context
 	error("Twitter API not fully implemented")
 end
 
 function post_status_update_media()
-	#Requires user context
 	error("Twitter API not fully implemented")
 end
 
 function get_oembed()
-	#Requires user context
 	error("Twitter API not fully implemented")
 end
 
 function get_retweeters()
-	#Requires user context
 	error("Twitter API not fully implemented")
 end

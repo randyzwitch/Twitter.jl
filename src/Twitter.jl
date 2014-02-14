@@ -95,16 +95,17 @@ function encodeURI(dict_of_parameters::Dict)
 end
 
 #Function that builds global variable to hold authentication keys
-function twitterauth(consumer_key::ASCIIString, consumer_secret::ASCIIString, oauth_token::ASCIIString, oauth_secret::ASCIIString)
+#TODO: Figure out how to do OAuth authentication directly, rather than user putting in credentials directly
+function twitterauth(consumer_key::String, consumer_secret::String, oauth_token::String, oauth_secret::String)
     #Create a global variable to hold return from this function
     global twittercred
             
     return twittercred = TWCRED(consumer_key, consumer_secret, oauth_token, oauth_secret)
     
-    #TODO: Figure out how to do OAuth authentication directly, rather than user putting in credentials directly
 end
 
 #Use this function to build the header for every OAuth call
+#This function assumes that options Dict has already been run through encodeURI
 function oauthheader(httpmethod::String, baseurl::String, options::Dict)                
     
     #Format non-parameter strings
@@ -125,8 +126,8 @@ function oauthheader(httpmethod::String, baseurl::String, options::Dict)
     optionskeys = collect(keys(options))
     sort!(optionskeys)
 
-    #parameter_string
-    #Inspired by Requests.format_query_string
+    #ordered parameter_string
+    #Inspired by Requests.format_query_str
     query_str = ""
     for k in optionskeys
         v = options["$(k)"] #get value for ordered key

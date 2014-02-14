@@ -159,8 +159,10 @@ Twitter.jl is licensed under the [MIT "Expat" license](https://github.com/randyz
 Everything, including:
 
 - Working API calls for most functions, returning string/JSON
-- Extend functions from just taking a single argument to incorporating options Dict
-- Refactor code where it makes sense
+- Extend functions from just taking a single argument to incorporating options Dict (mostly done)
+- Make single argument `::Union(String, Nothing)` for all types, since arguments like screen_name or user_id are mutually exclusive
+- Make POST functions incorporate options Dict
+- Refactor code into an OAuth-get and OAuth-put generic call
 - Parser for returned data/custom types
 - Keyword arguments for type of data structure desired as returned object (JSON, Dict, DataFrame, etc.)
 - Make interface more Julian, clean up any oddities
