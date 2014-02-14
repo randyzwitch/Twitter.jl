@@ -57,7 +57,7 @@ last_20_mentions = mentions_timeline(20)
 
 #Get n most recent tweets in your timeline
 #https://dev.twitter.com/docs/api/1.1/get/statuses/home_timeline
-timeline_tweets = mentions_timeline(20)
+timeline_tweets = home_timeline(20)
 
 #Get n most recent retweets
 #https://dev.twitter.com/docs/api/1.1/get/statuses/retweets_of_me

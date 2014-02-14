@@ -163,8 +163,10 @@ Everything, including:
 - Make single argument `::Union(String, Nothing)` for all types, since arguments like screen_name or user_id are mutually exclusive
 - Make POST functions incorporate options Dict
 - Refactor code into an OAuth-get and OAuth-put generic call
-- Parser for returned data/custom types
-- Keyword arguments for type of data structure desired as returned object (JSON, Dict, DataFrame, etc.)
+- Incorporate cursoring for response
+- Add proper field types to TWEETS and USERS custom types
+- Parser for returned data/custom types into DataFrame
+- Keyword arguments (or just DataFrame methods) for type of data structure desired as returned object
 - Make interface more Julian, clean up any oddities
-- Ability to save keys to file, remove need for authentication each time
+- Ability to save authentication keys to file, remove need for authentication each time
 - Create Read The Docs documentation
