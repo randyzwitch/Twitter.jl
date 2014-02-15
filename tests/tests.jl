@@ -77,7 +77,7 @@ account_settings = get_account_settings()
 
 #Validate credentials
 #https://dev.twitter.com/docs/api/1.1/get/account/verify_credentials
-validated_credentials = validate_credentials()
+validated_credentials = verify_credentials()
 
 #Get Blocks List
 #https://dev.twitter.com/docs/api/1.1/get/blocks/list

@@ -47,8 +47,8 @@ export twitterauth, 						#Authentication function
 	   retweets_of_me,						#public API function
 	   get_direct_messages,					#public API function
 	   get_direct_messages_sent,			#public API function
-	   get_account_settings,				#public API function	
-	   validate_credentials,				#public API function	
+	   get_account_settings,			   	#public API function	
+	   verify_credentials,				    #public API function	
 	   get_blocks_list,						#public API function
 	   get_blocks_ids,						#public API function
 	   get_users_search,					#public API function
@@ -63,7 +63,9 @@ export twitterauth, 						#Authentication function
        get_saved_searches_list,             #public API function
        TWEETS,                              #Custom Type
        TWCRED,                              #Custom Type
-       USERS                                #Custom Type
+       USERS,                               #Custom Type
+       parse_response,                      #Helper function
+       get_oauth                            #Helper function
 
 #############################################################
 #
@@ -231,6 +233,23 @@ function oauthheader(httpmethod::String, baseurl::String, options::Dict)
     
 end
 
+#General function for OAuth authenticated GET request
+function get_oauth(endpoint, options)
+    #URI encode values for all keys in Dict
+    #encodeURI(options)
+
+    #Build query string
+    query_str = Requests.format_query_str(options)
+    
+    #Build oauth_header
+    oauth_header_val = oauthheader("GET", endpoint, options)
+    
+    return Requests.get(URI("$(endpoint)?$query_str"); 
+                    headers = {"Content-Type" => "application/x-www-form-urlencoded",
+                    "Authorization" => oauth_header_val,
+                    "Accept" => "*/*"})
+end
+
 #Return array of TWEETS object for methods returning Tweets response object
 function parse_response(response::Response, response_type::String)
     #Create Array of Dicts from ASCII String
@@ -314,7 +333,7 @@ function parse_response(response::Response, response_type::String)
                             get(object, "withheld_scope", ""),                          #  withheld_scope
                          ) for object in json["users"]]
     else
-            return response.data
+            return json #Return a Dict
     end
 end
 

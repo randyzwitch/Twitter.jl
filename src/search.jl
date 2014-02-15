@@ -20,10 +20,12 @@ function search_tweets(q::String; options = Dict())
     #Build oauth_header
     oauth_header_val = oauthheader("GET", endpoint, options)
     
-    return Requests.get(URI("$(endpoint)?$query_str");  
+    r = Requests.get(URI("$(endpoint)?$query_str");  
                     headers = {"Content-Type" => "application/x-www-form-urlencoded",
                     "Authorization" => oauth_header_val,
                     "Connection" => "close",
                     "Accept" => "*/*"})
+
+    return parse_response(r, "FIX THIS ERROR USING STATUSES key")
 
 end

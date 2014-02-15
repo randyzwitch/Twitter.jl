@@ -5,41 +5,18 @@
 #############################################################
 
 function get_account_settings(; options = Dict())
-    
-    endpoint = "https://api.twitter.com/1.1/account/settings.json"
 
-    #Build query string
-    query_str = Requests.format_query_str(options)
-    
-    #Build oauth_header
-    oauth_header_val = oauthheader("GET", endpoint, options)
-    
-    return Requests.get(URI("$(endpoint)?$query_str");  
-                    headers = {"Content-Type" => "application/x-www-form-urlencoded",
-                    "Authorization" => oauth_header_val,
-                    "Connection" => "close",
-                    "Accept" => "*/*"})
+    r = get_oauth("https://api.twitter.com/1.1/account/settings.json", options)
+
+    return parse_response(r, "ACCOUNT")
 
 end
 
-function validate_credentials(; options = Dict())
-    
-    endpoint = "https://api.twitter.com/1.1/account/verify_credentials.json"
+function verify_credentials(; options = Dict())
 
-    #Build query string
-    query_str = Requests.format_query_str(options)
+    r = get_oauth("https://api.twitter.com/1.1/account/verify_credentials.json", options)
 
-    #URI encode values for all keys in Dict
-    encodeURI(options)
-    
-    #Build oauth_header
-    oauth_header_val = oauthheader("GET", endpoint, options)
-    
-    return Requests.get(URI("$(endpoint)?$query_str");  
-                    headers = {"Content-Type" => "application/x-www-form-urlencoded",
-                    "Authorization" => oauth_header_val,
-                    "Connection" => "close",
-                    "Accept" => "*/*"})
+    return parse_response(r, "ACCOUNT")
 
 end
 
@@ -68,44 +45,18 @@ function update_profile_image()
 end
 
 function get_blocks_list(; options = Dict())
-    
-    endpoint = "https://api.twitter.com/1.1/blocks/list.json"
 
-    #Build query string
-    query_str = Requests.format_query_str(options)
+    r = get_oauth("https://api.twitter.com/1.1/blocks/list.json", options)
 
-    #URI encode values for all keys in Dict
-    encodeURI(options)
-    
-    #Build oauth_header
-    oauth_header_val = oauthheader("GET", endpoint, options)
-    
-    return Requests.get(URI("$(endpoint)?$query_str");  
-                    headers = {"Content-Type" => "application/x-www-form-urlencoded",
-                    "Authorization" => oauth_header_val,
-                    "Connection" => "close",
-                    "Accept" => "*/*"})
+    return parse_response(r, "BLOCKS")
 
 end
 
 function get_blocks_ids(; options = Dict())
-    
-    endpoint = "https://api.twitter.com/1.1/blocks/ids.json"
 
-    #Build query string
-    query_str = Requests.format_query_str(options)
+    r = get_oauth("https://api.twitter.com/1.1/blocks/ids.json", options)
 
-    #URI encode values for all keys in Dict
-    encodeURI(options)
-    
-    #Build oauth_header
-    oauth_header_val = oauthheader("GET", endpoint, options)
-    
-    return Requests.get(URI("$(endpoint)?$query_str");  
-                    headers = {"Content-Type" => "application/x-www-form-urlencoded",
-                    "Authorization" => oauth_header_val,
-                    "Connection" => "close",
-                    "Accept" => "*/*"})
+    return parse_response(r, "BLOCKS")
 
 end
 
@@ -127,73 +78,25 @@ end
 
 function get_users_search(q::String; options = Dict())
     
-    endpoint = "https://api.twitter.com/1.1/users/search.json"
-    
-    #Add status into options Dict
-    options["q"] = q
+    r = get_oauth("https://api.twitter.com/1.1/users/search.json", setindex!(options, "$q", "q"))
 
-    #Build query string
-    query_str = Requests.format_query_str(options)
-
-    #URI encode values for all keys in Dict
-    encodeURI(options)
-    
-    #Build oauth_header
-    oauth_header_val = oauthheader("GET", endpoint, options)
-    
-    return Requests.get(URI("$(endpoint)?$query_str"); 
-                    headers = {"Content-Type" => "application/x-www-form-urlencoded",
-                    "Authorization" => oauth_header_val,
-                    "Connection" => "close",
-                    "Accept" => "*/*"})
+    return parse_response(r, "THIS DOESN'T REQUIRE users key")
 
 end
 
 function get_users_contributees(screen_name::String; options = Dict())
     
-    endpoint = "https://api.twitter.com/1.1/users/contributees.json"
-    
-    #Add status into options Dict
-    options["screen_name"] = screen_name
+    r = get_oauth("https://api.twitter.com/1.1/users/contributees.json", setindex!(options, "$screen_name", "screen_name"))
 
-    #URI encode values for all keys in Dict
-    encodeURI(options)
-
-    #Build query string
-    query_str = Requests.format_query_str(options)
-    
-    #Build oauth_header
-    oauth_header_val = oauthheader("GET", endpoint, options)
-    
-    return Requests.get(URI("$(endpoint)?$query_str");  
-                    headers = {"Content-Type" => "application/x-www-form-urlencoded",
-                    "Authorization" => oauth_header_val,
-                    "Connection" => "close",
-                    "Accept" => "*/*"})
+    return parse_response(r, "RETURNED NO RESULTS MAY NOT NEED USERS KEY")
 
 end
 
 function get_users_contributors(screen_name::String; options = Dict())
     
-    endpoint = "https://api.twitter.com/1.1/users/contributors.json"
-    
-    #Add status into options Dict
-    options["screen_name"] = screen_name
+    r = get_oauth("https://api.twitter.com/1.1/users/contributors.json", setindex!(options, "$screen_name", "screen_name"))
 
-    #URI encode values for all keys in Dict
-    encodeURI(options)
-
-    #Build query string
-    query_str = Requests.format_query_str(options)
-    
-    #Build oauth_header
-    oauth_header_val = oauthheader("GET", endpoint, options)
-    
-    return Requests.get(URI("$(endpoint)?$query_str");  
-                    headers = {"Content-Type" => "application/x-www-form-urlencoded",
-                    "Authorization" => oauth_header_val,
-                    "Connection" => "close",
-                    "Accept" => "*/*"})
+    return parse_response(r, "RETURNED NO RESULTS MAY NOT NEED USERS KEY")
 
 end
 
@@ -207,24 +110,8 @@ end
 
 function get_profile_banner(screen_name::String; options = Dict())
     
-    endpoint = "https://api.twitter.com/1.1/users/profile_banner.json"
-    
-    #Add status into options Dict
-    options["screen_name"] = screen_name
+    r = get_oauth("https://api.twitter.com/1.1/users/profile_banner.json", setindex!(options, "$screen_name", "screen_name"))
 
-    #URI encode values for all keys in Dict
-    encodeURI(options)
-
-    #Build query string
-    query_str = Requests.format_query_str(options)
-    
-    #Build oauth_header
-    oauth_header_val = oauthheader("GET", endpoint, options)
-    
-    return Requests.get(URI("$(endpoint)?$query_str");  
-                    headers = {"Content-Type" => "application/x-www-form-urlencoded",
-                    "Authorization" => oauth_header_val,
-                    "Connection" => "close",
-                    "Accept" => "*/*"})
+    return parse_response(r, "BANNER")
 
 end
