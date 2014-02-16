@@ -4,15 +4,19 @@
 #
 #############################################################
 
-function get_retweets()
-	error("Twitter API not fully implemented")
+function get_retweets_id(id::String; options = Dict())
+	
+    r = get_oauth("https://api.twitter.com/1.1/statuses/retweets/$(id).json", options)
+
 end
 
-function get_single_tweet()
-	error("Twitter API not fully implemented")
+function get_single_tweet_id(; options = Dict())
+	
+    r = get_oauth("https://api.twitter.com/1.1/statuses/show.json", options)
+
 end
 
-function destroy_single_tweet()
+function post_destroy_single_tweet_id()
 	error("Twitter API not fully implemented")
 end
 
@@ -40,7 +44,7 @@ function post_status_update(status::String; options = Dict())
     
 end
 
-function get_retweet()
+function post_status_retweet_id()
 	error("Twitter API not fully implemented")
 end
 
@@ -48,10 +52,13 @@ function post_status_update_media()
 	error("Twitter API not fully implemented")
 end
 
-function get_oembed()
-	error("Twitter API not fully implemented")
+function get_oembed(; options = Dict())
+	
+    r = get_oauth("https://api.twitter.com/1.1/statuses/oembed.json", options)
+    
 end
 
-function get_retweeters()
-	error("Twitter API not fully implemented")
+function get_retweeters_id(; options = Dict())
+
+	r = get_oauth("https://api.twitter.com/1.1/statuses/retweeters/ids.json", options)
 end

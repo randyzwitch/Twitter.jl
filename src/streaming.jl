@@ -4,22 +4,29 @@
 #
 #############################################################
 
-function get_streaming_filtered()
+function post_streaming_filtered()
 	error("Twitter API not fully implemented")
 end
 
-function get_streaming_sample()
-	error("Twitter API not fully implemented")
+function get_streaming_sample(; options = Dict())
+	
+	r = get_oauth("https://stream.twitter.com/1.1/statuses/sample.json", options)
+
 end
 
 function get_firehose()
-	error("Twitter API not fully implemented")
+	error("This method requires special Twitter permission. If you have that, you can write this function.")
 end
 
-function get_user_streaming()
-	error("Twitter API not fully implemented")
+function get_user_streaming(; options = Dict())
+	
+	r = get_oauth("https://userstream.twitter.com/1.1/user.json", options)
+
 end
 
-function get_site_streaming()
-	error("Twitter API not fully implemented")
+function get_site_streaming(; options = Dict())
+	
+	r = get_oauth("https://sitestream.twitter.com/1.1/site.json", options)
+	
 end
+

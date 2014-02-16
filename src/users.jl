@@ -10,7 +10,7 @@ function get_account_settings(; options = Dict())
 
 end
 
-function verify_credentials(; options = Dict())
+function get_verify_credentials(; options = Dict())
 
     r = get_oauth("https://api.twitter.com/1.1/account/verify_credentials.json", options)
 
@@ -20,23 +20,23 @@ function post_account_settings()
 	error("Twitter API not fully implemented")
 end
 
-function update_delivery_device()
+function post_update_delivery_device()
 	error("Twitter API not fully implemented")
 end
 
-function update_profile()
+function post_update_profile()
 	error("Twitter API not fully implemented")
 end
 
-function update_profile_background()
+function post_update_profile_background()
 	error("Twitter API not fully implemented")
 end
 
-function update_profile_colors()
+function post_update_profile_colors()
 	error("Twitter API not fully implemented")
 end
 
-function update_profile_image()
+function post_update_profile_image()
 	error("Twitter API not fully implemented")
 end
 
@@ -60,12 +60,16 @@ function post_blocks_destroy()
 	error("Twitter API not fully implemented")
 end
 
-function get_users_lookup()
-	error("Twitter API not fully implemented")
+function get_users_lookup(; options = Dict())
+	
+	r = get_oauth("https://api.twitter.com/1.1/users/lookup.json", options)
+
 end
 
-function get_users_show()
-	error("Twitter API not fully implemented")
+function get_users_show(; options = Dict())
+	
+	r = get_oauth("https://api.twitter.com/1.1/users/show.json", options)
+
 end
 
 function get_users_search(q::String; options = Dict())

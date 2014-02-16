@@ -4,7 +4,7 @@
 #
 #############################################################
 
-function search_tweets(q::String; options = Dict())
+function get_search_tweets(q::String; options = Dict())
     
     endpoint = "https://api.twitter.com/1.1/search/tweets.json"
     

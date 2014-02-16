@@ -54,8 +54,10 @@ function post_lists_members_show()
 	error("Twitter API not fully implemented")
 end
 
-function get_lists_members()
-	error("Twitter API not fully implemented")
+function get_lists_members(; options = Dict())
+	
+	r = get_oauth("https://api.twitter.com/1.1/lists/members.json", options)
+
 end
 
 function post_lists_members_create()
@@ -74,18 +76,24 @@ function post_lists_create()
 	error("Twitter API not fully implemented")
 end
 
-function get_lists_show()
-	error("Twitter API not fully implemented")
+function get_lists_show(; options = Dict())
+	
+	r = get_oauth("https://api.twitter.com/1.1/lists/show.json", options)
+
 end
 
-function get_lists_subscriptions()
-	error("Twitter API not fully implemented")
+function get_lists_subscriptions(; options = Dict())
+	
+	r = get_oauth("https://api.twitter.com/1.1/lists/subscriptions.json", options)
+
 end
 
 function post_lists_members_destroyall()
 	error("Twitter API not fully implemented")
 end
 
-function get_lists_ownerships()
-	error("Twitter API not fully implemented")
+function get_lists_ownerships(; options = Dict())
+	
+	r = get_oauth("https://api.twitter.com/1.1/lists/ownerships.json", options)
+
 end

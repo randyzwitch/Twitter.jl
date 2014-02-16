@@ -10,8 +10,10 @@ function get_saved_searches_list(; options = Dict())
 
 end
 
-function get_saved_searches_id()
-	error("Twitter API not fully implemented")
+function get_saved_searches_show_id(id::String; options = Dict())
+	
+	r = get_oauth("https://api.twitter.com/1.1/saved_searches/show/$(id).json", options)
+
 end
 
 function post_saved_searches_create()
