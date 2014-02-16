@@ -26,6 +26,4 @@ function search_tweets(q::String; options = Dict())
                     "Connection" => "close",
                     "Accept" => "*/*"})
 
-    return parse_response(r, "FIX THIS ERROR USING STATUSES key")
-
 end

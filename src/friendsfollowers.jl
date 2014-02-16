@@ -4,15 +4,15 @@
 #
 #############################################################
 
-function get_friendships_no_retweets()
-	error("Twitter API not fully implemented")
+function get_friendships_no_retweets( ; options = Dict())
+	
+	r = get_oauth("https://api.twitter.com/1.1/friendships/no_retweets/ids.json", options)
+
 end
 
 function get_friends_ids(screen_name::String; options = Dict())
     
     r = get_oauth("https://api.twitter.com/1.1/friends/ids.json", setindex!(options, "$screen_name", "screen_name"))
-
-    return parse_response(r, "THIS DOESN'T REALLY RETURN USERS OBJECT")
 
 end
 
@@ -20,20 +20,24 @@ function get_followers_ids(screen_name::String; options = Dict())
     
     r = get_oauth("https://api.twitter.com/1.1/followers/ids.json", setindex!(options, "$screen_name", "screen_name"))
 
-    return parse_response(r, "THIS DOESN'T REALLY RETURN USERS OBJECT")
+end
+
+function get_friendships_lookup( ; options = Dict())
+	
+	r = get_oauth("https://api.twitter.com/1.1/friendships/lookup.json", options)
 
 end
 
-function get_friendships_lookup()
-	error("Twitter API not fully implemented")
+function get_friendships_incoming( ; options = Dict())
+	
+	r = get_oauth("https://api.twitter.com/1.1/friendships/incoming.json", options)
+
 end
 
-function get_friendships_incoming()
-	error("Twitter API not fully implemented")
-end
+function get_friendships_outgoing( ; options = Dict())
+	
+	r = get_oauth("https://api.twitter.com/1.1/friendships/outgoing.json", options)
 
-function get_friendships_outgoing()
-	error("Twitter API not fully implemented")
 end
 
 function post_friendships_create()
@@ -48,22 +52,20 @@ function post_friendships_update()
 	error("Twitter API not fully implemented")
 end
 
-function get_friendships_show()
-	error("Twitter API not fully implemented")
+function get_friendships_show( ; options = Dict())
+	
+	r = get_oauth("https://api.twitter.com/1.1/friendships/show.json", options)
+
 end
 
 function get_friends_list(screen_name::String; options = Dict())
     
     r = get_oauth("https://api.twitter.com/1.1/friends/list.json", setindex!(options, "$screen_name", "screen_name"))
 
-    return parse_response(r, "USERS")
-
 end
 
 function get_followers_list(screen_name::String; options = Dict())
     
     r = get_oauth("https://api.twitter.com/1.1/followers/list.json", setindex!(options, "$screen_name", "screen_name"))
-
-    return parse_response(r, "USERS")
 
 end

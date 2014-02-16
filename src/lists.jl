@@ -8,12 +8,12 @@ function get_lists(screen_name::String; options = Dict())
     
     r = get_oauth("https://api.twitter.com/1.1/lists/list.json", setindex!(options, "$screen_name", "screen_name"))
 
-    return parse_response(r, "LISTS")
-
 end
 
-function get_lists_statuses()
-	error("Twitter API not fully implemented")
+function get_lists_statuses(; options = Dict())
+	
+	r = get_oauth("https://api.twitter.com/1.1/lists/statuses.json", options)
+
 end
 
 function post_lists_members_destroy()
@@ -24,20 +24,22 @@ function get_lists_memberships(screen_name::String; options = Dict())
     
     r = get_oauth("https://api.twitter.com/1.1/lists/memberships.json", setindex!(options, "$screen_name", "screen_name"))
 
-    return parse_response(r, "LISTS")
-
 end
 
-function get_lists_subscribers()
-	error("Twitter API not fully implemented")
+function get_lists_subscribers(; options = Dict())
+	
+	r = get_oauth("https://api.twitter.com/1.1/lists/subscribers.json", options)
+
 end
 
 function post_lists_subscribers_create()
 	error("Twitter API not fully implemented")
 end
 
-function get_lists_subscribers_show()
-	error("Twitter API not fully implemented")
+function get_lists_subscribers_show(; options = Dict())
+	
+	r = get_oauth("https://api.twitter.com/1.1/lists/subscribers/show.json", options)
+
 end
 
 function post_lists_subscribers_destroy()
