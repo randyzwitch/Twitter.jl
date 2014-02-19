@@ -32,12 +32,14 @@ Twitter.jl is licensed under the [MIT "Expat" license](https://github.com/randyz
 
 Everything, including:
 
+POST calls:
 - Working API calls for remaining POST methods
 - Make POST functions incorporate options Dict to build request URI
 - Refactor code OAuth-post generic call
+
+GENERAL:
 - Incorporate cursoring for methods returning many pages of results
-- Add proper field types to TWEETS and USERS custom types
-- Add GEO type
+- Add proper field types to TWEETS, USERS and PLACES custom types
 - Parser for returned data/custom types into DataFrame
 - Keyword arguments (or just DataFrame methods) for type of data structure desired as returned object
 - Make interface more Julian, clean up any oddities

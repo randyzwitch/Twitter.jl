@@ -91,3 +91,16 @@ type USERS
     withheld_in_countries
     withheld_scope
 end
+
+#Places response object
+type PLACES
+    attributes
+    bounding_box
+    country
+    country_code
+    full_name
+    id
+    name 
+    place_type
+    url
+end
