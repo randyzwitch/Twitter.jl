@@ -1,130 +1,305 @@
-#Authentication using all 4 credentials
+#Authentication using consumer & oauth values
 twitterauth("6nOtpXmf...", 
             "sES5Zlj096S...",
             "98689850-Hj...",
             "UroqCVpWKIt...")
 
-#Search by user
-#https://dev.twitter.com/docs/api/1.1/get/statuses/user_timeline
-get_user_timeline_tweets = get_user_timeline("randyzwitch")
+############################################## dm.jl ##############################################
 
-#Search for tweets containing search term '#Duke'
-#https://dev.twitter.com/docs/api/1.1/get/search/tweets
-search_tweets_result = search_tweets("#Duke")
+#Get mentions (@ replies to authenticated account), defaults to last 20
+mentions_default20 = get_mentions_timeline();
 
-#Get id numbers for friends
-#https://dev.twitter.com/docs/api/1.1/get/friends/ids
-get_friends_ids_result = get_friends_ids("randyzwitch")
+#Get tweets from any public user timeline, defaults to last 20
+user_timeline_default20 = get_user_timeline("randyzwitch");
 
-#Get id numbers for followers
-get_followers_ids_result = get_followers_ids("randyzwitch")
+#Get tweets from authenticated user's timeline, defaults to 20
+home_timeline_default20 = get_home_timeline();
 
-#Get friends list
-#https://dev.twitter.com/docs/api/1.1/get/friends/list
-get_friends_list_result = get_friends_list("randyzwitch")
+#Get most recent re-tweets from authenticated user, defaults to 20
+retweets_default20 = get_retweets_of_me()
 
-#Get followers list
-#https://dev.twitter.com/docs/api/1.1/get/followers/list
-get_followers_list_result = get_followers_list("randyzwitch")
+############################################## tweets.jl ##########################################
 
-#Configuration settings
-#https://dev.twitter.com/docs/api/1.1/get/help/configuration
-get_help_configuration_results = get_help_configuration()
+#Get retweets by id number of tweet
+get_retweets_by_id = get_retweets_id("434685122671939584")
 
-#Languages
-#https://dev.twitter.com/docs/api/1.1/get/help/languages
-get_help_languages_results = get_help_languages()
+#Get single tweet by id number
+get_tweet_by_id = get_single_tweet_id("434685122671939584") 
 
-#Privacy Policy
-#https://dev.twitter.com/docs/api/1.1/get/help/privacy
-get_help_privacy_results = get_help_privacy()
+#post_destroy_single_tweet_id
 
-#Terms of Service
-#https://dev.twitter.com/docs/api/1.1/get/help/tos
-get_help_tos_results = get_help_tos()
+#Post a status update to Twitter 
+status_update = post_status_update("I can't believe it snowed today, then is now 45 degrees and all the snow is gone. Strange times.")
 
-#Application rate limit status
-#https://dev.twitter.com/docs/api/1.1/get/application/rate_limit_status
-rate_limit = get_application_rate_limit_status()
+#post_status_retweet_id
 
-#Post tweet to timeline
-#https://dev.twitter.com/docs/api/1.1/post/statuses/update
-post_tweet = post_status_update("If this is annoying, sorry. Tweeting from inside #julialang using only Julia code.")
+#post_status_update_media
 
-#Get n most recent tweets mentioning you
-#https://dev.twitter.com/docs/api/1.1/get/statuses/mentions_timeline
-last_20_mentions = mentions_timeline(20)
+#Get embedded tweet code: either "id" or "url" required by API, passed in through options Dict in Julia
+get_embedded_tweet_code = get_oembed(; options = {"id" => "434685122671939584"})
 
-#Get n most recent tweets in your timeline
-#https://dev.twitter.com/docs/api/1.1/get/statuses/home_timeline
-timeline_tweets = home_timeline(20)
+#get_retweeters_id
 
-#Get n most recent retweets
-#https://dev.twitter.com/docs/api/1.1/get/statuses/retweets_of_me
-my_retweets = retweets_of_me(10)
+############################################## search.jl ##########################################
 
-#Get n most recent direct messages
-#https://dev.twitter.com/docs/api/1.1/get/direct_messages
-my_dms = get_direct_messages(10)
+#Return tweets matching search term
+duke_tweets = get_search_tweets("#Duke")
 
-#Get n most recent direct messages sent
-#https://dev.twitter.com/docs/api/1.1/get/direct_messages/sent
-my_dms_sent = get_direct_messages_sent(10)
+############################################## streaming.jl #######################################
 
-#Get account settings
-#https://dev.twitter.com/docs/api/1.1/get/account/settings
-account_settings = get_account_settings()
+#post_streaming_filtered
 
-#Validate credentials
-#https://dev.twitter.com/docs/api/1.1/get/account/verify_credentials
-validated_credentials = verify_credentials()
+#get_streaming_sample
 
-#Get Blocks List
-#https://dev.twitter.com/docs/api/1.1/get/blocks/list
+#get_firehose
+
+#get_user_streaming
+
+#get_site_streaming
+
+############################################## dm.jl ##############################################
+
+#Get direct messages received
+dm_received = get_direct_messages()
+
+#Get direct messages sent
+dm_sent = get_direct_messages_sent()
+
+#Get single direct message received
+get_single_dm = get_direct_messages_show("435234003939905536")
+
+#post_direct_messages_destroy
+
+#post_direct_messages_send
+
+############################################## friendsfollowers.jl ################################
+
+#Get ids of friends that you don't want to see retweets from
+friends_but_dont_see_rts = get_friendships_no_retweets()
+
+#Get numeric ids of all friends
+get_friends = get_friends_ids(; options = {"screen_name" => "randyzwitch"})
+
+#Get numeric ids of followers
+get_followers = get_followers_ids()
+
+#Get authenticated user relationship to other users
+friendship_status = get_friendships_lookup(; options = {"screen_name" => "usujason, hilamonster, kyrieirving"})
+
+#Get list of pending requests to authenticated user
+pending_friendships_incoming = get_friendships_incoming()
+
+#Get list of pending requests by authenticated user outstanding
+pending_friendships_outgoing = get_friendships_outgoing()
+
+#post_friendships_create
+
+#post_friendships_destroy
+
+#post_friendships_update
+
+#Get friendship details between any two arbitrary users
+detailed_info_two_users = get_friendships_show(; options = {"source_screen_name" => "randyzwitch", "target_screen_name" => "usujason"})
+
+#Get friendship list as names
+friends_names = get_friends_list(; options = {"screen_name" => "randyzwitch"})
+
+#Get followers names
+followers_names = get_followers_list(; options = {"screen_name" => "randyzwitch"})
+
+############################################## users.jl ###########################################
+
+#Get settings for authenticated account
+settings = get_account_settings();
+
+#Verify credentials
+verify_cred = get_verify_credentials()
+
+#post_account_settings
+
+#post_update_delivery_device
+
+#post_update_profile
+
+#post_update_profile_background
+
+#post_update_profile_colors
+
+#post_update_profile_image
+
+#Get list of users authenticated user is blocking
 blocked_users = get_blocks_list()
 
-#Get Blocks IDs
-#https://dev.twitter.com/docs/api/1.1/get/blocks/ids
+#Get list of ids blocked by authenticated user
 blocked_ids = get_blocks_ids()
 
-#Get Users Search
-#https://dev.twitter.com/docs/api/1.1/get/users/search
-philly_users = get_users_search("philly")
+#post_blocks_create
 
-#Get users contributees
-#https://dev.twitter.com/docs/api/1.1/get/users/contributees
-user_contributees = get_users_contributees("randyzwitch")
+#post_blocks_destroy
 
-#Get users contributors
-#https://dev.twitter.com/docs/api/1.1/get/users/contributors
-user_contributors = get_users_contributors("randyzwitch")
+#Get information about specific users
+multiple_user_info = get_users_lookup(; options = {"screen_name" => "kyrieirving, jpiz1"})
+
+#Get information about a single user
+single_user_info = get_users_show(; options = {"screen_name" => "amilejefferson"})
+
+#Search for users based on a topic
+search_for_users = get_users_search("data science")
+
+#Get users that authenticate user account can contribute to 
+contributees = get_users_contributees(; options = {"screen_name" => "randyzwitch"})
+
+#Get users that can contribute to the authenticated account
+contributors = get_users_contributors(; options = {"screen_name" => "randyzwitch"})
+
+#post_account_remove_profile_banner
+
+#post_account_update_profile_banner
 
 #Get profile banner
-#https://dev.twitter.com/docs/api/1.1/get/users/profile_banner
-profile_banner = get_profile_banner("randyzwitch")
+profile_banner = get_profile_banner(; options = {"screen_name" => "randyzwitch"})
 
-#Get user suggestions slug
-#https://dev.twitter.com/docs/api/1.1/get/users/suggestions/%3Aslug
-user_suggestions_slug = get_user_suggestions_slug("twitter")
+############################################## suggestedusers.jl ##################################
 
-#Get user suggestions
-#https://dev.twitter.com/docs/api/1.1/get/users/suggestions
-user_suggestions = get_user_suggestions()
+#Get user suggestions for a given category of suggested users
+user_suggestions_twitter_slug = get_user_suggestions_slug("twitter")
 
-#Get favorites list
-#https://dev.twitter.com/docs/api/1.1/get/favorites/list
-get_favorites = get_favorites_list("randyzwitch")
+#Get suggested user categories
+suggested_categories = get_user_suggestions()
 
-#Get Lists
-#https://dev.twitter.com/docs/api/1.1/get/lists/list
-lists = get_lists("randyzwitch")
+#Get users in suggested user group
+members_suggested_category = get_user_suggestions_slug_members("sochi")
 
-#Get Lists Memberships
-#https://dev.twitter.com/docs/api/1.1/get/lists/memberships
-list_memberships = get_lists_memberships("randyzwitch")
+############################################## favorites.jl #######################################
 
-#Get saved searches list
-#https://dev.twitter.com/docs/api/1.1/get/saved_searches/list
+#Get favorites list for authenticated user (when no arguments are specified)
+favorites_auth_user = get_favorites_list()
+
+#post_favorites_destroy
+
+#post_favorites_create
+
+############################################## lists.jl ###########################################
+
+#Get lists - by default, no argument means lists subscribed to by authenticated user
+lists_subscribed_to = get_lists()
+
+#Get tweets for a given list id
+tweets_given_list = get_lists_statuses(options = {"list_id" => "4300970"})
+
+#post_lists_members_destroy
+
+#Get lists which user has been added to
+list_adds = get_lists_memberships(options = {"screen_name" => "randyzwitch"})
+
+#Get subscribers of a certain list id
+list_subscribers = get_lists_subscribers(options = {"list_id" => "4300970"})
+
+#post_lists_subscribers_create
+
+#Check if user is subscribed to a list
+check_user_subscriber = get_lists_subscribers_show(options = {"list_id" => "4300970", "screen_name" => "randyzwitch"})
+
+#post_lists_subscribers_destroy
+
+#post_lists_members_createall
+
+#post_lists_members_show
+
+#Get members of a list
+list_members = get_lists_members(options = {"list_id" => "4300970"})
+
+#post_lists_members_create
+
+#post_lists_destroy
+
+#post_lists_update
+
+#post_lists_create
+
+#Get specified list
+get_list = get_lists_show(options = {"list_id" => "4300970"})
+
+#Get lists a user is subscribed to
+get_list_subs = get_lists_subscriptions(options = {"screen_name" => "randyzwitch"})
+
+#post_lists_members_destroyall
+
+#Get lists user owns
+get_lists_ownerships(options = {"screen_name" => "nduley"})
+
+############################################## savedsearches.jl ###################################
+
+#Get saved searches for authenticated user
 saved_searches = get_saved_searches_list()
+
+#Get info about saved search by id
+saved_search_info = get_saved_searches_show_id("23777812")
+
+#post_saved_searches_create
+
+#post_saved_searches_destroy_id
+
+############################################## geo.jl #############################################
+
+#Get information about a specific place
+geo_info = get_geo_id_place_id("df51dec6f4ee2b2c")
+
+#Get places that can be used for a place_id from a set of lat/long coordinates
+place_ids = get_geo_reverse_geocode("37.7821120598956", "-122.400612831116")
+
+#Search for place_ids based on information that you know (IP, lat/long, etc.)
+search_for_places = get_geo_search(options = {"ip" => "74.125.19.104"})
+
+#Get places near a given location
+similar_places = get_geo_similar_places("37.7821120598956", "-122.400612831116", "Twitter HQ")
+
+#post_geo_place
+
+############################################## trends.jl ##########################################
+
+#Get trends based on a certain WOEID
+trends_place1 = get_trends_place("1")
+
+#Get locations where Twitter has trend data
+trend_locations = get_trends_available()
+
+#Get trends closest to a specified location
+close_trends = get_trends_closest("37.781157", "-122.400612831116")
+
+############################################## spam.jl ############################################
+
+#post_users_report_spam
+
+############################################## oauth.jl ###########################################
+
+#get_oauth_authenticate,
+
+#get_oauth_authorize,
+
+#post_oauth_access_token,
+
+#post_oauth_request_token,
+
+#post_oauth2_token,
+
+#post_oauth2_invalidate_token
+
+############################################## help.jl ############################################
+
+#Get configuration for authenticated user
+user_configuration = get_help_configuration()
+
+#Get languages/codes that Twitter supports
+languages = get_help_languages()
+
+#Get privacy policy
+privacy_policy = get_help_privacy()
+
+#Get terms of service
+terms_of_service = get_help_tos()
+
+#Get application rate limits
+rate_limits = get_application_rate_limit_status()
 
 

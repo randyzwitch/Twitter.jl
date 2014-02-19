@@ -10,8 +10,11 @@ function get_retweets_id(id::String; options = Dict())
 
 end
 
-function get_single_tweet_id(; options = Dict())
+function get_single_tweet_id(id::String; options = Dict())
 	
+    #Add required parameter(s) to options dict
+    options["id"] = id
+
     r = get_oauth("https://api.twitter.com/1.1/statuses/show.json", options)
 
 end
@@ -53,12 +56,15 @@ function post_status_update_media()
 end
 
 function get_oembed(; options = Dict())
-	
+
     r = get_oauth("https://api.twitter.com/1.1/statuses/oembed.json", options)
     
 end
 
-function get_retweeters_id(; options = Dict())
+function get_retweeters_id(id::String; options = Dict())
+    
+    #This returns an error for some reason
+    #["errors"=>{["message"=>"Bad request.","code"=>214]}]
 
 	r = get_oauth("https://api.twitter.com/1.1/statuses/retweeters/ids.json", options)
 end

@@ -78,15 +78,15 @@ function get_users_search(q::String; options = Dict())
 
 end
 
-function get_users_contributees(screen_name::String; options = Dict())
+function get_users_contributees(; options = Dict())
     
-    r = get_oauth("https://api.twitter.com/1.1/users/contributees.json", setindex!(options, "$screen_name", "screen_name"))
+    r = get_oauth("https://api.twitter.com/1.1/users/contributees.json", options)
 
 end
 
-function get_users_contributors(screen_name::String; options = Dict())
+function get_users_contributors(; options = Dict())
     
-    r = get_oauth("https://api.twitter.com/1.1/users/contributors.json", setindex!(options, "$screen_name", "screen_name"))
+    r = get_oauth("https://api.twitter.com/1.1/users/contributors.json", options)
 
 end
 
@@ -98,8 +98,8 @@ function post_account_update_profile_banner()
 	error("Twitter API not fully implemented")
 end
 
-function get_profile_banner(screen_name::String; options = Dict())
+function get_profile_banner(; options = Dict())
     
-    r = get_oauth("https://api.twitter.com/1.1/users/profile_banner.json", setindex!(options, "$screen_name", "screen_name"))
+    r = get_oauth("https://api.twitter.com/1.1/users/profile_banner.json", options)
 
 end

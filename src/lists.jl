@@ -4,9 +4,9 @@
 #
 #############################################################
 
-function get_lists(screen_name::String; options = Dict())
+function get_lists(; options = Dict())
     
-    r = get_oauth("https://api.twitter.com/1.1/lists/list.json", setindex!(options, "$screen_name", "screen_name"))
+    r = get_oauth("https://api.twitter.com/1.1/lists/list.json", options)
 
 end
 
@@ -20,9 +20,9 @@ function post_lists_members_destroy()
 	error("Twitter API not fully implemented")
 end
 
-function get_lists_memberships(screen_name::String; options = Dict())
+function get_lists_memberships(; options = Dict())
     
-    r = get_oauth("https://api.twitter.com/1.1/lists/memberships.json", setindex!(options, "$screen_name", "screen_name"))
+    r = get_oauth("https://api.twitter.com/1.1/lists/memberships.json", options)
 
 end
 

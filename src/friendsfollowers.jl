@@ -10,15 +10,15 @@ function get_friendships_no_retweets( ; options = Dict())
 
 end
 
-function get_friends_ids(screen_name::String; options = Dict())
+function get_friends_ids(; options = Dict())
     
-    r = get_oauth("https://api.twitter.com/1.1/friends/ids.json", setindex!(options, "$screen_name", "screen_name"))
+    r = get_oauth("https://api.twitter.com/1.1/friends/ids.json", options)
 
 end
 
-function get_followers_ids(screen_name::String; options = Dict())
+function get_followers_ids(; options = Dict())
     
-    r = get_oauth("https://api.twitter.com/1.1/followers/ids.json", setindex!(options, "$screen_name", "screen_name"))
+    r = get_oauth("https://api.twitter.com/1.1/followers/ids.json", options)
 
 end
 
@@ -58,14 +58,14 @@ function get_friendships_show( ; options = Dict())
 
 end
 
-function get_friends_list(screen_name::String; options = Dict())
+function get_friends_list(; options = Dict())
     
-    r = get_oauth("https://api.twitter.com/1.1/friends/list.json", setindex!(options, "$screen_name", "screen_name"))
+    r = get_oauth("https://api.twitter.com/1.1/friends/list.json", options)
 
 end
 
-function get_followers_list(screen_name::String; options = Dict())
+function get_followers_list(; options = Dict())
     
-    r = get_oauth("https://api.twitter.com/1.1/followers/list.json", setindex!(options, "$screen_name", "screen_name"))
+    r = get_oauth("https://api.twitter.com/1.1/followers/list.json", options)
 
 end

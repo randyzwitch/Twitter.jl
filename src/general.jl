@@ -71,8 +71,9 @@ end
 
 #General function for OAuth authenticated GET request
 function get_oauth(endpoint, options)
+
     #URI encode values for all keys in Dict
-    #encodeURI(options)
+    encodeURI(options)
 
     #Build query string
     query_str = Requests.format_query_str(options)
@@ -80,8 +81,11 @@ function get_oauth(endpoint, options)
     #Build oauth_header
     oauth_header_val = oauthheader("GET", endpoint, options)
     
-    return Requests.get(URI("$(endpoint)?$query_str"); 
+    r = Requests.get(URI("$(endpoint)?$query_str"); 
                     headers = {"Content-Type" => "application/x-www-form-urlencoded",
                     "Authorization" => oauth_header_val,
                     "Accept" => "*/*"})
+
+    return JSON.parse(r.data)
+
 end

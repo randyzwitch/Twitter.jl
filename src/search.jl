@@ -6,24 +6,10 @@
 
 function get_search_tweets(q::String; options = Dict())
     
-    endpoint = "https://api.twitter.com/1.1/search/tweets.json"
-    
-    #Add status into options Dict
+    #Add required parameter(s) to options dict
     options["q"] = q
 
-    #URI encode values for all keys in Dict
-    encodeURI(options)
-
-    #Build query string
-    query_str = Requests.format_query_str(options)
-    
-    #Build oauth_header
-    oauth_header_val = oauthheader("GET", endpoint, options)
-    
-    r = Requests.get(URI("$(endpoint)?$query_str");  
-                    headers = {"Content-Type" => "application/x-www-form-urlencoded",
-                    "Authorization" => oauth_header_val,
-                    "Connection" => "close",
-                    "Accept" => "*/*"})
+    r = get_oauth("https://api.twitter.com/1.1/search/tweets.json", options)
 
 end
+

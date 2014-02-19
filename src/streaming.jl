@@ -15,7 +15,7 @@ function get_streaming_sample(; options = Dict())
 end
 
 function get_firehose()
-	error("This method requires special Twitter permission. If you have that, you can write this function.")
+	error("This method requires special Twitter permission. If you have that special permission, write this function and submit a PR.")
 end
 
 function get_user_streaming(; options = Dict())
