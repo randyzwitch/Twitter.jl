@@ -8,11 +8,15 @@ function get_lists(; options = Dict())
     
     r = get_oauth("https://api.twitter.com/1.1/lists/list.json", options)
 
+    return to_LISTS(r)
+
 end
 
 function get_lists_statuses(; options = Dict())
 	
 	r = get_oauth("https://api.twitter.com/1.1/lists/statuses.json", options)
+
+	return to_TWEETS(r)
 
 end
 
@@ -24,11 +28,15 @@ function get_lists_memberships(; options = Dict())
     
     r = get_oauth("https://api.twitter.com/1.1/lists/memberships.json", options)
 
+    return to_LISTS(r["lists"])
+
 end
 
 function get_lists_subscribers(; options = Dict())
 	
 	r = get_oauth("https://api.twitter.com/1.1/lists/subscribers.json", options)
+
+	return to_USERS(r["users"])
 
 end
 

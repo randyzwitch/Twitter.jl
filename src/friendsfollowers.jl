@@ -62,10 +62,16 @@ function get_friends_list(; options = Dict())
     
     r = get_oauth("https://api.twitter.com/1.1/friends/list.json", options)
 
+    #Return users array
+    return to_USERS(r["users"])
+
 end
 
 function get_followers_list(; options = Dict())
     
     r = get_oauth("https://api.twitter.com/1.1/followers/list.json", options)
+
+    #Return users array
+    return to_USERS(r["users"])
 
 end

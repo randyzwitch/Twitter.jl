@@ -68,7 +68,6 @@ export  get_direct_messages,
         get_lists_subscriptions,
         post_lists_members_destroyall,
         get_lists_ownerships,
-        parse_response,
         get_saved_searches_list,
         get_saved_searches_show_id,
         post_saved_searches_create,
@@ -102,6 +101,7 @@ export  get_direct_messages,
         TWEETS,
         USERS,
         PLACES,
+        LISTS,
         get_account_settings,
         get_verify_credentials,
         post_account_settings,
@@ -127,7 +127,10 @@ export  get_direct_messages,
         post_oauth_access_token,
         post_oauth_request_token,
         post_oauth2_token,
-        post_oauth2_invalidate_token
+        post_oauth2_invalidate_token,
+        to_TWEETS,
+        to_USERS,
+        to_LISTS
 
 ##############################################################################
 ##

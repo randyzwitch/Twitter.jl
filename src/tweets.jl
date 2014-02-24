@@ -8,6 +8,9 @@ function get_retweets_id(id::String; options = Dict())
 	
     r = get_oauth("https://api.twitter.com/1.1/statuses/retweets/$(id).json", options)
 
+    #Return array of type TWEETS
+    return to_TWEETS(r)
+
 end
 
 function get_single_tweet_id(id::String; options = Dict())
@@ -16,6 +19,9 @@ function get_single_tweet_id(id::String; options = Dict())
     options["id"] = id
 
     r = get_oauth("https://api.twitter.com/1.1/statuses/show.json", options)
+
+    #Return array of type TWEETS
+    return to_TWEETS(r)
 
 end
 
@@ -38,12 +44,17 @@ function post_status_update(status::String; options = Dict())
     #Build oauth_header
     oauth_header_val = oauthheader("POST", endpoint, options)
     
-    return Requests.post(URI(endpoint), 
+    r = Requests.post(URI(endpoint), 
                     "status=$(options["status"])", 
                     {"Content-Type" => "application/x-www-form-urlencoded",
                     "Authorization" => oauth_header_val,
                     "Connection" => "close",
                     "Accept" => "*/*"})
+
+    json = JSON.parse(r.data)
+
+    #Return array of type TWEETS
+    return to_TWEETS(json)
     
 end
 
@@ -57,14 +68,16 @@ end
 
 function get_oembed(; options = Dict())
 
+    #Returns HTML code for embedding, leave as Dict instead of custom type
     r = get_oauth("https://api.twitter.com/1.1/statuses/oembed.json", options)
     
 end
 
 function get_retweeters_id(id::String; options = Dict())
     
-    #This returns an error for some reason
-    #["errors"=>{["message"=>"Bad request.","code"=>214]}]
+    #Add required parameter(s) to options dict
+    options["id"] = id
 
+    #Return a Dict for now, only useful data value is array of ids
 	r = get_oauth("https://api.twitter.com/1.1/statuses/retweeters/ids.json", options)
 end

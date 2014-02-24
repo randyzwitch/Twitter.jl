@@ -11,6 +11,9 @@ function get_mentions_timeline(; options = Dict())
 
 	r = get_oauth("https://api.twitter.com/1.1/statuses/mentions_timeline.json", options)
 
+    #Return array of type TWEETS
+    return to_TWEETS(r)
+
 end
 
 function get_user_timeline(; options = Dict())
@@ -19,6 +22,9 @@ function get_user_timeline(; options = Dict())
     #TODO: Incorporate paging to retrieve all 3200 max tweets, as well as warning message for trying to retrieve too many
     
     r = get_oauth("https://api.twitter.com/1.1/statuses/user_timeline.json", options)
+
+    #Return array of type TWEETS
+    return to_TWEETS(r)
 
 end
 
@@ -29,6 +35,9 @@ function get_home_timeline(; options = Dict())
     
     r = get_oauth("https://api.twitter.com/1.1/statuses/home_timeline.json", options)
 
+    #Return array of type TWEETS
+    return to_TWEETS(r)
+
 end
 
 function get_retweets_of_me(; options = Dict())
@@ -37,5 +46,8 @@ function get_retweets_of_me(; options = Dict())
     #I think you can request 100 in one shot, no need for paging
 
     r = get_oauth("https://api.twitter.com/1.1/statuses/retweets_of_me.json", options)
+
+    #Return array of type TWEETS
+    return to_TWEETS(r)
 
 end

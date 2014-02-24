@@ -104,3 +104,20 @@ type PLACES
     place_type
     url
 end
+
+#Lists response object
+type LISTS
+    created_at
+    description
+    following
+    full_name    
+    id 
+    id_str
+    member_count
+    mode
+    name
+    slug
+    subscriber_count
+    uri             
+    user            
+end

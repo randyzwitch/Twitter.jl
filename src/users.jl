@@ -14,6 +14,8 @@ function get_verify_credentials(; options = Dict())
 
     r = get_oauth("https://api.twitter.com/1.1/account/verify_credentials.json", options)
 
+    return to_USERS(r)
+
 end
 
 function post_account_settings()
@@ -44,6 +46,8 @@ function get_blocks_list(; options = Dict())
 
     r = get_oauth("https://api.twitter.com/1.1/blocks/list.json", options)
 
+    return to_USERS(r["users"])
+
 end
 
 function get_blocks_ids(; options = Dict())
@@ -64,17 +68,26 @@ function get_users_lookup(; options = Dict())
 	
 	r = get_oauth("https://api.twitter.com/1.1/users/lookup.json", options)
 
+	return to_USERS(r)
+
 end
 
 function get_users_show(; options = Dict())
 	
 	r = get_oauth("https://api.twitter.com/1.1/users/show.json", options)
 
+	return to_USERS(r)
+
 end
 
 function get_users_search(q::String; options = Dict())
+
+	#Add required parameter(s) to options dict
+	options["q"] = q
     
-    r = get_oauth("https://api.twitter.com/1.1/users/search.json", setindex!(options, "$q", "q"))
+    r = get_oauth("https://api.twitter.com/1.1/users/search.json", options)
+
+    return to_USERS(r)
 
 end
 
@@ -82,11 +95,15 @@ function get_users_contributees(; options = Dict())
     
     r = get_oauth("https://api.twitter.com/1.1/users/contributees.json", options)
 
+    return to_USERS(r)
+
 end
 
 function get_users_contributors(; options = Dict())
     
     r = get_oauth("https://api.twitter.com/1.1/users/contributors.json", options)
+
+    return to_USERS(r)
 
 end
 
