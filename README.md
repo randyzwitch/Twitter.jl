@@ -6,7 +6,7 @@ Twitter.jl is a Julia package to work with the Twitter API v1.1.
 
 ##Twitter.jl API
 
-While in development, most function calls will return one long string of JSON as a Julia `Dict`. It is planned to write parsers for each type of call to return either JSON or a DataFrame.
+While in development, most function calls will return one long string of JSON as a Julia `Dict` or a typed Array. It is planned to define DataFrame methods where feasible.
 
 Also note that the API is subject to change at will until this package is regestered on METADATA.
 
@@ -35,14 +35,15 @@ Everything, including:
 POST calls:
 - Working API calls for remaining POST methods
 - Make POST functions incorporate options Dict to build request URI
-- Refactor code OAuth-post generic call
+- Refactor code into OAuth-post generic call
 
 GENERAL:
-- Wrap return functions for types to make sure a valid response was returned first
-- Incorporate cursoring for methods returning many pages of results - MOST IMPORTANT TO SOLVE
-- Add proper field types to TWEETS, USERS and PLACES custom types
-- Parser for returned data/custom types into DataFrame
-- Keyword arguments (or just DataFrame methods) for type of data structure desired as returned object
+- Incorporate cursoring for methods returning many pages of results (MOST IMPORTANT TO SOLVE)
+- Create COORDINATES, ENTITIES type
+- Add proper field types to COORDINATES, ENTITIES custom types
+- DataFrame methods for returned data/custom types
+- Wrap return with logic to check that a valid response was returned first
+- Keyword arguments for returning DataFrame (to remove step in )
 - Make interface more Julian, clean up any oddities
 - Ability to save authentication keys to file, remove need for authentication each time
 - Create Read The Docs documentation

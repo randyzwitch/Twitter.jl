@@ -66,6 +66,8 @@ function get_lists_members(; options = Dict())
 	
 	r = get_oauth("https://api.twitter.com/1.1/lists/members.json", options)
 
+	return to_USERS(r["users"])
+
 end
 
 function post_lists_members_create()
@@ -88,11 +90,15 @@ function get_lists_show(; options = Dict())
 	
 	r = get_oauth("https://api.twitter.com/1.1/lists/show.json", options)
 
+	return to_LISTS(r)
+
 end
 
 function get_lists_subscriptions(; options = Dict())
 	
 	r = get_oauth("https://api.twitter.com/1.1/lists/subscriptions.json", options)
+
+	return to_LISTS(r["lists"])
 
 end
 
@@ -103,5 +109,7 @@ end
 function get_lists_ownerships(; options = Dict())
 	
 	r = get_oauth("https://api.twitter.com/1.1/lists/ownerships.json", options)
+
+	return to_LISTS(r["lists"])
 
 end

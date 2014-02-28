@@ -130,7 +130,8 @@ export  get_direct_messages,
         post_oauth2_invalidate_token,
         to_TWEETS,
         to_USERS,
-        to_LISTS
+        to_LISTS,
+        to_PLACES
 
 ##############################################################################
 ##
