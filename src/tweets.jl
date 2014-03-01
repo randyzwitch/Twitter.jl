@@ -25,41 +25,34 @@ function get_single_tweet_id(id::String; options = Dict())
 
 end
 
-function post_destroy_single_tweet_id()
-	error("Twitter API not fully implemented")
+function post_destroy_single_tweet_id(id::String; options = Dict())
+	
+    r = post_oauth("https://api.twitter.com/1.1/statuses/destroy/$(id).json", options)
+
+    #Return array of type TWEETS
+    return to_TWEETS(r)
+
 end
 
-#Need to make this more generalized using options keyword argument
-#Currently, function doesn't actually accept options, just status
 function post_status_update(status::String; options = Dict())
-    
-    endpoint = "https://api.twitter.com/1.1/statuses/update.json"
     
     #Add status into options Dict
     options["status"] = status
 
-    #URI encode values for all keys in Dict
-    encodeURI(options)
-    
-    #Build oauth_header
-    oauth_header_val = oauthheader("POST", endpoint, options)
-    
-    r = Requests.post(URI(endpoint), 
-                    "status=$(options["status"])", 
-                    {"Content-Type" => "application/x-www-form-urlencoded",
-                    "Authorization" => oauth_header_val,
-                    "Connection" => "close",
-                    "Accept" => "*/*"})
-
-    json = JSON.parse(r.data)
+    r = post_oauth("https://api.twitter.com/1.1/statuses/update.json", options)
 
     #Return array of type TWEETS
-    return to_TWEETS(json)
+    return to_TWEETS(r)
     
 end
 
-function post_status_retweet_id()
-	error("Twitter API not fully implemented")
+function post_status_retweet_id(id::String; options = Dict())
+
+    r = post_oauth("https://api.twitter.com/1.1/statuses/retweet/$(id).json", options)
+
+    #Return array of type TWEETS
+    return to_TWEETS(r)
+
 end
 
 function post_status_update_media()
@@ -80,4 +73,5 @@ function get_retweeters_id(id::String; options = Dict())
 
     #Return a Dict for now, only useful data value is array of ids
 	r = get_oauth("https://api.twitter.com/1.1/statuses/retweeters/ids.json", options)
+
 end

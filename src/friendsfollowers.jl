@@ -22,37 +22,49 @@ function get_followers_ids(; options = Dict())
 
 end
 
-function get_friendships_lookup( ; options = Dict())
+function get_friendships_lookup(; options = Dict())
 	
 	r = get_oauth("https://api.twitter.com/1.1/friendships/lookup.json", options)
 
 end
 
-function get_friendships_incoming( ; options = Dict())
+function get_friendships_incoming(; options = Dict())
 	
 	r = get_oauth("https://api.twitter.com/1.1/friendships/incoming.json", options)
 
 end
 
-function get_friendships_outgoing( ; options = Dict())
+function get_friendships_outgoing(; options = Dict())
 	
 	r = get_oauth("https://api.twitter.com/1.1/friendships/outgoing.json", options)
 
 end
 
-function post_friendships_create()
-	error("Twitter API not fully implemented")
+function post_friendships_create(; options = Dict())
+
+    r = post_oauth("https://api.twitter.com/1.1/friendships/create.json", options)
+
+    #Return array of type USERS
+    return to_USERS(r)
+
 end
 
-function post_friendships_destroy()
-	error("Twitter API not fully implemented")
+function post_friendships_destroy(; options = Dict())
+	
+	r = post_oauth("https://api.twitter.com/1.1/friendships/destroy.json", options)
+
+    #Return array of type USERS
+    return to_USERS(r)
+
 end
 
-function post_friendships_update()
-	error("Twitter API not fully implemented")
+function post_friendships_update(; options = Dict())
+	
+	r = post_oauth("https://api.twitter.com/1.1/friendships/destroy.json", options)
+
 end
 
-function get_friendships_show( ; options = Dict())
+function get_friendships_show(; options = Dict())
 	
 	r = get_oauth("https://api.twitter.com/1.1/friendships/show.json", options)
 

@@ -26,19 +26,22 @@ get_retweets_by_id = get_retweets_id("434685122671939584")
 #Get single tweet by id number
 get_tweet_by_id = get_single_tweet_id("434685122671939584") 
 
-#post_destroy_single_tweet_id
+#Remove a tweet by a specific id
+remove_tweet = post_destroy_single_tweet_id("439427946487742465")
 
 #Post a status update to Twitter 
 status_update = post_status_update("I can't believe it snowed today, then is now 45 degrees and all the snow is gone. Strange times.")
 
-#post_status_retweet_id
+#Retweet someone based on id
+retweet = post_status_retweet_id("439428476106702848")
 
 #post_status_update_media
 
 #Get embedded tweet code: either "id" or "url" required by API, passed in through options Dict in Julia
 get_embedded_tweet_code = get_oembed(; options = {"id" => "434685122671939584"})
 
-#get_retweeters_id
+#Get ids for people who retweeted a given status
+retweeters_ids = get_retweeters_id("431782228826550272")
 
 ############################################## search.jl ##########################################
 
@@ -68,9 +71,11 @@ dm_sent = get_direct_messages_sent()
 #Get single direct message received
 get_single_dm = get_direct_messages_show("435234003939905536")
 
-#post_direct_messages_destroy
+#Delete a received DM
+destroy = post_direct_messages_destroy("438517039385178113")
 
-#post_direct_messages_send
+#Send DM to a user
+send_dm = post_direct_messages_send("Testing from Julia, this might disappear later"; options = {"screen_name" => "jowanza"})
 
 ############################################## friendsfollowers.jl ################################
 
@@ -92,11 +97,14 @@ pending_friendships_incoming = get_friendships_incoming()
 #Get list of pending requests by authenticated user outstanding
 pending_friendships_outgoing = get_friendships_outgoing()
 
-#post_friendships_create
+#Follow a user
+add_friend = post_friendships_create(; options = {"screen_name" => "kyrieirving"})
 
-#post_friendships_destroy
+#Unfollow a user
+unfollow = post_friendships_destroy(; options = {"screen_name" => "kyrieirving"})
 
-#post_friendships_update
+#Enable/disable retweets and device updates from specified user
+friend_update = post_friendships_update(; options = {"screen_name" => "jowanza", "retweets" => "true", "device" => "false"})
 
 #Get friendship details between any two arbitrary users
 detailed_info_two_users = get_friendships_show(; options = {"source_screen_name" => "randyzwitch", "target_screen_name" => "usujason"})
@@ -115,17 +123,23 @@ settings = get_account_settings();
 #Verify credentials
 verify_cred = get_verify_credentials()
 
-#post_account_settings
+#Change account settings
+change_settings = post_account_settings(; options = {"lang" => "en", "sleep_time_enabled" => "false"})
 
-#post_update_delivery_device
+#Allow for SMS or regular notifications from Twitter
+update_delivery = post_update_delivery_device("sms")
 
-#post_update_profile
+#Update profile information
+update_profile = post_update_profile(; options = {"name" => "Julia Twitter User"})
 
-#post_update_profile_background
+#Update picture background
+update_background = post_update_profile_background(; options = {"tile" => "true"})
 
-#post_update_profile_colors
+#Update profile colors
+update_colors = post_update_profile_colors(; options = {"profile_background_color" => "3D3D3D", "profile_link_color" => "0000FF"})
 
-#post_update_profile_image
+#Update profile image
+update_image = post_update_profile_image(; options = {"image" => "ABCDEFGH..."})
 
 #Get list of users authenticated user is blocking
 blocked_users = get_blocks_list()
@@ -133,9 +147,11 @@ blocked_users = get_blocks_list()
 #Get list of ids blocked by authenticated user
 blocked_ids = get_blocks_ids()
 
-#post_blocks_create
+#Block a user
+block_a_user = post_blocks_create(; options = {"screen_name" => "BandonDunesGolf"})
 
-#post_blocks_destroy
+#Unblock a user
+unblock_a_user = post_blocks_destroy(; options = {"screen_name" => "BandonDunesGolf"})
 
 #Get information about specific users
 multiple_user_info = get_users_lookup(; options = {"screen_name" => "kyrieirving, jpiz1"})
@@ -152,9 +168,11 @@ contributees = get_users_contributees(; options = {"screen_name" => "randyzwitch
 #Get users that can contribute to the authenticated account
 contributors = get_users_contributors(; options = {"screen_name" => "randyzwitch"})
 
-#post_account_remove_profile_banner
+#Remove profile banner
+remove_banner = post_account_remove_profile_banner()
 
 #post_account_update_profile_banner
+add_banner = post_account_update_profile_banner("base64_banner_data"; options = {"width" => "1040", "height" => "520"})
 
 #Get profile banner
 profile_banner = get_profile_banner(; options = {"screen_name" => "randyzwitch"})

@@ -31,7 +31,7 @@ type USERS
     created_at::Union(String, Nothing)
     default_profile::Union(Bool, Nothing)
     default_profile_image::Union(Bool, Nothing)
-    description::Union(UTF8String, Nothing)
+    description::Union(String, Nothing)
     entities::Union(Dict, Nothing)
     favourites_count::Union(Int, Nothing)
     follow_request_sent::Union(Bool, Nothing)

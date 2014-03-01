@@ -34,16 +34,14 @@ Everything, including:
 
 POST calls:
 - Working API calls for remaining POST methods
-- Make POST functions incorporate options Dict to build request URI
-- Refactor code into OAuth-post generic call
 
 GENERAL:
+- Figure out how to do streaming function calls (IOStream?)
 - Incorporate cursoring for methods returning many pages of results (MOST IMPORTANT TO SOLVE)
-- Create COORDINATES, ENTITIES type
-- Add proper field types to COORDINATES, ENTITIES custom types
+- Create COORDINATES, ENTITIES type, add proper field types (Is this really necessary?)
 - DataFrame methods for returned data/custom types
 - Wrap return with logic to check that a valid response was returned first
-- Keyword arguments for returning DataFrame (to remove step in )
+- Keyword arguments for returning DataFrame (to remove step in data retrieval process)
 - Make interface more Julian, clean up any oddities
 - Ability to save authentication keys to file, remove need for authentication each time
 - Create Read The Docs documentation

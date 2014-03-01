@@ -70,7 +70,7 @@ function oauthheader(httpmethod::String, baseurl::String, options::Dict)
 end
 
 #General function for OAuth authenticated GET request
-function get_oauth(endpoint, options)
+function get_oauth(endpoint::String, options::Dict)
 
     #URI encode values for all keys in Dict
     encodeURI(options)
@@ -88,4 +88,26 @@ function get_oauth(endpoint, options)
 
     return JSON.parse(r.data)
 
+end
+
+#General function for OAuth authenticated POST request
+function post_oauth(endpoint::String, options::Dict)
+    
+    #URI encode values for all keys in Dict
+    encodeURI(options)
+
+    #Build query string
+    query_str = Requests.format_query_str(options)
+    
+    #Build oauth_header
+    oauth_header_val = oauthheader("POST", endpoint, options)
+    
+    r = Requests.post(URI(endpoint), 
+                    query_str, 
+                    {"Content-Type" => "application/x-www-form-urlencoded",
+                    "Authorization" => oauth_header_val,
+                    "Accept" => "*/*"})
+    
+    return JSON.parse(r.data)
+    
 end
