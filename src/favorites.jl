@@ -12,10 +12,24 @@ function get_favorites_list(; options = Dict())
 
 end
 
-function post_favorites_destroy()
-	error("Twitter API not fully implemented")
+function post_favorites_destroy(id::String; options = Dict())
+	
+	options["id"] = id
+
+    r = post_oauth("https://api.twitter.com/1.1/favorites/destroy.json", options)
+
+    #Return array of type TWEETS
+    return to_TWEETS(r)
+
 end
 
-function post_favorites_create()
-	error("Twitter API not fully implemented")
+function post_favorites_create(id::String; options = Dict())
+	
+	options["id"] = id
+
+    r = post_oauth("https://api.twitter.com/1.1/favorites/create.json", options)
+
+    #Return array of type TWEETS
+    return to_TWEETS(r)
+
 end

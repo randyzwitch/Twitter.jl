@@ -193,9 +193,11 @@ members_suggested_category = get_user_suggestions_slug_members("sochi")
 #Get favorites list for authenticated user (when no arguments are specified)
 favorites_auth_user = get_favorites_list()
 
-#post_favorites_destroy
+#Unfavorite a tweet
+unfavorite_tweet = post_favorites_destroy("439089844468588544")
 
-#post_favorites_create
+#Favorite a tweet
+favorite_tweet = post_favorites_create("439801028910010369")
 
 ############################################## lists.jl ###########################################
 
@@ -205,7 +207,8 @@ lists_subscribed_to = get_lists()
 #Get tweets for a given list id
 tweets_given_list = get_lists_statuses(options = {"list_id" => "4300970"})
 
-#post_lists_members_destroy
+#Remove a member from a list
+remove_user = post_lists_members_destroy(; options = {"owner_screen_name" => "randyzwitch", "slug" => "julia-users", "screen_name" => "viralbshah"}) 
 
 #Get lists which user has been added to
 list_adds = get_lists_memberships(options = {"screen_name" => "randyzwitch"})
@@ -213,27 +216,35 @@ list_adds = get_lists_memberships(options = {"screen_name" => "randyzwitch"})
 #Get subscribers of a certain list id
 list_subscribers = get_lists_subscribers(options = {"list_id" => "4300970"})
 
-#post_lists_subscribers_create
+#Subscribe authenticated user to list
+subscribe_list = post_lists_subscribers_create(; options = {"list_id" => "4300970"})
 
 #Check if user is subscribed to a list
 check_user_subscriber = get_lists_subscribers_show(options = {"list_id" => "4300970", "screen_name" => "randyzwitch"})
 
-#post_lists_subscribers_destroy
+#Unsubscribe authenticated user from list
+unsub_list = post_lists_subscribers_destroy(; options = {"owner_screen_name" => "nduley", "slug" => "omniture-webanalytics"})
 
-#post_lists_members_createall
+#Add multiple users to list; no spaces allowed in list of screen_names
+multiple_create = post_lists_members_createall(; options = {"owner_screen_name" => "randyzwitch", "slug" => "julia-users", "screen_name" => "stefankarpinski,viral_b_shah,jowanza"}) 
 
-#post_lists_members_show
+#Check if a member is a member of a specific list
+mem_show = get_lists_members_show(; options = {"owner_screen_name" => "randyzwitch", "slug" => "julia-users", "screen_name" => "johnmyleswhite"})
 
 #Get members of a list
 list_members = get_lists_members(options = {"list_id" => "4300970"})
 
-#post_lists_members_create
+#Add single user to list
+add_one_user = post_lists_members_create(; options = {"owner_screen_name" => "randyzwitch", "slug" => "julia-users", "screen_name" => "johnmyleswhite"}) 
 
-#post_lists_destroy
+#Delete a list
+destroy = post_lists_destroy(; options = {"owner_screen_name" => "randyzwitch", "slug" => "julia-folks"})
 
-#post_lists_update
+#Update characteristics of a list
+update_list = post_lists_update(; options = {"list_id" => "106887912", "name" => "julia folks"})
 
-#post_lists_create
+#Create a new list owned by authenticated user
+create_list = post_lists_create("julia users")
 
 #Get specified list
 get_list = get_lists_show(options = {"list_id" => "4300970"})
@@ -241,10 +252,11 @@ get_list = get_lists_show(options = {"list_id" => "4300970"})
 #Get lists a user is subscribed to
 get_list_subs = get_lists_subscriptions(options = {"screen_name" => "randyzwitch"})
 
-#post_lists_members_destroyall
+#Remove multiple members from a list
+remove_multiple = post_lists_members_destroyall(;options = {"owner_screen_name" => "randyzwitch", "slug" => "julia-users", "screen_name" => "johnmyleswhite,jowanza"})
 
 #Get lists user owns
-get_lists_ownerships(options = {"screen_name" => "nduley"})
+owned_lists = get_lists_ownerships(options = {"screen_name" => "nduley"})
 
 ############################################## savedsearches.jl ###################################
 
