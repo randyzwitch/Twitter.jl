@@ -44,9 +44,3 @@ function get_geo_similar_places(lat::String, long::String, name::String; options
 	return to_PLACES(r["result"]["places"])
 
 end
-
-function post_geo_place()
-	error("Twitter API not fully implemented")
-end
-
-

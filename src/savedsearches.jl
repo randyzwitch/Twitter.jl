@@ -17,10 +17,16 @@ function get_saved_searches_show_id(id::String; options = Dict())
 
 end
 
-function post_saved_searches_create()
-	error("Twitter API not fully implemented")
+function post_saved_searches_create(query::String; options = Dict())
+	
+	options["query"] = query
+
+    r = post_oauth("https://api.twitter.com/1.1/saved_searches/create.json", options)
+
 end
 
-function post_saved_searches_destroy_id()
-	error("Twitter API not fully implemented")
+function post_saved_searches_destroy_id(id::String; options = Dict())
+	
+	r = post_oauth("https://api.twitter.com/1.1/saved_searches/destroy/$(id).json", options)
+
 end

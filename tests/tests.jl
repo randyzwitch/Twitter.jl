@@ -266,9 +266,11 @@ saved_searches = get_saved_searches_list()
 #Get info about saved search by id
 saved_search_info = get_saved_searches_show_id("23777812")
 
-#post_saved_searches_create
+#Create a saved search
+create_saved_search = post_saved_searches_create("#julialang")
 
-#post_saved_searches_destroy_id
+#Remove a saved search by id
+remove_saved_search = post_saved_searches_destroy_id("315945769")
 
 ############################################## geo.jl #############################################
 
@@ -284,8 +286,6 @@ search_for_places = get_geo_search(options = {"ip" => "74.125.19.104"})
 #Get places near a given location
 similar_places = get_geo_similar_places("37.7821120598956", "-122.400612831116", "Twitter HQ")
 
-#post_geo_place
-
 ############################################## trends.jl ##########################################
 
 #Get trends based on a certain WOEID
@@ -299,7 +299,8 @@ close_trends = get_trends_closest("37.781157", "-122.400612831116")
 
 ############################################## spam.jl ############################################
 
-#post_users_report_spam
+#Report a user as a spammer (also blocks user for authenticated user)
+report_spammer = post_users_report_spam(; options = {"screen_name" => "TEAMF0LL0W"})
 
 ############################################## oauth.jl ###########################################
 
