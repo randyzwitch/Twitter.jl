@@ -4,7 +4,7 @@
 #
 #############################################################
 
-function get_mentions_timeline(; options = Dict())
+function get_mentions_timeline(; options=Dict{String, String}())
 
 	#TODO: This method can only return 800 tweets maximum, 200 at a time
 	#TODO: Incorporate paging to retrieve all 800 tweets, as well as warning message for trying to retrieve too many 
@@ -16,7 +16,7 @@ function get_mentions_timeline(; options = Dict())
 
 end
 
-function get_user_timeline(; options = Dict())
+function get_user_timeline(; options=Dict{String, String}())
     
     #TODO: Warning/Error message that a screen_name or user_id must be specified for each function call
     #TODO: Incorporate paging to retrieve all 3200 max tweets, as well as warning message for trying to retrieve too many
@@ -28,7 +28,7 @@ function get_user_timeline(; options = Dict())
 
 end
 
-function get_home_timeline(; options = Dict())
+function get_home_timeline(; options=Dict{String, String}())
 
 	#TODO: This method can only return 800 tweets maximum, 200 at a time
 	#TODO: Incorporate paging to retrieve all 800 tweets, as well as warning message for trying to retrieve too many 
@@ -40,7 +40,7 @@ function get_home_timeline(; options = Dict())
 
 end
 
-function get_retweets_of_me(; options = Dict())
+function get_retweets_of_me(; options=Dict{String, String}())
     
     #TODO: Warning message if count > 100
     #I think you can request 100 in one shot, no need for paging

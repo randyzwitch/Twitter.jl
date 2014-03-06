@@ -4,7 +4,7 @@
 #
 #############################################################
 
-function get_retweets_id(id::String; options = Dict())
+function get_retweets_id(id::String; options=Dict{String, String}())
 	
     r = get_oauth("https://api.twitter.com/1.1/statuses/retweets/$(id).json", options)
 
@@ -13,7 +13,7 @@ function get_retweets_id(id::String; options = Dict())
 
 end
 
-function get_single_tweet_id(id::String; options = Dict())
+function get_single_tweet_id(id::String; options=Dict{String, String}())
 	
     #Add required parameter(s) to options dict
     options["id"] = id
@@ -25,7 +25,7 @@ function get_single_tweet_id(id::String; options = Dict())
 
 end
 
-function post_destroy_single_tweet_id(id::String; options = Dict())
+function post_destroy_single_tweet_id(id::String; options=Dict{String, String}())
 	
     r = post_oauth("https://api.twitter.com/1.1/statuses/destroy/$(id).json", options)
 
@@ -34,7 +34,7 @@ function post_destroy_single_tweet_id(id::String; options = Dict())
 
 end
 
-function post_status_update(status::String; options = Dict())
+function post_status_update(status::String; options=Dict{String, String}())
     
     #Add status into options Dict
     options["status"] = status
@@ -46,7 +46,7 @@ function post_status_update(status::String; options = Dict())
     
 end
 
-function post_status_retweet_id(id::String; options = Dict())
+function post_status_retweet_id(id::String; options=Dict{String, String}())
 
     r = post_oauth("https://api.twitter.com/1.1/statuses/retweet/$(id).json", options)
 
@@ -59,14 +59,14 @@ function post_status_update_media()
 	error("Twitter API not fully implemented")
 end
 
-function get_oembed(; options = Dict())
+function get_oembed(; options=Dict{String, String}())
 
     #Returns HTML code for embedding, leave as Dict instead of custom type
     r = get_oauth("https://api.twitter.com/1.1/statuses/oembed.json", options)
     
 end
 
-function get_retweeters_id(id::String; options = Dict())
+function get_retweeters_id(id::String; options=Dict{String, String}())
     
     #Add required parameter(s) to options dict
     options["id"] = id

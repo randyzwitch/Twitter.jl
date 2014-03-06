@@ -4,7 +4,7 @@
 #
 #############################################################
 
-function get_lists(; options = Dict())
+function get_lists(; options=Dict{String, String}())
     
     r = get_oauth("https://api.twitter.com/1.1/lists/list.json", options)
 
@@ -12,7 +12,7 @@ function get_lists(; options = Dict())
 
 end
 
-function get_lists_statuses(; options = Dict())
+function get_lists_statuses(; options=Dict{String, String}())
 	
 	r = get_oauth("https://api.twitter.com/1.1/lists/statuses.json", options)
 
@@ -20,7 +20,7 @@ function get_lists_statuses(; options = Dict())
 
 end
 
-function post_lists_members_destroy(; options = Dict())
+function post_lists_members_destroy(; options=Dict{String, String}())
 	
 	r = post_oauth("https://api.twitter.com/1.1/lists/members/destroy.json", options)
 
@@ -28,7 +28,7 @@ function post_lists_members_destroy(; options = Dict())
 
 end
 
-function get_lists_memberships(; options = Dict())
+function get_lists_memberships(; options=Dict{String, String}())
     
     r = get_oauth("https://api.twitter.com/1.1/lists/memberships.json", options)
 
@@ -36,7 +36,7 @@ function get_lists_memberships(; options = Dict())
 
 end
 
-function get_lists_subscribers(; options = Dict())
+function get_lists_subscribers(; options=Dict{String, String}())
 	
 	r = get_oauth("https://api.twitter.com/1.1/lists/subscribers.json", options)
 
@@ -44,7 +44,7 @@ function get_lists_subscribers(; options = Dict())
 
 end
 
-function post_lists_subscribers_create(; options = Dict())
+function post_lists_subscribers_create(; options=Dict{String, String}())
 
     r = post_oauth("https://api.twitter.com/1.1/lists/subscribers/create.json", options)
 
@@ -52,13 +52,13 @@ function post_lists_subscribers_create(; options = Dict())
 
 end
 
-function get_lists_subscribers_show(; options = Dict())
+function get_lists_subscribers_show(; options=Dict{String, String}())
 	
 	r = get_oauth("https://api.twitter.com/1.1/lists/subscribers/show.json", options)
 
 end
 
-function post_lists_subscribers_destroy(; options = Dict())
+function post_lists_subscribers_destroy(; options=Dict{String, String}())
 	
 	r = post_oauth("https://api.twitter.com/1.1/lists/subscribers/destroy.json", options)
 
@@ -66,7 +66,7 @@ function post_lists_subscribers_destroy(; options = Dict())
 
 end
 
-function post_lists_members_createall(; options = Dict())
+function post_lists_members_createall(; options=Dict{String, String}())
 	
 	r = post_oauth("https://api.twitter.com/1.1/lists/members/create_all.json", options)
 
@@ -74,7 +74,7 @@ function post_lists_members_createall(; options = Dict())
 
 end
 
-function get_lists_members_show(; options = Dict())
+function get_lists_members_show(; options=Dict{String, String}())
 	
 	r = get_oauth("https://api.twitter.com/1.1/lists/members/show.json", options)
 
@@ -82,7 +82,7 @@ function get_lists_members_show(; options = Dict())
 
 end
 
-function get_lists_members(; options = Dict())
+function get_lists_members(; options=Dict{String, String}())
 	
 	r = get_oauth("https://api.twitter.com/1.1/lists/members.json", options)
 
@@ -90,14 +90,14 @@ function get_lists_members(; options = Dict())
 
 end
 
-function post_lists_members_create(; options = Dict())
+function post_lists_members_create(; options=Dict{String, String}())
 	
 	r = post_oauth("https://api.twitter.com/1.1/lists/members/create.json", options)
 
 	return to_LISTS(r)
 end
 
-function post_lists_destroy(; options = Dict())
+function post_lists_destroy(; options=Dict{String, String}())
 	
 	r = post_oauth("https://api.twitter.com/1.1/lists/destroy.json", options)
 
@@ -105,7 +105,7 @@ function post_lists_destroy(; options = Dict())
 
 end
 
-function post_lists_update(; options = Dict())
+function post_lists_update(; options=Dict{String, String}())
 	
 	r = post_oauth("https://api.twitter.com/1.1/lists/update.json", options)
 
@@ -113,7 +113,7 @@ function post_lists_update(; options = Dict())
 
 end
 
-function post_lists_create(name::String; options = Dict())
+function post_lists_create(name::String; options=Dict{String, String}())
 	
 	options["name"] = name
 
@@ -121,7 +121,7 @@ function post_lists_create(name::String; options = Dict())
 
 end
 
-function get_lists_show(; options = Dict())
+function get_lists_show(; options=Dict{String, String}())
 	
 	r = get_oauth("https://api.twitter.com/1.1/lists/show.json", options)
 
@@ -129,7 +129,7 @@ function get_lists_show(; options = Dict())
 
 end
 
-function get_lists_subscriptions(; options = Dict())
+function get_lists_subscriptions(; options=Dict{String, String}())
 	
 	r = get_oauth("https://api.twitter.com/1.1/lists/subscriptions.json", options)
 
@@ -137,7 +137,7 @@ function get_lists_subscriptions(; options = Dict())
 
 end
 
-function post_lists_members_destroyall(; options = Dict())
+function post_lists_members_destroyall(; options=Dict{String, String}())
 	
 	r = post_oauth("https://api.twitter.com/1.1/lists/members/destroy_all.json", options)
 
@@ -145,7 +145,7 @@ function post_lists_members_destroyall(; options = Dict())
 
 end
 
-function get_lists_ownerships(; options = Dict())
+function get_lists_ownerships(; options=Dict{String, String}())
 	
 	r = get_oauth("https://api.twitter.com/1.1/lists/ownerships.json", options)
 

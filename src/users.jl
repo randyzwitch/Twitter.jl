@@ -4,13 +4,13 @@
 #
 #############################################################
 
-function get_account_settings(; options = Dict())
+function get_account_settings(; options=Dict{String, String}())
 
     r = get_oauth("https://api.twitter.com/1.1/account/settings.json", options)
 
 end
 
-function get_verify_credentials(; options = Dict())
+function get_verify_credentials(; options=Dict{String, String}())
 
     r = get_oauth("https://api.twitter.com/1.1/account/verify_credentials.json", options)
 
@@ -18,13 +18,13 @@ function get_verify_credentials(; options = Dict())
 
 end
 
-function post_account_settings(; options = Dict())
+function post_account_settings(; options=Dict{String, String}())
 	
     r = post_oauth("https://api.twitter.com/1.1/account/settings.json", options)
 
 end
 
-function post_update_delivery_device(device::String; options = Dict())
+function post_update_delivery_device(device::String; options=Dict{String, String}())
 	
 	#Add required parameter(s) to options dict
 	options["device"] = device
@@ -33,26 +33,26 @@ function post_update_delivery_device(device::String; options = Dict())
 
 end
 
-function post_update_profile(; options = Dict())
+function post_update_profile(; options=Dict{String, String}())
 	
 	r = post_oauth("https://api.twitter.com/1.1/account/update_profile.json", options)
 
 end
 
-function post_update_profile_background(; options = Dict())
+function post_update_profile_background(; options=Dict{String, String}())
 	
 	r = post_oauth("https://api.twitter.com/1.1/account/update_profile_background_image.json", options)
 
 end
 
-function post_update_profile_colors(; options = Dict())
+function post_update_profile_colors(; options=Dict{String, String}())
 	
 	r = post_oauth("https://api.twitter.com/1.1/account/update_profile_colors.json", options)
 
 end
 
 #Need to enforce type around image as base64 encoded, not sure how
-function post_update_profile_image(image; options = Dict())
+function post_update_profile_image(image; options=Dict{String, String}())
 
 	#Add required parameter(s) to options dict
 	options["image"] = image
@@ -61,7 +61,7 @@ function post_update_profile_image(image; options = Dict())
 
 end
 
-function get_blocks_list(; options = Dict())
+function get_blocks_list(; options=Dict{String, String}())
 
     r = get_oauth("https://api.twitter.com/1.1/blocks/list.json", options)
 
@@ -69,25 +69,25 @@ function get_blocks_list(; options = Dict())
 
 end
 
-function get_blocks_ids(; options = Dict())
+function get_blocks_ids(; options=Dict{String, String}())
 
     r = get_oauth("https://api.twitter.com/1.1/blocks/ids.json", options)
 
 end
 
-function post_blocks_create(; options = Dict())
+function post_blocks_create(; options=Dict{String, String}())
 	
 	r = post_oauth("https://api.twitter.com/1.1/blocks/create.json", options)
 
 end
 
-function post_blocks_destroy(; options = Dict())
+function post_blocks_destroy(; options=Dict{String, String}())
 	
 	r = post_oauth("https://api.twitter.com/1.1/blocks/destroy.json", options)
 
 end
 
-function get_users_lookup(; options = Dict())
+function get_users_lookup(; options=Dict{String, String}())
 	
 	r = get_oauth("https://api.twitter.com/1.1/users/lookup.json", options)
 
@@ -95,7 +95,7 @@ function get_users_lookup(; options = Dict())
 
 end
 
-function get_users_show(; options = Dict())
+function get_users_show(; options=Dict{String, String}())
 	
 	r = get_oauth("https://api.twitter.com/1.1/users/show.json", options)
 
@@ -103,7 +103,7 @@ function get_users_show(; options = Dict())
 
 end
 
-function get_users_search(q::String; options = Dict())
+function get_users_search(q::String; options=Dict{String, String}())
 
 	#Add required parameter(s) to options dict
 	options["q"] = q
@@ -114,7 +114,7 @@ function get_users_search(q::String; options = Dict())
 
 end
 
-function get_users_contributees(; options = Dict())
+function get_users_contributees(; options=Dict{String, String}())
     
     r = get_oauth("https://api.twitter.com/1.1/users/contributees.json", options)
 
@@ -122,7 +122,7 @@ function get_users_contributees(; options = Dict())
 
 end
 
-function get_users_contributors(; options = Dict())
+function get_users_contributors(; options=Dict{String, String}())
     
     r = get_oauth("https://api.twitter.com/1.1/users/contributors.json", options)
 
@@ -130,14 +130,14 @@ function get_users_contributors(; options = Dict())
 
 end
 
-function post_account_remove_profile_banner(; options = Dict())
+function post_account_remove_profile_banner(; options=Dict{String, String}())
 	
 	r = post_oauth("https://api.twitter.com/1.1/account/remove_profile_banner.json", options)
 
 end
 
 #Need to enforce type around image as base64 encoded, not sure how
-function post_account_update_profile_banner(banner::String; options = Dict())
+function post_account_update_profile_banner(banner::String; options=Dict{String, String}())
 	
 	#Add required parameter(s) to options dict
 	options["banner"] = banner
@@ -146,7 +146,7 @@ function post_account_update_profile_banner(banner::String; options = Dict())
 
 end
 
-function get_profile_banner(; options = Dict())
+function get_profile_banner(; options=Dict{String, String}())
     
     r = get_oauth("https://api.twitter.com/1.1/users/profile_banner.json", options)
 
