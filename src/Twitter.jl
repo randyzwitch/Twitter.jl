@@ -6,8 +6,9 @@ module Twitter
 ##
 ##############################################################################
 
-using Codecs, HttpCommon, Requests, JSON, Nettle
+using Codecs, HttpCommon, Requests, JSON, Nettle, DataFrames
 import HttpCommon: encodeURI, Response
+import DataFrames: DataFrame
 
 ##############################################################################
 ##
@@ -35,11 +36,11 @@ export  get_direct_messages,
         get_friendships_show,
         get_friends_list,
         get_followers_list,
-        encodeURI,
+        #encodeURI,
         twitterauth,
-        oauthheader,
-        get_oauth,
-        post_oauth,
+        #oauthheader,
+        #get_oauth,
+        #post_oauth,
         get_geo_id_place_id,
         get_geo_reverse_geocode,
         get_geo_search,
@@ -98,11 +99,11 @@ export  get_direct_messages,
         post_status_update_media,
         get_oembed,
         get_retweeters_id,
-        TWCRED,
-        TWEETS,
-        USERS,
-        PLACES,
-        LISTS,
+        #TWCRED,
+        #TWEETS,
+        #USERS,
+        #PLACES,
+        #LISTS,
         get_account_settings,
         get_verify_credentials,
         post_account_settings,
@@ -129,10 +130,11 @@ export  get_direct_messages,
         post_oauth_request_token,
         post_oauth2_token,
         post_oauth2_invalidate_token,
-        to_TWEETS,
-        to_USERS,
-        to_LISTS,
-        to_PLACES
+        #to_TWEETS,
+        #to_USERS,
+        #to_LISTS,
+        #to_PLACES,
+        DataFrame
 
 ##############################################################################
 ##
@@ -159,5 +161,6 @@ include("trends.jl")
 include("tweets.jl")
 include("types.jl")
 include("users.jl")
+include("dataframe.jl")
 
 end # module

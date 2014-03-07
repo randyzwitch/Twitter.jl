@@ -6,7 +6,7 @@ Twitter.jl is a Julia package to work with the Twitter API v1.1. Currently, only
 
 ##Twitter.jl API
 
-Currently, all functions have required arguments for those parameters required by Twitter and an `options` keyword argument to provide a `Dict{String, String}` of optional parameters. Most function calls will return either a Julia `Dict` or a typed Array. It is planned to define DataFrame methods where feasible.
+Currently, all functions have required arguments for those parameters required by Twitter and an `options` keyword argument to provide a `Dict{String, String}` of optional parameters. Most function calls will return either a Julia `Dict` or a typed Array. DataFrame methods are defined for functions returning composite types: `TWEETS`, `PLACES`, `LISTS`, and `USERS`. Other DataFrame methods may be defined at a later date.
 
 Also note that the API is subject to change in the coming few versions, but should stablize shortly.
 
@@ -41,15 +41,15 @@ Twitter.jl is licensed under the [MIT "Expat" license](https://github.com/randyz
 
 General:
 - Wrap function return with logic to check that a valid response was returned first
-- DataFrame methods for returned data/custom types
 - Incorporate cursoring for methods returning many pages of results (MOST IMPORTANT TO SOLVE)
 - Create Streaming API function calls
-- Create COORDINATES, ENTITIES type, add proper field types (Is this really necessary?)
-- Make interface more Julian, clean up any oddities
+- Make code & interface more Julian, clean up any oddities
 
 Nice to have (timeline uncertain):
 
+- Clean up column types for DataFrame methods
+- DataFrame methods for generic `Dict` responses
 - Keyword arguments for returning DataFrame (to remove step in data retrieval process)
 - Ability to save authentication keys to file, remove need for authentication each time
 - Create Read The Docs documentation
-- Create OAuth functions (not getting done until someone submits a PR)
+- Create OAuth functions (not getting done until someone else submits a PR)
