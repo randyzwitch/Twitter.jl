@@ -4,3 +4,4 @@ HttpCommon
 Requests
 JSON
 Nettle
+DataFrames 0.5-

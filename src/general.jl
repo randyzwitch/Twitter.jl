@@ -7,8 +7,13 @@
 #Extend encodeURI to work on Dicts
 function encodeURI(dict_of_parameters::Dict)
     for (k, v) in dict_of_parameters
-        dict_of_parameters["$k"] = encodeURI(v)
+        if typeof(v) <: String
+            dict_of_parameters["$k"] = encodeURI(v)
+        else
+            dict_of_parameters["$k"] = v
+        end
     end
+    return dict_of_parameters
 end
 
 #Function that builds global variable to hold authentication keys

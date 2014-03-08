@@ -8,6 +8,7 @@ twitterauth("6nOtpXmf...",
 
 #Get mentions (@ replies to authenticated account), defaults to last 20
 mentions_default20 = get_mentions_timeline();
+DataFrame(mentions_default20) #Convert Array{TWEETS,1} to DataFrame
 
 #Get tweets from any public user timeline, defaults to last 20
 user_timeline_default20 = get_user_timeline("randyzwitch");
@@ -304,15 +305,15 @@ report_spammer = post_users_report_spam(options = {"screen_name" => "TEAMF0LL0W"
 
 ############################################## oauth.jl ###########################################
 
-#get_oauth_authenticate,
+#get_oauth_authenticate
 
-#get_oauth_authorize,
+#get_oauth_authorize
 
-#post_oauth_access_token,
+#post_oauth_access_token
 
-#post_oauth_request_token,
+#post_oauth_request_token
 
-#post_oauth2_token,
+#post_oauth2_token
 
 #post_oauth2_invalidate_token
 

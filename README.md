@@ -27,7 +27,7 @@ This package does not currently support on-the-fly, pop-up a browser-type OAuth 
 
 ##Code examples
 
-See [tests.jl](https://github.com/randyzwitch/Twitter.jl/blob/master/tests/tests.jl) for example function calls for simple examples. More detailed examples will be provided at a later date once API is finalized.
+See [tests.jl](https://github.com/randyzwitch/Twitter.jl/blob/master/tests/tests.jl) for example function calls. More detailed examples will be provided at a later date once API is finalized.
 
 ##Testing
 
