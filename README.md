@@ -6,9 +6,11 @@ Twitter.jl is a Julia package to work with the Twitter API v1.1. Currently, only
 
 ##Twitter.jl API
 
-Currently, all functions have required arguments for those parameters required by Twitter and an `options` keyword argument to provide a `Dict{String, String}` of optional parameters. Most function calls will return either a Julia `Dict` or a typed Array. DataFrame methods are defined for functions returning composite types: `TWEETS`, `PLACES`, `LISTS`, and `USERS`. Other DataFrame methods may be defined at a later date.
+Currently, all functions have required arguments for those parameters required by Twitter and an `options` keyword argument to provide a `Dict{String, String}` of optional parameters [Twitter API documentation](https://dev.twitter.com/docs/api/1.1). Most function calls will return either a Julia `Dict` or a typed Array. Bad requests will return the raw `Response` composite type from Requests.jl for debugging purposes.
 
-Also note that the API is subject to change in the coming few versions, but should stablize shortly.
+DataFrame methods are defined for functions returning composite types: `TWEETS`, `PLACES`, `LISTS`, and `USERS`. Other DataFrame methods may be defined at a later date.
+
+Note that the API is subject to change in the coming few versions, but should stablize shortly.
 
 ##Authentication
 
@@ -40,7 +42,6 @@ Twitter.jl is licensed under the [MIT "Expat" license](https://github.com/randyz
 ##TODO
 
 General:
-- Wrap function return with logic to check that a valid response was returned first
 - Incorporate cursoring for methods returning many pages of results (MOST IMPORTANT TO SOLVE)
 - Create Streaming API function calls
 - Make code & interface more Julian, clean up any oddities

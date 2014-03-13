@@ -9,7 +9,8 @@ function get_retweets_id(id::String; options=Dict{String, String}())
     r = get_oauth("https://api.twitter.com/1.1/statuses/retweets/$(id).json", options)
 
     #Return array of type TWEETS
-    return to_TWEETS(r)
+    #return to_TWEETS(r)
+    return r.status == 200 ? to_TWEETS(JSON.parse(r.data)) : r
 
 end
 
@@ -21,7 +22,8 @@ function get_single_tweet_id(id::String; options=Dict{String, String}())
     r = get_oauth("https://api.twitter.com/1.1/statuses/show.json", options)
 
     #Return array of type TWEETS
-    return to_TWEETS(r)
+    #return to_TWEETS(r)
+    return r.status == 200 ? to_TWEETS(JSON.parse(r.data)) : r
 
 end
 
@@ -30,7 +32,8 @@ function post_destroy_single_tweet_id(id::String; options=Dict{String, String}()
     r = post_oauth("https://api.twitter.com/1.1/statuses/destroy/$(id).json", options)
 
     #Return array of type TWEETS
-    return to_TWEETS(r)
+    #return to_TWEETS(r)
+    return r.status == 200 ? to_TWEETS(JSON.parse(r.data)) : r
 
 end
 
@@ -42,7 +45,8 @@ function post_status_update(status::String; options=Dict{String, String}())
     r = post_oauth("https://api.twitter.com/1.1/statuses/update.json", options)
 
     #Return array of type TWEETS
-    return to_TWEETS(r)
+    #return to_TWEETS(r)
+    return r.status == 200 ? to_TWEETS(JSON.parse(r.data)) : r
     
 end
 
@@ -51,7 +55,8 @@ function post_status_retweet_id(id::String; options=Dict{String, String}())
     r = post_oauth("https://api.twitter.com/1.1/statuses/retweet/$(id).json", options)
 
     #Return array of type TWEETS
-    return to_TWEETS(r)
+    #return to_TWEETS(r)
+    return r.status == 200 ? to_TWEETS(JSON.parse(r.data)) : r
 
 end
 
@@ -63,6 +68,8 @@ function get_oembed(; options=Dict{String, String}())
 
     #Returns HTML code for embedding, leave as Dict instead of custom type
     r = get_oauth("https://api.twitter.com/1.1/statuses/oembed.json", options)
+
+    return r.status == 200 ? JSON.parse(r.data) : r
     
 end
 
@@ -73,5 +80,7 @@ function get_retweeters_id(id::String; options=Dict{String, String}())
 
     #Return a Dict for now, only useful data value is array of ids
 	r = get_oauth("https://api.twitter.com/1.1/statuses/retweeters/ids.json", options)
+
+    return r.status == 200 ? JSON.parse(r.data) : r
 
 end

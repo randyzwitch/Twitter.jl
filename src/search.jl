@@ -13,9 +13,11 @@ function get_search_tweets(q::String; options=Dict{String, String}())
 
     #This is a placeholder, contains cursor data/metadata returned for paging
     #Evaluate returning a custom type where one field parsed array of tweets, one field metadata
-    metadata = r["search_metadata"]
+    #metadata = r["search_metadata"]
 
-    return to_TWEETS(r["statuses"])
+    #return to_TWEETS(r["statuses"])
+
+    r.status == 200 ?  to_TWEETS(JSON.parse(r.data)["statuses"]) : r
 
 end
 

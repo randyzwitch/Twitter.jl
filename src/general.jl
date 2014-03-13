@@ -86,12 +86,10 @@ function get_oauth(endpoint::String, options::Dict)
     #Build oauth_header
     oauth_header_val = oauthheader("GET", endpoint, options)
     
-    r = Requests.get(URI("$(endpoint)?$query_str"); 
+    return Requests.get(URI("$(endpoint)?$query_str"); 
                     headers = {"Content-Type" => "application/x-www-form-urlencoded",
                     "Authorization" => oauth_header_val,
                     "Accept" => "*/*"})
-
-    return JSON.parse(r.data)
 
 end
 
@@ -107,12 +105,10 @@ function post_oauth(endpoint::String, options::Dict)
     #Build oauth_header
     oauth_header_val = oauthheader("POST", endpoint, options)
     
-    r = Requests.post(URI(endpoint), 
+    return Requests.post(URI(endpoint), 
                     query_str, 
                     {"Content-Type" => "application/x-www-form-urlencoded",
                     "Authorization" => oauth_header_val,
                     "Accept" => "*/*"})
-    
-    return JSON.parse(r.data)
     
 end
