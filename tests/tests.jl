@@ -4,14 +4,14 @@ twitterauth("6nOtpXmf...",
             "98689850-Hj...",
             "UroqCVpWKIt...")
 
-############################################## dm.jl ##############################################
+############################################## timelines.jl ##############################################
 
 #Get mentions (@ replies to authenticated account), defaults to last 20
 mentions_default20 = get_mentions_timeline();
 DataFrame(mentions_default20) #Convert Array{TWEETS,1} to DataFrame
 
 #Get tweets from any public user timeline, defaults to last 20
-user_timeline_default20 = get_user_timeline("randyzwitch");
+user_timeline_default20 = get_user_timeline(; options = {"screen_name" => "randyzwitch"})
 
 #Get tweets from authenticated user's timeline, defaults to 20
 home_timeline_default20 = get_home_timeline();

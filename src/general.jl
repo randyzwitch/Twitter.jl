@@ -106,7 +106,8 @@ function post_oauth(endpoint::String, options::Dict)
     oauth_header_val = oauthheader("POST", endpoint, options)
     
     return Requests.post(URI(endpoint), 
-                    query_str, 
+                    query_str; 
+                    headers =  
                     {"Content-Type" => "application/x-www-form-urlencoded",
                     "Authorization" => oauth_header_val,
                     "Accept" => "*/*"})
