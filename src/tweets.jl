@@ -64,15 +64,6 @@ function post_status_update_media()
 	error("Twitter API not fully implemented")
 end
 
-function get_oembed(; options=Dict{String, String}())
-
-    #Returns HTML code for embedding, leave as Dict instead of custom type
-    r = get_oauth("https://api.twitter.com/1.1/statuses/oembed.json", options)
-
-    return r.status == 200 ? JSON.parse(r.data) : r
-    
-end
-
 function get_retweeters_id(id::String; options=Dict{String, String}())
     
     #Add required parameter(s) to options dict

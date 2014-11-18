@@ -4,14 +4,6 @@
 #
 #############################################################
 
-function get_account_settings(; options=Dict{String, String}())
-
-    r = get_oauth("https://api.twitter.com/1.1/account/settings.json", options)
-
-    return r.status == 200 ? JSON.parse(r.data) : r
-
-end
-
 function get_verify_credentials(; options=Dict{String, String}())
 
     r = get_oauth("https://api.twitter.com/1.1/account/verify_credentials.json", options)
@@ -82,14 +74,6 @@ function get_blocks_list(; options=Dict{String, String}())
 
     #return to_USERS(r["users"])
     return r.status == 200 ? to_USERS(JSON.parse(r.data)["users"]) : r
-
-end
-
-function get_blocks_ids(; options=Dict{String, String}())
-
-    r = get_oauth("https://api.twitter.com/1.1/blocks/ids.json", options)
-
-    return r.status == 200 ? JSON.parse(r.data) : r
 
 end
 
@@ -174,13 +158,5 @@ function post_account_update_profile_banner(banner::String; options=Dict{String,
 	r = post_oauth("https://api.twitter.com/1.1/account/update_profile_banner.json", options)
 
 	return r.status == 200 ? JSON.parse(r.data) : r
-
-end
-
-function get_profile_banner(; options=Dict{String, String}())
-    
-    r = get_oauth("https://api.twitter.com/1.1/users/profile_banner.json", options)
-
-    return r.status == 200 ? JSON.parse(r.data) : r
 
 end

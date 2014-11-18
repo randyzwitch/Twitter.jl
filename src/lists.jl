@@ -54,14 +54,6 @@ function post_lists_subscribers_create(; options=Dict{String, String}())
 
 end
 
-function get_lists_subscribers_show(; options=Dict{String, String}())
-	
-	r = get_oauth("https://api.twitter.com/1.1/lists/subscribers/show.json", options)
-
-	return r.status == 200 ? JSON.parse(r.data) : r
-
-end
-
 function post_lists_subscribers_destroy(; options=Dict{String, String}())
 	
 	r = post_oauth("https://api.twitter.com/1.1/lists/subscribers/destroy.json", options)

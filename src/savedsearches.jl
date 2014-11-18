@@ -4,15 +4,6 @@
 #
 #############################################################
 
-function get_saved_searches_list(; options=Dict{String, String}())
-
-	#Just return dict
-    r = get_oauth("https://api.twitter.com/1.1/saved_searches/list.json", options)
-
-    return r.status == 200 ? JSON.parse(r.data) : r
-
-end
-
 function get_saved_searches_show_id(id::String; options=Dict{String, String}())
 	
 	r = get_oauth("https://api.twitter.com/1.1/saved_searches/show/$(id).json", options)
