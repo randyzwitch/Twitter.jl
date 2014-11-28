@@ -31,36 +31,42 @@ end
 function oauthheader(httpmethod::String, baseurl::String, options::Dict)                
     
     #Format non-parameter strings
-    baseurl = encodeURI(baseurl)
-    httpmethod = encodeURI(uppercase(httpmethod))
-    oauth_consumer_secret = encodeURI(twittercred.consumer_secret)
-    oauth_token_secret = encodeURI(twittercred.oauth_secret)
+    #baseurl = encodeURI(baseurl)
+    httpmethod = uppercase(httpmethod)
+    oauth_consumer_secret = twittercred.consumer_secret
+    oauth_token_secret = twittercred.oauth_secret
     
     #keys for parameter string
-    options["oauth_consumer_key"] = encodeURI(twittercred.consumer_key)
-    options["oauth_nonce"] = encodeURI(randstring(32)) #32 random alphanumeric characters
+    options["oauth_consumer_key"] = twittercred.consumer_key
+    options["oauth_nonce"] = randstring(32) #32 random alphanumeric characters
     options["oauth_signature_method"] = "HMAC-SHA1"
     options["oauth_timestamp"] = @sprintf("%.0f", time()) #timestamp in seconds
-    options["oauth_token"] = encodeURI(twittercred.oauth_token)
+    options["oauth_token"] = twittercred.oauth_token
     options["oauth_version"] = "1.0"
     
-    #Get all available keys, sort them
-    optionskeys = collect(keys(options))
-    sort!(optionskeys)
+    #options encoded
+    originalkeys = collect(keys(options))
 
-    #ordered parameter_string
-    #Inspired by Requests.format_query_str
-    query_str = ""
-    for k in optionskeys
-        v = options["$(k)"] #get value for ordered key
-        query_str *= "$k=$v&"
+    for key in originalkeys
+        options[encodeURI("$key")] = encodeURI(options["$key"])
+            if encodeURI("$key") != key
+                delete!(options, "$key")
+            end
     end
-    query_str = chop(query_str) # remove the trailing &
-    
-    parameter_string = encodeURI(query_str) 
+
+    #Sort percent-encoded keys
+    keyssorted = sort!(collect(keys(options)))
+
+    #Build query string, remove trailing &
+    parameterstring = ""
+    for key in keyssorted
+        parameterstring *= "$key=$(options["$key"])&"
+    end
+
+    parameterstring = chop(parameterstring)
     
     #signature_base_string
-    signature_base_string = "$(httpmethod)&$(baseurl)&$(parameter_string)"
+    signature_base_string = "$(httpmethod)&$(encodeURI(baseurl))&$(encodeURI(parameterstring))"
     
     #Signing key
     signing_key = "$(oauth_consumer_secret)&$(oauth_token_secret)"
@@ -78,7 +84,7 @@ end
 function get_oauth(endpoint::String, options::Dict)
 
     #URI encode values for all keys in Dict
-    encodeURI(options)
+    #encodeURI(options)
 
     #Build query string
     query_str = Requests.format_query_str(options)
@@ -97,7 +103,7 @@ end
 function post_oauth(endpoint::String, options::Dict)
     
     #URI encode values for all keys in Dict
-    encodeURI(options)
+    #encodeURI(options)
 
     #Build query string
     query_str = Requests.format_query_str(options)
