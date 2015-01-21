@@ -6,8 +6,7 @@ module Twitter
 ##
 ##############################################################################
 
-using Codecs, HttpCommon, Requests, JSON, Nettle, DataFrames
-import HttpCommon: encodeURI, Response
+using DataFrames, OAuth, JSON
 import DataFrames: DataFrame
 
 ##############################################################################
@@ -36,11 +35,7 @@ export  get_direct_messages,
         get_friendships_show,
         get_friends_list,
         get_followers_list,
-        #encodeURI,
         twitterauth,
-        #oauthheader,
-        #get_oauth,
-        #post_oauth,
         get_geo_id_place_id,
         get_geo_reverse_geocode,
         get_geo_search,
