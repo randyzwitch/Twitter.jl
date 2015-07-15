@@ -15,14 +15,14 @@ function to_TWEETS(object::Dict)
                     get(object, "favorited", nothing),                      #    favorited
                     get(object, "filter_level", nothing),                   #    filter_level
                     get(object, "id", nothing),                             #    id
-                    get(object, "id_str", nothing),                         #    id_str 
+                    get(object, "id_str", nothing),                         #    id_str
                     get(object, "in_reply_to_screen_name", nothing),        #    in_reply_to_screen_name
                     get(object, "in_reply_to_status_id", nothing),          #    in_reply_to_status_id
                     get(object, "in_reply_to_status_id_str", nothing),      #    in_reply_to_status_id_str
                     get(object, "in_reply_to_user_id", nothing),            #    in_reply_to_status_id
                     get(object, "in_reply_to_user_id_str", nothing),        #    in_reply_to_user_id_str
-                    get(object, "lang", nothing),                           #    lang 
-                    get(object, "place", nothing),                          #    place 
+                    get(object, "lang", nothing),                           #    lang
+                    get(object, "place", nothing),                          #    place
                     get(object, "possibly_sensitive", nothing),             #    possibly_sensitive
                     get(object, "scopes", nothing),                         #    scopes
                     get(object, "retweet_count", nothing),                  #    retweet_count
@@ -31,7 +31,7 @@ function to_TWEETS(object::Dict)
                     get(object, "source", nothing),                         #    source
                     get(object, "text", nothing),                           #    text
                     get(object, "truncated", nothing),                      #    truncated
-                    get(object, "user", nothing),                           #    user 
+                    get(object, "user", nothing),                           #    user
                     get(object, "withheld_copyright", nothing),             #    withheld_copyright
                     get(object, "withheld_in_countries", nothing),          #    withheld_in_countries
                     get(object, "withheld_scope", nothing)                  #    withheld_scope
@@ -47,7 +47,7 @@ function to_TWEETS(object::Array)
 end
 
 function to_USERS(object::Dict)
-    
+
     return USERS(   get(object, "contributors_enabled", nothing),                     #  contributors_enabled
                     get(object, "created_at", nothing),                               #  created_at
                     get(object, "default_profile", nothing),                          #  default_profile
@@ -71,7 +71,7 @@ function to_USERS(object::Dict)
                     get(object, "profile_backround_tile", nothing),                   #  profile_backround_tile
                     get(object, "profile_banner_url", nothing),                       #  profile_banner_url
                     get(object, "profile_image_url", nothing),                        #  profile_image_url
-                    get(object, "profile_image_url_https", nothing),                  #  profile_image_url_https 
+                    get(object, "profile_image_url_https", nothing),                  #  profile_image_url_https
                     get(object, "profile_link_color", nothing),                       #  profile_link_color
                     get(object, "profile_sidebar_border_color", nothing),             #  profile_sidebar_border_color
                     get(object, "profile_sidebar_fill_color", nothing),               #  profile_sidebar_fill_color
@@ -107,9 +107,9 @@ function to_PLACES(object::Dict)
                     get(object, "country_code", nothing),        #country_code
                     get(object, "full_name", nothing),           #full_name
                     get(object, "id", nothing),                  #id
-                    get(object, "name", nothing),                #name 
+                    get(object, "name", nothing),                #name
                     get(object, "place_type", nothing),          #place_type
-                    get(object, "url", nothing)                  #url  
+                    get(object, "url", nothing)                  #url
                 )
 
 end
@@ -126,16 +126,16 @@ function to_LISTS(object::Dict)
      return LISTS( get(object, "created_at", nothing),                     #created_at
                    get(object, "description", nothing),                    #description
                    get(object, "following", nothing),                      #following
-                   get(object, "full_name", nothing),                      #full_name    
-                   get(object, "id", nothing),                             #id 
+                   get(object, "full_name", nothing),                      #full_name
+                   get(object, "id", nothing),                             #id
                    get(object, "id_str", nothing),                         #id_str
                    get(object, "member_count", nothing),                   #member_count
                    get(object, "mode", nothing),                           #mode
                    get(object, "name", nothing),                           #name
                    get(object, "slug", nothing),                           #slug
                    get(object, "subscriber_count", nothing),               #subscriber_count
-                   get(object, "uri", nothing),                            #uri             
-                   get(object, "user", nothing)                            #user            
+                   get(object, "uri", nothing),                            #uri
+                   get(object, "user", nothing)                            #user
                  )
 
 end
