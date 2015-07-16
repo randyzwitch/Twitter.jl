@@ -5,7 +5,7 @@
 #############################################################
 
 function get_search_tweets(q::String; options=Dict{String, String}())
-    
+
     #Add required parameter(s) to options dict
     options["q"] = q
 

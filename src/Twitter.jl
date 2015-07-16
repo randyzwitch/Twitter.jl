@@ -6,7 +6,7 @@ module Twitter
 ##
 ##############################################################################
 
-using DataFrames, OAuth, JSON
+using DataFrames, OAuth, JSON, Compat
 import DataFrames: DataFrame
 
 ##############################################################################

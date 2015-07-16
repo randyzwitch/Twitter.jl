@@ -9,9 +9,9 @@
 function twitterauth(consumer_key::String, consumer_secret::String, oauth_token::String, oauth_secret::String)
     #Create a global variable to hold return from this function
     global twittercred
-            
+
     return twittercred = TWCRED(consumer_key, consumer_secret, oauth_token, oauth_secret)
-    
+
 end
 
 #General function for OAuth authenticated GET request
@@ -25,5 +25,5 @@ end
 function post_oauth(endpoint::String, options::Dict)
 
     oauth_request_resource(endpoint, "POST", options, twittercred.consumer_key, twittercred.consumer_secret, twittercred.oauth_token, twittercred.oauth_secret)
-    
+
 end

@@ -26,7 +26,7 @@ type PLACES
 end
 
 #Users response object
-type USERS 
+type USERS
     contributors_enabled::Union(Bool, Nothing)
     created_at::Union(String, Nothing)
     default_profile::Union(Bool, Nothing)
@@ -50,7 +50,7 @@ type USERS
     profile_backround_tile::Union(Bool, Nothing)
     profile_banner_url::Union(String, Nothing)
     profile_image_url::Union(String, Nothing)
-    profile_image_url_https::Union(String, Nothing) 
+    profile_image_url_https::Union(String, Nothing)
     profile_link_color::Union(String, Nothing)
     profile_sidebar_border_color::Union(String, Nothing)
     profile_sidebar_fill_color::Union(String, Nothing)
@@ -86,7 +86,7 @@ type TWEETS
     in_reply_to_status_id_str::Union(String, Nothing)
     in_reply_to_user_id::Union(Int, Nothing)
     in_reply_to_user_id_str::Union(String, Nothing)
-    lang::Union(String, Nothing) 
+    lang::Union(String, Nothing)
     place::Union(Dict, Nothing)
     possibly_sensitive::Union(Bool, Nothing)
     scopes::Union(Dict, Nothing)
@@ -107,14 +107,14 @@ type LISTS
     created_at::Union(String, Nothing)
     description::Union(String, Nothing)
     following::Union(Bool, Nothing)
-    full_name::Union(String, Nothing)   
-    id::Union(Int, Nothing) 
+    full_name::Union(String, Nothing)
+    id::Union(Int, Nothing)
     id_str::Union(String, Nothing)
     member_count::Union(Int, Nothing)
     mode::Union(String, Nothing)
     name::Union(String, Nothing)
     slug::Union(String, Nothing)
     subscriber_count::Union(Int, Nothing)
-    uri::Union(String, Nothing)             
-    user::Union(Dict, Nothing)            
+    uri::Union(String, Nothing)
+    user::Union(Dict, Nothing)
 end
