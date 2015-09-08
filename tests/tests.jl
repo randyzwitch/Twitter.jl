@@ -11,7 +11,7 @@ mentions_default20 = get_mentions_timeline();
 DataFrame(mentions_default20) #Convert Array{TWEETS,1} to DataFrame
 
 #Get tweets from any public user timeline, defaults to last 20
-user_timeline_default20 = get_user_timeline(; options = {"screen_name" => "randyzwitch"})
+user_timeline_default20 = get_user_timeline(; options = Dict{Any, Any}("screen_name" => "randyzwitch"))
 
 #Get tweets from authenticated user's timeline, defaults to 20
 home_timeline_default20 = get_home_timeline();
@@ -39,7 +39,7 @@ retweet = post_status_retweet_id("439428476106702848")
 #post_status_update_media
 
 #Get embedded tweet code: either "id" or "url" required by API, passed in through options Dict in Julia
-get_embedded_tweet_code = get_oembed(options = {"id" => "434685122671939584"})
+get_embedded_tweet_code = get_oembed(options = Dict{Any, Any}("id" => "434685122671939584"))
 
 #Get ids for people who retweeted a given status
 retweeters_ids = get_retweeters_id("431782228826550272")
@@ -76,7 +76,7 @@ get_single_dm = get_direct_messages_show("435234003939905536")
 destroy = post_direct_messages_destroy("438517039385178113")
 
 #Send DM to a user
-send_dm = post_direct_messages_send("Testing from Julia, this might disappear later"; options = {"screen_name" => "jowanza"})
+send_dm = post_direct_messages_send("Testing from Julia, this might disappear later"; options = Dict{Any, Any}("screen_name" => "jowanza"))
 
 ############################################## friendsfollowers.jl ################################
 
@@ -84,13 +84,13 @@ send_dm = post_direct_messages_send("Testing from Julia, this might disappear la
 friends_but_dont_see_rts = get_friendships_no_retweets()
 
 #Get numeric ids of all friends
-get_friends = get_friends_ids(options = {"screen_name" => "randyzwitch"})
+get_friends = get_friends_ids(options = Dict{Any, Any}("screen_name" => "randyzwitch"))
 
 #Get numeric ids of followers
 get_followers = get_followers_ids()
 
 #Get authenticated user relationship to other users
-friendship_status = get_friendships_lookup(options = {"screen_name" => "usujason, hilamonster, kyrieirving"})
+friendship_status = get_friendships_lookup(options = Dict{Any, Any}("screen_name" => "usujason, hilamonster, kyrieirving"))
 
 #Get list of pending requests to authenticated user
 pending_friendships_incoming = get_friendships_incoming()
@@ -99,22 +99,22 @@ pending_friendships_incoming = get_friendships_incoming()
 pending_friendships_outgoing = get_friendships_outgoing()
 
 #Follow a user
-add_friend = post_friendships_create(options = {"screen_name" => "kyrieirving"})
+add_friend = post_friendships_create(options = Dict{Any, Any}("screen_name" => "kyrieirving"))
 
 #Unfollow a user
-unfollow = post_friendships_destroy(options = {"screen_name" => "kyrieirving"})
+unfollow = post_friendships_destroy(options = Dict{Any, Any}("screen_name" => "kyrieirving"))
 
 #Enable/disable retweets and device updates from specified user
-friend_update = post_friendships_update(options = {"screen_name" => "jowanza", "retweets" => "true", "device" => "false"})
+friend_update = post_friendships_update(options = Dict{Any, Any}("screen_name" => "jowanza", "retweets" => "true", "device" => "false"))
 
 #Get friendship details between any two arbitrary users
-detailed_info_two_users = get_friendships_show(options = {"source_screen_name" => "randyzwitch", "target_screen_name" => "usujason"})
+detailed_info_two_users = get_friendships_show(options = Dict{Any, Any}("source_screen_name" => "randyzwitch", "target_screen_name" => "usujason"))
 
 #Get friendship list as names
-friends_names = get_friends_list(options = {"screen_name" => "randyzwitch"})
+friends_names = get_friends_list(options = Dict{Any, Any}("screen_name" => "randyzwitch"))
 
 #Get followers names
-followers_names = get_followers_list(options = {"screen_name" => "randyzwitch"})
+followers_names = get_followers_list(options = Dict{Any, Any}("screen_name" => "randyzwitch"))
 
 ############################################## users.jl ###########################################
 
@@ -125,22 +125,22 @@ settings = get_account_settings();
 verify_cred = get_verify_credentials()
 
 #Change account settings
-change_settings = post_account_settings(options = {"lang" => "en", "sleep_time_enabled" => "false"})
+change_settings = post_account_settings(options = Dict{Any, Any}("lang" => "en", "sleep_time_enabled" => "false"))
 
 #Allow for SMS or regular notifications from Twitter
 update_delivery = post_update_delivery_device("sms")
 
 #Update profile information
-update_profile = post_update_profile(options = {"name" => "Julia Twitter User"})
+update_profile = post_update_profile(options = Dict{Any, Any}("name" => "Julia Twitter User"))
 
 #Update picture background
-update_background = post_update_profile_background(options = {"tile" => "true"})
+update_background = post_update_profile_background(options = Dict{Any, Any}("tile" => "true"))
 
 #Update profile colors
-update_colors = post_update_profile_colors(options = {"profile_background_color" => "3D3D3D", "profile_link_color" => "0000FF"})
+update_colors = post_update_profile_colors(options = Dict{Any, Any}("profile_background_color" => "3D3D3D", "profile_link_color" => "0000FF"))
 
 #Update profile image
-update_image = post_update_profile_image(options = {"image" => "ABCDEFGH..."})
+update_image = post_update_profile_image(options = Dict{Any, Any}("image" => "ABCDEFGH..."))
 
 #Get list of users authenticated user is blocking
 blocked_users = get_blocks_list()
@@ -149,34 +149,34 @@ blocked_users = get_blocks_list()
 blocked_ids = get_blocks_ids()
 
 #Block a user
-block_a_user = post_blocks_create(options = {"screen_name" => "BandonDunesGolf"})
+block_a_user = post_blocks_create(options = Dict{Any, Any}("screen_name" => "BandonDunesGolf"))
 
 #Unblock a user
-unblock_a_user = post_blocks_destroy(options = {"screen_name" => "BandonDunesGolf"})
+unblock_a_user = post_blocks_destroy(options = Dict{Any, Any}("screen_name" => "BandonDunesGolf"))
 
 #Get information about specific users
-multiple_user_info = get_users_lookup(options = {"screen_name" => "kyrieirving, jpiz1"})
+multiple_user_info = get_users_lookup(options = Dict{Any, Any}("screen_name" => "kyrieirving, jpiz1"))
 
 #Get information about a single user
-single_user_info = get_users_show(options = {"screen_name" => "amilejefferson"})
+single_user_info = get_users_show(options = Dict{Any, Any}("screen_name" => "amilejefferson"))
 
 #Search for users based on a topic
 search_for_users = get_users_search("data science")
 
 #Get users that authenticate user account can contribute to 
-contributees = get_users_contributees(options = {"screen_name" => "randyzwitch"})
+contributees = get_users_contributees(options = Dict{Any, Any}("screen_name" => "randyzwitch"))
 
 #Get users that can contribute to the authenticated account
-contributors = get_users_contributors(options = {"screen_name" => "randyzwitch"})
+contributors = get_users_contributors(options = Dict{Any, Any}("screen_name" => "randyzwitch"))
 
 #Remove profile banner
 remove_banner = post_account_remove_profile_banner()
 
 #post_account_update_profile_banner
-add_banner = post_account_update_profile_banner("base64_banner_data"; options = {"width" => "1040", "height" => "520"})
+add_banner = post_account_update_profile_banner("base64_banner_data"; options = Dict{Any, Any}("width" => "1040", "height" => "520"))
 
 #Get profile banner
-profile_banner = get_profile_banner(options = {"screen_name" => "randyzwitch"})
+profile_banner = get_profile_banner(options = Dict{Any, Any}("screen_name" => "randyzwitch"))
 
 ############################################## suggestedusers.jl ##################################
 
@@ -206,58 +206,58 @@ favorite_tweet = post_favorites_create("439801028910010369")
 lists_subscribed_to = get_lists()
 
 #Get tweets for a given list id
-tweets_given_list = get_lists_statuses(options = {"list_id" => "4300970"})
+tweets_given_list = get_lists_statuses(options = Dict{Any, Any}("list_id" => "4300970"))
 
 #Remove a member from a list
-remove_user = post_lists_members_destroy(options = {"owner_screen_name" => "randyzwitch", "slug" => "julia-users", "screen_name" => "viralbshah"}) 
+remove_user = post_lists_members_destroy(options = Dict{Any, Any}("owner_screen_name" => "randyzwitch", "slug" => "julia-users", "screen_name" => "viralbshah")) 
 
 #Get lists which user has been added to
-list_adds = get_lists_memberships(options = {"screen_name" => "randyzwitch"})
+list_adds = get_lists_memberships(options = Dict{Any, Any}("screen_name" => "randyzwitch"))
 
 #Get subscribers of a certain list id
-list_subscribers = get_lists_subscribers(options = {"list_id" => "4300970"})
+list_subscribers = get_lists_subscribers(options = Dict{Any, Any}("list_id" => "4300970"))
 
 #Subscribe authenticated user to list
-subscribe_list = post_lists_subscribers_create(options = {"list_id" => "4300970"})
+subscribe_list = post_lists_subscribers_create(options = Dict{Any, Any}("list_id" => "4300970"))
 
 #Check if user is subscribed to a list
-check_user_subscriber = get_lists_subscribers_show(options = {"list_id" => "4300970", "screen_name" => "randyzwitch"})
+check_user_subscriber = get_lists_subscribers_show(options = Dict{Any, Any}("list_id" => "4300970", "screen_name" => "randyzwitch"))
 
 #Unsubscribe authenticated user from list
-unsub_list = post_lists_subscribers_destroy(options = {"owner_screen_name" => "nduley", "slug" => "omniture-webanalytics"})
+unsub_list = post_lists_subscribers_destroy(options = Dict{Any, Any}("owner_screen_name" => "nduley", "slug" => "omniture-webanalytics"))
 
 #Add multiple users to list; no spaces allowed in list of screen_names
-multiple_create = post_lists_members_createall(options = {"owner_screen_name" => "randyzwitch", "slug" => "julia-users", "screen_name" => "stefankarpinski,viral_b_shah,jowanza"}) 
+multiple_create = post_lists_members_createall(options = Dict{Any, Any}("owner_screen_name" => "randyzwitch", "slug" => "julia-users", "screen_name" => "stefankarpinski,viral_b_shah,jowanza")) 
 
 #Check if a member is a member of a specific list
-mem_show = get_lists_members_show(options = {"owner_screen_name" => "randyzwitch", "slug" => "julia-users", "screen_name" => "johnmyleswhite"})
+mem_show = get_lists_members_show(options = Dict{Any, Any}("owner_screen_name" => "randyzwitch", "slug" => "julia-users", "screen_name" => "johnmyleswhite"))
 
 #Get members of a list
-list_members = get_lists_members(options = {"list_id" => "4300970"})
+list_members = get_lists_members(options = Dict{Any, Any}("list_id" => "4300970"))
 
 #Add single user to list
-add_one_user = post_lists_members_create(options = {"owner_screen_name" => "randyzwitch", "slug" => "julia-users", "screen_name" => "johnmyleswhite"}) 
+add_one_user = post_lists_members_create(options = Dict{Any, Any}("owner_screen_name" => "randyzwitch", "slug" => "julia-users", "screen_name" => "johnmyleswhite")) 
 
 #Delete a list
-destroy = post_lists_destroy(options = {"owner_screen_name" => "randyzwitch", "slug" => "julia-folks"})
+destroy = post_lists_destroy(options = Dict{Any, Any}("owner_screen_name" => "randyzwitch", "slug" => "julia-folks"))
 
 #Update characteristics of a list
-update_list = post_lists_update(options = {"list_id" => "106887912", "name" => "julia folks"})
+update_list = post_lists_update(options = Dict{Any, Any}("list_id" => "106887912", "name" => "julia folks"))
 
 #Create a new list owned by authenticated user
 create_list = post_lists_create("julia users")
 
 #Get specified list
-get_list = get_lists_show(options = {"list_id" => "4300970"})
+get_list = get_lists_show(options = Dict{Any, Any}("list_id" => "4300970"))
 
 #Get lists a user is subscribed to
-get_list_subs = get_lists_subscriptions(options = {"screen_name" => "randyzwitch"})
+get_list_subs = get_lists_subscriptions(options = Dict{Any, Any}("screen_name" => "randyzwitch"))
 
 #Remove multiple members from a list
-remove_multiple = post_lists_members_destroyall(options = {"owner_screen_name" => "randyzwitch", "slug" => "julia-users", "screen_name" => "johnmyleswhite,jowanza"})
+remove_multiple = post_lists_members_destroyall(options = Dict{Any, Any}("owner_screen_name" => "randyzwitch", "slug" => "julia-users", "screen_name" => "johnmyleswhite,jowanza"))
 
 #Get lists user owns
-owned_lists = get_lists_ownerships(options = {"screen_name" => "nduley"})
+owned_lists = get_lists_ownerships(options = Dict{Any, Any}("screen_name" => "nduley"))
 
 ############################################## savedsearches.jl ###################################
 
@@ -282,7 +282,7 @@ geo_info = get_geo_id_place_id("df51dec6f4ee2b2c")
 place_ids = get_geo_reverse_geocode("37.7821120598956", "-122.400612831116")
 
 #Search for place_ids based on information that you know (IP, lat/long, etc.)
-search_for_places = get_geo_search(options = {"ip" => "74.125.19.104"})
+search_for_places = get_geo_search(options = Dict{Any, Any}("ip" => "74.125.19.104"))
 
 #Get places near a given location
 similar_places = get_geo_similar_places("37.7821120598956", "-122.400612831116", "Twitter HQ")
@@ -301,7 +301,7 @@ close_trends = get_trends_closest("37.781157", "-122.400612831116")
 ############################################## spam.jl ############################################
 
 #Report a user as a spammer (also blocks user for authenticated user)
-report_spammer = post_users_report_spam(options = {"screen_name" => "TEAMF0LL0W"})
+report_spammer = post_users_report_spam(options = Dict{Any, Any}("screen_name" => "TEAMF0LL0W"))
 
 ############################################## oauth.jl ###########################################
 
