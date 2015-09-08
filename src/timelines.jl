@@ -10,7 +10,7 @@ function get_mentions_timeline(; options=Dict{String, String}())
 
     #Return array of type TWEETS
     #return to_TWEETS(r)
-    return r.status == 200 ? to_TWEETS(JSON.parse(r.data)) : r
+    return r.status == 200 ? to_TWEETS(Requests.json(r)) : r
 
 end
 
@@ -20,7 +20,7 @@ function get_user_timeline(; options=Dict{String, String}())
 
     #Return array of type TWEETS
     #return to_TWEETS(r)
-    return r.status == 200 ? to_TWEETS(JSON.parse(r.data)) : r
+    return r.status == 200 ? to_TWEETS(Requests.json(r)) : r
 
 end
 
@@ -30,7 +30,7 @@ function get_home_timeline(; options=Dict{String, String}())
 
     #Return array of type TWEETS
     #return to_TWEETS(r)
-    return r.status == 200 ? to_TWEETS(JSON.parse(r.data)) : r
+    return r.status == 200 ? to_TWEETS(Requests.json(r)) : r
 
 end
 
@@ -40,6 +40,6 @@ function get_retweets_of_me(; options=Dict{String, String}())
 
     #Return array of type TWEETS
     #return to_TWEETS(r)
-    return r.status == 200 ? to_TWEETS(JSON.parse(r.data)) : r
+    return r.status == 200 ? to_TWEETS(Requests.json(r)) : r
 
 end

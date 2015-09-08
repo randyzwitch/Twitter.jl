@@ -17,7 +17,7 @@ function get_search_tweets(q::String; options=Dict{String, String}())
 
     #return to_TWEETS(r["statuses"])
 
-    r.status == 200 ?  to_TWEETS(JSON.parse(r.data)["statuses"]) : r
+    r.status == 200 ?  to_TWEETS(Requests.json(r)["statuses"]) : r
 
 end
 

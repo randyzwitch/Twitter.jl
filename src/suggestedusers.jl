@@ -10,7 +10,7 @@ function get_user_suggestions_slug(slug::String; options=Dict{String, String}())
 
     #return to_USERS(r["users"])
 
-    return r.status == 200 ? to_USERS(JSON.parse(r.data)["users"]) : r
+    return r.status == 200 ? to_USERS(Requests.json(r)["users"]) : r
 
 end
 
@@ -20,6 +20,6 @@ function get_user_suggestions_slug_members(slug::String; options=Dict{String, St
 
     #return to_USERS(r)
 
-    return r.status == 200 ? to_USERS(JSON.parse(r.data)) : r
+    return r.status == 200 ? to_USERS(Requests.json(r)) : r
 
 end

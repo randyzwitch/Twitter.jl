@@ -17,7 +17,7 @@ function DataFrame(array::Array{TWEETS, 1})
     for column in cols
 
         #Temp array to hold results
-        temp = {}
+        temp = []
 
         #Loop over array of composite type, get individual field value from outer loop value
         for value in array
@@ -55,7 +55,7 @@ function DataFrame(array::Array{USERS, 1})
     for column in cols
 
         #Temp array to hold results
-        temp = {}
+        temp = []
 
         #Loop over array of composite type, get individual field value from outer loop value
         for value in array
@@ -93,7 +93,7 @@ function DataFrame(array::Array{PLACES, 1})
     for column in cols
 
         #Temp array to hold results
-        temp = {}
+        temp = []
 
         #Loop over array of composite type, get individual field value from outer loop value
         for value in array
@@ -131,7 +131,7 @@ function DataFrame(array::Array{LISTS, 1})
     for column in cols
 
         #Temp array to hold results
-        temp = {}
+        temp = []
 
         #Loop over array of composite type, get individual field value from outer loop value
         for value in array

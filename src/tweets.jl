@@ -10,7 +10,7 @@ function get_retweets_id(id::String; options=Dict{String, String}())
 
     #Return array of type TWEETS
     #return to_TWEETS(r)
-    return r.status == 200 ? to_TWEETS(JSON.parse(r.data)) : r
+    return r.status == 200 ? to_TWEETS(Requests.json(r)) : r
 
 end
 
@@ -23,7 +23,7 @@ function get_single_tweet_id(id::String; options=Dict{String, String}())
 
     #Return array of type TWEETS
     #return to_TWEETS(r)
-    return r.status == 200 ? to_TWEETS(JSON.parse(r.data)) : r
+    return r.status == 200 ? to_TWEETS(Requests.json(r)) : r
 
 end
 
@@ -33,7 +33,7 @@ function post_destroy_single_tweet_id(id::String; options=Dict{String, String}()
 
     #Return array of type TWEETS
     #return to_TWEETS(r)
-    return r.status == 200 ? to_TWEETS(JSON.parse(r.data)) : r
+    return r.status == 200 ? to_TWEETS(Requests.json(r)) : r
 
 end
 
@@ -46,7 +46,7 @@ function post_status_update(status::String; options=Dict{String, String}())
 
     #Return array of type TWEETS
     #return to_TWEETS(r)
-    return r.status == 200 ? to_TWEETS(JSON.parse(r.data)) : r
+    return r.status == 200 ? to_TWEETS(Requests.json(r)) : r
 
 end
 
@@ -56,7 +56,7 @@ function post_status_retweet_id(id::String; options=Dict{String, String}())
 
     #Return array of type TWEETS
     #return to_TWEETS(r)
-    return r.status == 200 ? to_TWEETS(JSON.parse(r.data)) : r
+    return r.status == 200 ? to_TWEETS(Requests.json(r)) : r
 
 end
 
@@ -72,6 +72,6 @@ function get_retweeters_id(id::String; options=Dict{String, String}())
     #Return a Dict for now, only useful data value is array of ids
     r = get_oauth("https://api.twitter.com/1.1/statuses/retweeters/ids.json", options)
 
-    return r.status == 200 ? JSON.parse(r.data) : r
+    return r.status == 200 ? Requests.json(r) : r
 
 end
