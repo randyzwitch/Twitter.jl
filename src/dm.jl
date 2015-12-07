@@ -4,7 +4,7 @@
 #
 #############################################################
 
-function get_direct_messages(; options=Dict{String, String}())
+function get_direct_messages(; options=Dict{AbstractString, AbstractString}())
 
     r = get_oauth("https://api.twitter.com/1.1/direct_messages.json", options)
 
@@ -13,7 +13,7 @@ function get_direct_messages(; options=Dict{String, String}())
 
 end
 
-function get_direct_messages_sent(; options=Dict{String, String}())
+function get_direct_messages_sent(; options=Dict{AbstractString, AbstractString}())
 
     r = get_oauth("https://api.twitter.com/1.1/direct_messages/sent.json", options)
 
@@ -22,7 +22,7 @@ function get_direct_messages_sent(; options=Dict{String, String}())
 
 end
 
-function get_direct_messages_show(id::String; options=Dict{String, String}())
+function get_direct_messages_show(id::AbstractString; options=Dict{AbstractString, AbstractString}())
 
     #Add required parameter(s) to options dict
     options["id"] = id
@@ -34,7 +34,7 @@ function get_direct_messages_show(id::String; options=Dict{String, String}())
 
 end
 
-function post_direct_messages_destroy(id::String; options=Dict{String, String}())
+function post_direct_messages_destroy(id::AbstractString; options=Dict{AbstractString, AbstractString}())
 
     options["id"] = id
 
@@ -45,7 +45,7 @@ function post_direct_messages_destroy(id::String; options=Dict{String, String}()
 
 end
 
-function post_direct_messages_send(text::String; options=Dict{String, String}())
+function post_direct_messages_send(text::AbstractString; options=Dict{AbstractString, AbstractString}())
 
     #Add status into options Dict
     options["text"] = text
