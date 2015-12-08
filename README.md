@@ -2,15 +2,15 @@
 
 [![Build Status](https://travis-ci.org/randyzwitch/Twitter.jl.png)](https://travis-ci.org/randyzwitch/Twitter.jl)
 
-Twitter.jl is a Julia package to work with the Twitter API v1.1. Currently, only the REST API methods are supported; once [streaming capabilities are added to Requests.jl](https://github.com/loladiro/Requests.jl/issues/19), the Streaming API methods will be created as well.
+Twitter.jl is a Julia package to work with the Twitter API v1.1. Currently, only the REST API methods are supported; streaming APIs are supported by [Requests.jl](https://github.com/JuliaWeb/Requests.jl), but the accompanying methods have not been implemented at this time.
 
 ##Twitter.jl API
 
-Currently, all functions have required arguments for those parameters required by Twitter and an `options` keyword argument to provide a `Dict{AbstractString, AbstractString}` of optional parameters [Twitter API documentation](https://dev.twitter.com/docs/api/1.1). Most function calls will return either a Julia `Dict` or a typed Array. Bad requests will return the raw `Response` composite type from Requests.jl for debugging purposes.
+All functions have required arguments for those parameters required by Twitter and an `options` keyword argument to provide a `Dict{AbstractString, AbstractString}` of optional parameters [Twitter API documentation](https://dev.twitter.com/docs/api/1.1). Most function calls will return either a Julia `Dict` or a typed Array. Bad requests will return the raw `Response` composite type from Requests.jl for debugging purposes.
 
-DataFrame methods are defined for functions returning composite types: `TWEETS`, `PLACES`, `LISTS`, and `USERS`. Other DataFrame methods may be defined at a later date.
+DataFrame methods are defined for functions returning composite types: `TWEETS`, `PLACES`, `LISTS`, and `USERS`.
 
-Note that the API is subject to change in the coming few versions, but should stablize shortly.
+Note, 12/08/2015: While I vouch that I'll fix issues as they arise and accept pull requests (preferred!), I unfortunately don't have the time to add additional functionality to this package.
 
 ##Authentication
 
@@ -19,21 +19,21 @@ Authentication is accomplished by creating an application on [dev.twitter.com](h
 ```julia
 Using Twitter
 
-twitterauth("6nOtpXmf...", 
+twitterauth("6nOtpXmf...",
             "sES5Zlj096S...",
             "98689850-Hj...",
             "UroqCVpWKIt...")
 ```
 
-This package does not currently support on-the-fly, pop-up a browser-type OAuth authentication. If this functionality is important to you (for example, if you wanted to write a Twitter GUI using Julia), it should be trivial to write the functions (please submit a pull request if you do so!)
+This package does not currently support on-the-fly, pop-up a browser-type OAuth authentication.
 
 ##Code examples
 
-See [tests.jl](https://github.com/randyzwitch/Twitter.jl/blob/master/tests/tests.jl) for example function calls. More detailed examples will be provided at a later date once API is finalized.
+See [tests.jl](https://github.com/randyzwitch/Twitter.jl/blob/master/tests/tests.jl) for example function calls.
 
 ##Testing
 
-Given the authenticated nature of the Twitter API, it's unlikely that testing will be built into Travis-CI. Rather, a test file will be provided in the future for testing, which will also serve as detailed examples.
+Given the authenticated nature of the Twitter API, and the ability to get banned for rapid fire API calls (like a bot would) it's unlikely that testing will be built into Travis-CI. Rather, the [tests.jl](https://github.com/randyzwitch/Twitter.jl/blob/master/tests/tests.jl) file can be validated manually to ensure a specific function works, as well as serving as examples in lieu of detailed documentation.
 
 ##Licensing
 
@@ -52,5 +52,5 @@ Nice to have (timeline uncertain):
 - DataFrame methods for generic `Dict` responses
 - Keyword arguments for returning DataFrame (to remove step in data retrieval process)
 - Ability to save authentication keys to file, remove need for authentication each time
-- Create Read The Docs documentation
-- Create OAuth functions (not getting done until someone else submits a PR)
+- Create detailed documentation
+- Create OAuth Twitter authentication functions

@@ -1,17 +1,14 @@
-language: cpp
-compiler:
-  - clang
+language: julia
+os:
+  - linux
+  - osx
+julia:
+  - 0.4
+  - nightly
 notifications:
   email: false
-env:
-  matrix: 
-    - JULIAVERSION="juliareleases" 
-    - JULIAVERSION="julianightlies" 
-before_install:
-  - sudo add-apt-repository ppa:staticfloat/julia-deps -y
-  - sudo add-apt-repository ppa:staticfloat/${JULIAVERSION} -y
-  - sudo apt-get update -qq -y
-  - sudo apt-get install libpcre3-dev julia -y
 script:
-  - julia -e 'Pkg.init(); run(`ln -s $(pwd()) $(Pkg.dir("Twitter"))`); Pkg.pin("Twitter"); Pkg.resolve()'
-  - julia -e 'using Twitter; @assert isdefined(:Twitter); @assert typeof(Twitter) === Module'
+    - if [[ -a .git/shallow ]]; then git fetch --unshallow; fi
+    - julia -e 'Pkg.clone(pwd()); Pkg.test("Twitter"; coverage=true)'
+after_success:
+  - julia -e 'cd(Pkg.dir("Twitter")); Pkg.add("Coverage"); using Coverage; Coveralls.submit(process_folder()); Codecov.submit(process_folder())'
