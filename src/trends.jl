@@ -4,7 +4,7 @@
 #
 #############################################################
 
-function get_trends_place(id::String; options=Dict{String, String}())
+function get_trends_place(id::AbstractString; options=Dict{AbstractString, AbstractString}())
 
     #Add required parameter(s) to options dict
     options["id"] = id
@@ -15,7 +15,7 @@ function get_trends_place(id::String; options=Dict{String, String}())
 
 end
 
-function get_trends_closest(lat::String, long::String; options=Dict{String, String}())
+function get_trends_closest(lat::AbstractString, long::AbstractString; options=Dict{AbstractString, AbstractString}())
 
     #Add required parameter(s) to options dict
     options["lat"] = lat

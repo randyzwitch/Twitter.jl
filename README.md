@@ -6,7 +6,7 @@ Twitter.jl is a Julia package to work with the Twitter API v1.1. Currently, only
 
 ##Twitter.jl API
 
-Currently, all functions have required arguments for those parameters required by Twitter and an `options` keyword argument to provide a `Dict{String, String}` of optional parameters [Twitter API documentation](https://dev.twitter.com/docs/api/1.1). Most function calls will return either a Julia `Dict` or a typed Array. Bad requests will return the raw `Response` composite type from Requests.jl for debugging purposes.
+Currently, all functions have required arguments for those parameters required by Twitter and an `options` keyword argument to provide a `Dict{AbstractString, AbstractString}` of optional parameters [Twitter API documentation](https://dev.twitter.com/docs/api/1.1). Most function calls will return either a Julia `Dict` or a typed Array. Bad requests will return the raw `Response` composite type from Requests.jl for debugging purposes.
 
 DataFrame methods are defined for functions returning composite types: `TWEETS`, `PLACES`, `LISTS`, and `USERS`. Other DataFrame methods may be defined at a later date.
 

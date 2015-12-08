@@ -4,7 +4,7 @@
 #
 #############################################################
 
-function get_retweets_id(id::String; options=Dict{String, String}())
+function get_retweets_id(id::AbstractString; options=Dict{AbstractString, AbstractString}())
 
     r = get_oauth("https://api.twitter.com/1.1/statuses/retweets/$(id).json", options)
 
@@ -14,7 +14,7 @@ function get_retweets_id(id::String; options=Dict{String, String}())
 
 end
 
-function get_single_tweet_id(id::String; options=Dict{String, String}())
+function get_single_tweet_id(id::AbstractString; options=Dict{AbstractString, AbstractString}())
 
     #Add required parameter(s) to options dict
     options["id"] = id
@@ -27,7 +27,7 @@ function get_single_tweet_id(id::String; options=Dict{String, String}())
 
 end
 
-function post_destroy_single_tweet_id(id::String; options=Dict{String, String}())
+function post_destroy_single_tweet_id(id::AbstractString; options=Dict{AbstractString, AbstractString}())
 
     r = post_oauth("https://api.twitter.com/1.1/statuses/destroy/$(id).json", options)
 
@@ -37,7 +37,7 @@ function post_destroy_single_tweet_id(id::String; options=Dict{String, String}()
 
 end
 
-function post_status_update(status::String; options=Dict{String, String}())
+function post_status_update(status::AbstractString; options=Dict{AbstractString, AbstractString}())
 
     #Add status into options Dict
     options["status"] = status
@@ -50,7 +50,7 @@ function post_status_update(status::String; options=Dict{String, String}())
 
 end
 
-function post_status_retweet_id(id::String; options=Dict{String, String}())
+function post_status_retweet_id(id::AbstractString; options=Dict{AbstractString, AbstractString}())
 
     r = post_oauth("https://api.twitter.com/1.1/statuses/retweet/$(id).json", options)
 
@@ -64,7 +64,7 @@ function post_status_update_media()
     error("Twitter API not fully implemented")
 end
 
-function get_retweeters_id(id::String; options=Dict{String, String}())
+function get_retweeters_id(id::AbstractString; options=Dict{AbstractString, AbstractString}())
 
     #Add required parameter(s) to options dict
     options["id"] = id

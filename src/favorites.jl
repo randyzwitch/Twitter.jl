@@ -4,7 +4,7 @@
 #
 #############################################################
 
-function get_favorites_list(; options=Dict{String, String}())
+function get_favorites_list(; options=Dict{AbstractString, AbstractString}())
 
     r = get_oauth("https://api.twitter.com/1.1/favorites/list.json", options)
 
@@ -13,7 +13,7 @@ function get_favorites_list(; options=Dict{String, String}())
 
 end
 
-function post_favorites_destroy(id::String; options=Dict{String, String}())
+function post_favorites_destroy(id::AbstractString; options=Dict{AbstractString, AbstractString}())
 
     options["id"] = id
 
@@ -24,7 +24,7 @@ function post_favorites_destroy(id::String; options=Dict{String, String}())
 
 end
 
-function post_favorites_create(id::String; options=Dict{String, String}())
+function post_favorites_create(id::AbstractString; options=Dict{AbstractString, AbstractString}())
 
     options["id"] = id
 

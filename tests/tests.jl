@@ -1,5 +1,5 @@
 #Authentication using consumer & oauth values
-twitterauth("6nOtpXmf...", 
+twitterauth("6nOtpXmf...",
             "sES5Zlj096S...",
             "98689850-Hj...",
             "UroqCVpWKIt...")
@@ -30,7 +30,7 @@ get_tweet_by_id = get_single_tweet_id("434685122671939584")
 #Remove a tweet by a specific id
 remove_tweet = post_destroy_single_tweet_id("439427946487742465")
 
-#Post a status update to Twitter 
+#Post a status update to Twitter
 status_update = post_status_update("I can't believe it snowed today, then is now 45 degrees and all the snow is gone. Strange times.")
 
 #Retweet someone based on id
@@ -163,7 +163,7 @@ single_user_info = get_users_show(options = Dict{Any, Any}("screen_name" => "ami
 #Search for users based on a topic
 search_for_users = get_users_search("data science")
 
-#Get users that authenticate user account can contribute to 
+#Get users that authenticate user account can contribute to
 contributees = get_users_contributees(options = Dict{Any, Any}("screen_name" => "randyzwitch"))
 
 #Get users that can contribute to the authenticated account
@@ -209,7 +209,7 @@ lists_subscribed_to = get_lists()
 tweets_given_list = get_lists_statuses(options = Dict{Any, Any}("list_id" => "4300970"))
 
 #Remove a member from a list
-remove_user = post_lists_members_destroy(options = Dict{Any, Any}("owner_screen_name" => "randyzwitch", "slug" => "julia-users", "screen_name" => "viralbshah")) 
+remove_user = post_lists_members_destroy(options = Dict{Any, Any}("owner_screen_name" => "randyzwitch", "slug" => "julia-users", "screen_name" => "viralbshah"))
 
 #Get lists which user has been added to
 list_adds = get_lists_memberships(options = Dict{Any, Any}("screen_name" => "randyzwitch"))
@@ -227,7 +227,7 @@ check_user_subscriber = get_lists_subscribers_show(options = Dict{Any, Any}("lis
 unsub_list = post_lists_subscribers_destroy(options = Dict{Any, Any}("owner_screen_name" => "nduley", "slug" => "omniture-webanalytics"))
 
 #Add multiple users to list; no spaces allowed in list of screen_names
-multiple_create = post_lists_members_createall(options = Dict{Any, Any}("owner_screen_name" => "randyzwitch", "slug" => "julia-users", "screen_name" => "stefankarpinski,viral_b_shah,jowanza")) 
+multiple_create = post_lists_members_createall(options = Dict{Any, Any}("owner_screen_name" => "randyzwitch", "slug" => "julia-users", "screen_name" => "stefankarpinski,viral_b_shah,jowanza"))
 
 #Check if a member is a member of a specific list
 mem_show = get_lists_members_show(options = Dict{Any, Any}("owner_screen_name" => "randyzwitch", "slug" => "julia-users", "screen_name" => "johnmyleswhite"))
@@ -236,7 +236,7 @@ mem_show = get_lists_members_show(options = Dict{Any, Any}("owner_screen_name" =
 list_members = get_lists_members(options = Dict{Any, Any}("list_id" => "4300970"))
 
 #Add single user to list
-add_one_user = post_lists_members_create(options = Dict{Any, Any}("owner_screen_name" => "randyzwitch", "slug" => "julia-users", "screen_name" => "johnmyleswhite")) 
+add_one_user = post_lists_members_create(options = Dict{Any, Any}("owner_screen_name" => "randyzwitch", "slug" => "julia-users", "screen_name" => "johnmyleswhite"))
 
 #Delete a list
 destroy = post_lists_destroy(options = Dict{Any, Any}("owner_screen_name" => "randyzwitch", "slug" => "julia-folks"))
@@ -333,5 +333,3 @@ terms_of_service = get_help_tos()
 
 #Get application rate limits
 rate_limits = get_application_rate_limit_status()
-
-

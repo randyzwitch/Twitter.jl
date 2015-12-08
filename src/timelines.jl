@@ -4,7 +4,7 @@
 #
 #############################################################
 
-function get_mentions_timeline(; options=Dict{String, String}())
+function get_mentions_timeline(; options=Dict{AbstractString, AbstractString}())
 
     r = get_oauth("https://api.twitter.com/1.1/statuses/mentions_timeline.json", options)
 
@@ -14,7 +14,7 @@ function get_mentions_timeline(; options=Dict{String, String}())
 
 end
 
-function get_user_timeline(; options=Dict{String, String}())
+function get_user_timeline(; options=Dict{AbstractString, AbstractString}())
 
     r = get_oauth("https://api.twitter.com/1.1/statuses/user_timeline.json", options)
 
@@ -24,7 +24,7 @@ function get_user_timeline(; options=Dict{String, String}())
 
 end
 
-function get_home_timeline(; options=Dict{String, String}())
+function get_home_timeline(; options=Dict{AbstractString, AbstractString}())
 
     r = get_oauth("https://api.twitter.com/1.1/statuses/home_timeline.json", options)
 
@@ -34,7 +34,7 @@ function get_home_timeline(; options=Dict{String, String}())
 
 end
 
-function get_retweets_of_me(; options=Dict{String, String}())
+function get_retweets_of_me(; options=Dict{AbstractString, AbstractString}())
 
     r = get_oauth("https://api.twitter.com/1.1/statuses/retweets_of_me.json", options)
 
