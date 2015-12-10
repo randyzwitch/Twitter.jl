@@ -1,3 +1,5 @@
+using Twitter, DataFrames
+
 #Authentication using consumer & oauth values
 twitterauth("6nOtpXmf...",
             "sES5Zlj096S...",
