@@ -33,7 +33,7 @@ See [tests.jl](https://github.com/randyzwitch/Twitter.jl/blob/master/tests/tests
 
 ##Testing
 
-Given the authenticated nature of the Twitter API, and the ability to get banned for rapid fire API calls (like a bot would) it's unlikely that testing will be built into Travis-CI. Rather, the [tests.jl](https://github.com/randyzwitch/Twitter.jl/blob/master/tests/tests.jl) file can be validated manually to ensure a specific function works, as well as serving as examples in lieu of detailed documentation.
+Given the authenticated nature of the Twitter API, and the ability to get banned for rapid fire API calls (like a bot would) it's unlikely that testing will be built into Travis-CI. Rather, the [tests.jl](https://github.com/randyzwitch/Twitter.jl/blob/master/test/runtests.jl) file can be validated manually to ensure a specific function works, as well as serving as examples in lieu of detailed documentation.
 
 ##Licensing
 
