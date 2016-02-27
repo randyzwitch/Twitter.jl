@@ -29,11 +29,11 @@ This package does not currently support on-the-fly, pop-up a browser-type OAuth 
 
 ##Code examples
 
-See [tests.jl](https://github.com/randyzwitch/Twitter.jl/blob/master/tests/tests.jl) for example function calls.
+See [runtests.jl](https://github.com/randyzwitch/Twitter.jl/blob/master/test/runtests.jl) for example function calls.
 
 ##Testing
 
-Given the authenticated nature of the Twitter API, and the ability to get banned for rapid fire API calls (like a bot would) it's unlikely that testing will be built into Travis-CI. Rather, the [tests.jl](https://github.com/randyzwitch/Twitter.jl/blob/master/test/runtests.jl) file can be validated manually to ensure a specific function works, as well as serving as examples in lieu of detailed documentation.
+Given the authenticated nature of the Twitter API, and the ability to get banned for rapid fire API calls (like a bot would) it's unlikely that testing will be built into Travis-CI. Rather, the [runtests.jl](https://github.com/randyzwitch/Twitter.jl/blob/master/test/runtests.jl) file can be validated manually to ensure a specific function works, as well as serving as examples in lieu of detailed documentation.
 
 ##Licensing
 
