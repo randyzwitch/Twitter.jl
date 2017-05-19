@@ -14,6 +14,7 @@ function to_TWEETS(object::Dict)
                     get(object, "favorite_count", nothing),                 #    favorite_count
                     get(object, "favorited", nothing),                      #    favorited
                     get(object, "filter_level", nothing),                   #    filter_level
+                    get(object, "full_text", nothing),                           #    full_text
                     get(object, "id", nothing),                             #    id
                     get(object, "id_str", nothing),                         #    id_str
                     get(object, "in_reply_to_screen_name", nothing),        #    in_reply_to_screen_name
