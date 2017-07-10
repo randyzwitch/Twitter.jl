@@ -79,6 +79,7 @@ type TWEETS
     favorite_count::@compat(Union{Int, Void})
     favorited::@compat(Union{Bool, Void})
     filter_level::@compat(Union{AbstractString, Void})
+    full_text::@compat(Union{AbstractString, Void})
     id::@compat(Union{Int, Void})
     id_str::@compat(Union{AbstractString, Void})
     in_reply_to_screen_name::@compat(Union{AbstractString, Void})
