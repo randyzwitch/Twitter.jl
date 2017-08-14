@@ -1,4 +1,4 @@
-VERSION >= v"0.4" && __precompile__()
+__precompile__()
 
 module Twitter
 
@@ -8,7 +8,7 @@ module Twitter
 ##
 ##############################################################################
 
-using DataFrames, OAuth, Compat, Requests
+using DataFrames, OAuth, Requests
 import DataFrames: DataFrame
 
 ##############################################################################

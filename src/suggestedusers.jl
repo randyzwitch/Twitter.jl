@@ -4,7 +4,7 @@
 #
 #############################################################
 
-function get_user_suggestions_slug(slug::AbstractString; options=Dict{AbstractString, AbstractString}())
+function get_user_suggestions_slug(slug::String; options=Dict{String, String}())
 
     r = get_oauth("https://api.twitter.com/1.1/users/suggestions/$(slug).json", options)
 
@@ -14,7 +14,7 @@ function get_user_suggestions_slug(slug::AbstractString; options=Dict{AbstractSt
 
 end
 
-function get_user_suggestions_slug_members(slug::AbstractString; options=Dict{AbstractString, AbstractString}())
+function get_user_suggestions_slug_members(slug::String; options=Dict{String, String}())
 
     r = get_oauth("https://api.twitter.com/1.1/users/suggestions/$(slug)/members.json", options)
 

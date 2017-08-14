@@ -11,7 +11,7 @@ function DataFrame(array::Array{TWEETS, 1})
     resultdf = DataFrame()
 
     #Get array of field names as symbols from composite type
-    @compat cols = fieldnames(TWEETS)
+    cols = fieldnames(TWEETS)
 
     #For each field in composite type...
     for column in cols

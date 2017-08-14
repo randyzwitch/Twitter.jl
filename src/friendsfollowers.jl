@@ -4,7 +4,7 @@
 #
 #############################################################
 
-function post_friendships_create(; options=Dict{AbstractString, AbstractString}())
+function post_friendships_create(; options=Dict{String, String}())
 
     r = post_oauth("https://api.twitter.com/1.1/friendships/create.json", options)
 
@@ -13,7 +13,7 @@ function post_friendships_create(; options=Dict{AbstractString, AbstractString}(
 
 end
 
-function post_friendships_destroy(; options=Dict{AbstractString, AbstractString}())
+function post_friendships_destroy(; options=Dict{String, String}())
 
     r = post_oauth("https://api.twitter.com/1.1/friendships/destroy.json", options)
 
@@ -22,7 +22,7 @@ function post_friendships_destroy(; options=Dict{AbstractString, AbstractString}
 
 end
 
-function post_friendships_update(; options=Dict{AbstractString, AbstractString}())
+function post_friendships_update(; options=Dict{String, String}())
 
     r = post_oauth("https://api.twitter.com/1.1/friendships/destroy.json", options)
 
@@ -30,7 +30,7 @@ function post_friendships_update(; options=Dict{AbstractString, AbstractString}(
 
 end
 
-function get_friends_list(; options=Dict{AbstractString, AbstractString}())
+function get_friends_list(; options=Dict{String, String}())
 
     r = get_oauth("https://api.twitter.com/1.1/friends/list.json", options)
 
@@ -39,7 +39,7 @@ function get_friends_list(; options=Dict{AbstractString, AbstractString}())
 
 end
 
-function get_followers_list(; options=Dict{AbstractString, AbstractString}())
+function get_followers_list(; options=Dict{String, String}())
 
     r = get_oauth("https://api.twitter.com/1.1/followers/list.json", options)
 
