@@ -1,6 +1,9 @@
 # Twitter
 
-[![Build Status](https://travis-ci.org/randyzwitch/Twitter.jl.png)](https://travis-ci.org/randyzwitch/Twitter.jl)
+OSX/Linux: [![Build Status](https://travis-ci.org/randyzwitch/Twitter.jl.png)](https://travis-ci.org/randyzwitch/Twitter.jl)
+<br>
+Windows: [![Build status](https://ci.appveyor.com/api/projects/status/09qykgs7l2fakcvh?svg=true)](https://ci.appveyor.com/project/randyzwitch/twitter-jl)
+
 
 __12/08/2015: While I vouch that I'll fix issues as they arise and accept pull requests (preferred!), I unfortunately don't have the time to add additional functionality to this package.__
 
