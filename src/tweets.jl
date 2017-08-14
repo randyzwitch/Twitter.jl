@@ -4,7 +4,7 @@
 #
 #############################################################
 
-function get_retweets_id(id::AbstractString; options=Dict{AbstractString, AbstractString}())
+function get_retweets_id(id::String; options=Dict{String, String}())
 
     r = get_oauth("https://api.twitter.com/1.1/statuses/retweets/$(id).json", options)
 
@@ -14,7 +14,7 @@ function get_retweets_id(id::AbstractString; options=Dict{AbstractString, Abstra
 
 end
 
-function get_single_tweet_id(id::AbstractString; options=Dict{AbstractString, AbstractString}())
+function get_single_tweet_id(id::String; options=Dict{String, String}())
 
     #Add required parameter(s) to options dict
     options["id"] = id
@@ -27,7 +27,7 @@ function get_single_tweet_id(id::AbstractString; options=Dict{AbstractString, Ab
 
 end
 
-function post_destroy_single_tweet_id(id::AbstractString; options=Dict{AbstractString, AbstractString}())
+function post_destroy_single_tweet_id(id::String; options=Dict{String, String}())
 
     r = post_oauth("https://api.twitter.com/1.1/statuses/destroy/$(id).json", options)
 
@@ -37,7 +37,7 @@ function post_destroy_single_tweet_id(id::AbstractString; options=Dict{AbstractS
 
 end
 
-function post_status_update(status::AbstractString; options=Dict{AbstractString, AbstractString}())
+function post_status_update(status::String; options=Dict{String, String}())
 
     #Add status into options Dict
     options["status"] = status
@@ -50,7 +50,7 @@ function post_status_update(status::AbstractString; options=Dict{AbstractString,
 
 end
 
-function post_status_retweet_id(id::AbstractString; options=Dict{AbstractString, AbstractString}())
+function post_status_retweet_id(id::String; options=Dict{String, String}())
 
     r = post_oauth("https://api.twitter.com/1.1/statuses/retweet/$(id).json", options)
 
@@ -64,7 +64,7 @@ function post_status_update_media()
     error("Twitter API not fully implemented")
 end
 
-function get_retweeters_id(id::AbstractString; options=Dict{AbstractString, AbstractString}())
+function get_retweeters_id(id::String; options=Dict{String, String}())
 
     #Add required parameter(s) to options dict
     options["id"] = id

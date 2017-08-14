@@ -47,7 +47,7 @@ endpoint = ("help/configuration.json",
             "friendships/show.json")
 
 for (func, endp) in zip(funcname, endpoint)
-@eval begin function ($func)(; options=Dict{AbstractString, AbstractString}())
+@eval begin function ($func)(; options=Dict{String, String}())
 
         r = get_oauth($"https://api.twitter.com/1.1/$endp", options)
 
@@ -56,4 +56,3 @@ for (func, endp) in zip(funcname, endpoint)
         end
     end
 end
-
