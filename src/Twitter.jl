@@ -65,7 +65,7 @@ export  get_direct_messages,
         post_lists_create,
         get_lists_show,
         get_lists_subscriptions,
-        post_lists_members_destroyall,
+        post_lists_members_destroy_all,
         get_lists_ownerships,
         get_saved_searches_list,
         get_search_tweets,
@@ -128,7 +128,6 @@ export  get_direct_messages,
 
 include("dm.jl")
 include("favorites.jl")
-include("friendsfollowers.jl")
 include("general.jl")
 include("geo.jl")
 include("no_required_args.jl")
@@ -136,7 +135,6 @@ include("lists.jl")
 include("oauth.jl")
 include("parse.jl")
 include("search.jl")
-include("spam.jl")
 include("streaming.jl")
 include("suggestedusers.jl")
 include("trends.jl")

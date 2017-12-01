@@ -48,7 +48,26 @@ endpoint_tuple = [
             (:get_oauth, :get_users_lookup, "users/lookup.json"),
             (:get_oauth, :get_users_show, "users/show.json"),
             (:get_oauth, :get_users_contributees, "users/contributees.json"),
-            (:get_oauth, :get_users_contributors, "users/contributors.json")
+            (:get_oauth, :get_users_contributors, "users/contributors.json"),
+            (:post_oauth, :post_friendships_create, "friendships/create.json"),
+            (:post_oauth, :post_friendships_destroy, "friendships/destroy.json"),
+            (:post_oauth, :post_friendships_update, "friendships/update.json"),
+            (:post_oauth, :post_lists_members_destroy, "lists/members/destroy.json"),
+            (:post_oauth, :post_lists_subscribers_create, "subscribers/create.json"),
+            (:post_oauth, :post_lists_subscribers_destroy, "subscribers/destroy.json"),
+            (:post_oauth, :post_lists_members_createall, "members/create_all.json"),
+            (:post_oauth, :post_lists_members_create, "members/create.json"),
+            (:post_oauth, :post_lists_destroy, "lists/destroy.json"),
+            (:post_oauth, :post_lists_update, "lists/update.json"),
+            (:post_oauth, :post_lists_members_destroy_all, "members/destroy_all.json"),
+            (:post_oauth, :post_users_report_spam, "users/report_spam.json"),
+            (:post_oauth, :post_account_settings, "account/settings.json"),
+            (:post_oauth, :post_update_profile, "account/update_profile.json"),
+            (:post_oauth, :post_update_profile_background, "account/update_profile_background_image.json"),
+            (:post_oauth, :post_blocks_create, "blocks/create.json"),
+            (:post_oauth, :post_blocks_destroy, "blocks/destroy.json"),
+            (:post_oauth, :post_account_remove_profile_banner, "account/remove_profile_banner.json"),
+
 ]
 
 for (verb, func, endp) in endpoint_tuple
