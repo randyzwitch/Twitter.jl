@@ -4,55 +4,37 @@
 #
 #########################################################################
 
-funcname = (:get_help_configuration,
-            :get_help_languages,
-            :get_help_privacy,
-            :get_help_tos,
-            :get_application_rate_limit_status,
-            :get_profile_banner,
-            :get_blocks_ids,
-            :get_account_settings,
-            :get_oembed,
-            :get_trends_available,
-            :get_user_suggestions,
-            :get_saved_searches_list,
-            :get_lists_subscribers_show,
-            :get_friendships_no_retweets,
-            :get_friends_ids,
-            :get_followers_ids,
-            :get_friendships_lookup,
-            :get_friendships_incoming,
-            :get_friendships_outgoing,
-            :get_friendships_show)
+endpoint_tuple = [
+            (:get_help_configuration, "help/configuration.json"),
+            (:get_help_languages, "help/languages.json"),
+            (:get_help_privacy, "help/privacy.json"),
+            (:get_help_tos, "help/tos.json"),
+            (:get_application_rate_limit_status, "application/rate_limit_status.json"),
+            (:get_profile_banner, "users/profile_banner.json"),
+            (:get_blocks_ids, "blocks/ids.json"),
+            (:get_account_settings, "account/settings.json"),
+            (:get_oembed, "statuses/oembed.json"),
+            (:get_trends_available, "trends/available.json"),
+            (:get_user_suggestions, "users/suggestions.json"),
+            (:get_saved_searches_list, "saved_searches/list.json"),
+            (:get_lists_subscribers_show, "lists/subscribers/show.json"),
+            (:get_friendships_no_retweets, "friendships/no_retweets/ids.json"),
+            (:get_friends_ids, "friends/ids.json"),
+            (:get_followers_ids, "followers/ids.json"),
+            (:get_friendships_lookup, "friendships/lookup.json"),
+            (:get_friendships_incoming, "friendships/incoming.json"),
+            (:get_friendships_outgoing, "friendships/outgoing.json"),
+            (:get_friendships_show, "friendships/show.json")
+]
 
-endpoint = ("help/configuration.json",
-            "help/languages.json",
-            "help/privacy.json",
-            "help/tos.json",
-            "application/rate_limit_status.json",
-            "users/profile_banner.json",
-            "blocks/ids.json",
-            "account/settings.json",
-            "statuses/oembed.json",
-            "trends/available.json",
-            "users/suggestions.json",
-            "saved_searches/list.json",
-            "lists/subscribers/show.json",
-            "friendships/no_retweets/ids.json",
-            "friends/ids.json",
-            "followers/ids.json",
-            "friendships/lookup.json",
-            "friendships/incoming.json",
-            "friendships/outgoing.json",
-            "friendships/show.json")
+for (func, endp) in endpoint_tuple
+    @eval begin
+            function ($func)(; options=Dict{String, String}())
 
-for (func, endp) in zip(funcname, endpoint)
-@eval begin function ($func)(; options=Dict{String, String}())
+                r = get_oauth($"https://api.twitter.com/1.1/$endp", options)
 
-        r = get_oauth($"https://api.twitter.com/1.1/$endp", options)
+                return r.status == 200 ? JSON.parse(String(r.data)) : error("Twitter API returned $(r.status) status")
 
-        return r.status == 200 ? JSON.parse(String(r.data)) : error("Twitter API returned $(r.status) status")
-
-        end
+            end
     end
 end
