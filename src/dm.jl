@@ -4,22 +4,6 @@
 #
 #############################################################
 
-function get_direct_messages(; options=Dict{String, String}())
-
-    r = get_oauth("https://api.twitter.com/1.1/direct_messages.json", options)
-
-    return r.status == 200 ? JSON.parse(String(r.data)) : error("Twitter API returned $(r.status) status")
-
-end
-
-function get_direct_messages_sent(; options=Dict{String, String}())
-
-    r = get_oauth("https://api.twitter.com/1.1/direct_messages/sent.json", options)
-
-    return r.status == 200 ? JSON.parse(String(r.data)) : error("Twitter API returned $(r.status) status")
-
-end
-
 function get_direct_messages_show(id::String; options=Dict{String, String}())
 
     #Add required parameter(s) to options dict

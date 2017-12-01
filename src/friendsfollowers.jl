@@ -27,19 +27,3 @@ function post_friendships_update(; options=Dict{String, String}())
     return r.status == 200 ? JSON.parse(String(r.data)) : error("Twitter API returned $(r.status) status")
 
 end
-
-function get_friends_list(; options=Dict{String, String}())
-
-    r = get_oauth("https://api.twitter.com/1.1/friends/list.json", options)
-
-    return r.status == 200 ? JSON.parse(String(r.data)) : error("Twitter API returned $(r.status) status")
-
-end
-
-function get_followers_list(; options=Dict{String, String}())
-
-    r = get_oauth("https://api.twitter.com/1.1/followers/list.json", options)
-
-    return r.status == 200 ? JSON.parse(String(r.data)) : error("Twitter API returned $(r.status) status")
-
-end

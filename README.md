@@ -1,6 +1,6 @@
 # Twitter
 
-OSX/Linux: [![Build Status](https://travis-ci.org/randyzwitch/Twitter.jl.png)](https://travis-ci.org/randyzwitch/Twitter.jl)
+Linux: [![Build Status](https://travis-ci.org/randyzwitch/Twitter.jl.png)](https://travis-ci.org/randyzwitch/Twitter.jl)
 <br>
 Windows: [![Build status](https://ci.appveyor.com/api/projects/status/09qykgs7l2fakcvh?svg=true)](https://ci.appveyor.com/project/randyzwitch/twitter-jl)
 

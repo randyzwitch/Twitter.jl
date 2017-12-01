@@ -4,14 +4,6 @@
 #
 #############################################################
 
-function get_verify_credentials(; options=Dict{String, String}())
-
-    r = get_oauth("https://api.twitter.com/1.1/account/verify_credentials.json", options)
-
-    return r.status == 200 ? JSON.parse(String(r.data)) : error("Twitter API returned $(r.status) status")
-
-end
-
 function post_account_settings(; options=Dict{String, String}())
 
     r = post_oauth("https://api.twitter.com/1.1/account/settings.json", options)
@@ -19,17 +11,6 @@ function post_account_settings(; options=Dict{String, String}())
     return r.status == 200 ? JSON.parse(String(r.data)) : error("Twitter API returned $(r.status) status")
 
 end
-
-# function post_update_delivery_device(device::String; options=Dict{String, String}())
-#
-#     #Add required parameter(s) to options dict
-#     options["device"] = device
-#
-#     r = post_oauth("https://api.twitter.com/1.1/account/update_delivery_device.json", options)
-#
-#     return r.status == 200 ? JSON.parse(String(r.data)) : error("Twitter API returned $(r.status) status")
-#
-# end
 
 function post_update_profile(; options=Dict{String, String}())
 
@@ -47,14 +28,6 @@ function post_update_profile_background(; options=Dict{String, String}())
 
 end
 
-# function post_update_profile_colors(; options=Dict{String, String}())
-#
-#     r = post_oauth("https://api.twitter.com/1.1/account/update_profile_colors.json", options)
-#
-#     return r.status == 200 ? JSON.parse(String(r.data)) : error("Twitter API returned $(r.status) status")
-#
-# end
-
 #Need to enforce type around image as base64 encoded, not sure how
 function post_update_profile_image(image; options=Dict{String, String}())
 
@@ -63,15 +36,6 @@ function post_update_profile_image(image; options=Dict{String, String}())
 
     r = post_oauth("https://api.twitter.com/1.1/account/update_profile_image.json", options)
 
-    return r.status == 200 ? JSON.parse(String(r.data)) : error("Twitter API returned $(r.status) status")
-
-end
-
-function get_blocks_list(; options=Dict{String, String}())
-
-    r = get_oauth("https://api.twitter.com/1.1/blocks/list.json", options)
-
-    #return to_USERS(r["users"])
     return r.status == 200 ? JSON.parse(String(r.data)) : error("Twitter API returned $(r.status) status")
 
 end
@@ -92,48 +56,12 @@ function post_blocks_destroy(; options=Dict{String, String}())
 
 end
 
-function get_users_lookup(; options=Dict{String, String}())
-
-    r = get_oauth("https://api.twitter.com/1.1/users/lookup.json", options)
-
-    #return to_USERS(r)
-    return r.status == 200 ? JSON.parse(String(r.data)) : error("Twitter API returned $(r.status) status")
-
-end
-
-function get_users_show(; options=Dict{String, String}())
-
-    r = get_oauth("https://api.twitter.com/1.1/users/show.json", options)
-
-    #return to_USERS(r)
-    return r.status == 200 ? JSON.parse(String(r.data)) : error("Twitter API returned $(r.status) status")
-
-end
-
 function get_users_search(q::String; options=Dict{String, String}())
 
     #Add required parameter(s) to options dict
     options["q"] = q
 
     r = get_oauth("https://api.twitter.com/1.1/users/search.json", options)
-
-    #return to_USERS(r)
-    return r.status == 200 ? JSON.parse(String(r.data)) : error("Twitter API returned $(r.status) status")
-
-end
-
-function get_users_contributees(; options=Dict{String, String}())
-
-    r = get_oauth("https://api.twitter.com/1.1/users/contributees.json", options)
-
-    #return to_USERS(r)
-    return r.status == 200 ? JSON.parse(String(r.data)) : error("Twitter API returned $(r.status) status")
-
-end
-
-function get_users_contributors(; options=Dict{String, String}())
-
-    r = get_oauth("https://api.twitter.com/1.1/users/contributors.json", options)
 
     #return to_USERS(r)
     return r.status == 200 ? JSON.parse(String(r.data)) : error("Twitter API returned $(r.status) status")
