@@ -8,7 +8,7 @@ module Twitter
 ##
 ##############################################################################
 
-using DataFrames, OAuth, Requests
+using DataFrames, OAuth, HTTP, JSON
 import DataFrames: DataFrame
 
 ##############################################################################
@@ -68,9 +68,9 @@ export  get_direct_messages,
         post_lists_members_destroyall,
         get_lists_ownerships,
         get_saved_searches_list,
-        get_saved_searches_show_id,
-        post_saved_searches_create,
-        post_saved_searches_destroy_id,
+        #get_saved_searches_show_id,
+        #post_saved_searches_create,
+        #post_saved_searches_destroy_id,
         get_search_tweets,
         post_users_report_spam,
         post_streaming_filtered,
@@ -102,7 +102,7 @@ export  get_direct_messages,
         post_update_delivery_device,
         post_update_profile,
         post_update_profile_background,
-        post_update_profile_colors,
+        # post_update_profile_colors,
         post_update_profile_image,
         get_blocks_list,
         get_blocks_ids,
@@ -139,7 +139,7 @@ include("get_no_required_args.jl")
 include("lists.jl")
 include("oauth.jl")
 include("parse.jl")
-include("savedsearches.jl")
+#include("savedsearches.jl")
 include("search.jl")
 include("spam.jl")
 include("streaming.jl")

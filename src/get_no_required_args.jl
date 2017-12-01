@@ -51,7 +51,7 @@ for (func, endp) in zip(funcname, endpoint)
 
         r = get_oauth($"https://api.twitter.com/1.1/$endp", options)
 
-        return r.status == 200 ? Requests.json(r) : r
+        return r.status == 200 ? JSON.parse(String(r.data)) : error("Twitter API returned $(r.status) status")
 
         end
     end

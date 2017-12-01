@@ -27,7 +27,7 @@ retweets_default20 = get_retweets_of_me()
 get_retweets_by_id = get_retweets_id("434685122671939584")
 
 #Get single tweet by id number
-get_tweet_by_id = get_single_tweet_id("434685122671939584") 
+get_tweet_by_id = get_single_tweet_id("434685122671939584")
 
 #Remove a tweet by a specific id
 remove_tweet = post_destroy_single_tweet_id("439427946487742465")
@@ -130,7 +130,7 @@ verify_cred = get_verify_credentials()
 change_settings = post_account_settings(options = Dict{Any, Any}("lang" => "en", "sleep_time_enabled" => "false"))
 
 #Allow for SMS or regular notifications from Twitter
-update_delivery = post_update_delivery_device("sms")
+#update_delivery = post_update_delivery_device("sms")
 
 #Update profile information
 update_profile = post_update_profile(options = Dict{Any, Any}("name" => "Julia Twitter User"))
@@ -139,7 +139,7 @@ update_profile = post_update_profile(options = Dict{Any, Any}("name" => "Julia T
 update_background = post_update_profile_background(options = Dict{Any, Any}("tile" => "true"))
 
 #Update profile colors
-update_colors = post_update_profile_colors(options = Dict{Any, Any}("profile_background_color" => "3D3D3D", "profile_link_color" => "0000FF"))
+#update_colors = post_update_profile_colors(options = Dict{Any, Any}("profile_background_color" => "3D3D3D", "profile_link_color" => "0000FF"))
 
 #Update profile image
 update_image = post_update_profile_image(options = Dict{Any, Any}("image" => "ABCDEFGH..."))
@@ -266,14 +266,14 @@ owned_lists = get_lists_ownerships(options = Dict{Any, Any}("screen_name" => "nd
 #Get saved searches for authenticated user
 saved_searches = get_saved_searches_list()
 
-#Get info about saved search by id
-saved_search_info = get_saved_searches_show_id("23777812")
-
-#Create a saved search
-create_saved_search = post_saved_searches_create("#julialang")
-
-#Remove a saved search by id
-remove_saved_search = post_saved_searches_destroy_id("315945769")
+# #Get info about saved search by id
+# saved_search_info = get_saved_searches_show_id("23777812")
+#
+# #Create a saved search
+# create_saved_search = post_saved_searches_create("#julialang")
+#
+# #Remove a saved search by id
+# remove_saved_search = post_saved_searches_destroy_id("315945769")
 
 ############################################## geo.jl #############################################
 
