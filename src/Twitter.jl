@@ -8,7 +8,7 @@ module Twitter
 ##
 ##############################################################################
 
-using DataFrames, OAuth, HTTP, JSON
+using DataFrames, OAuth, JSON
 import DataFrames: DataFrame
 
 ##############################################################################
