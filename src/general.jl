@@ -10,7 +10,7 @@ function twitterauth(consumer_key::String, consumer_secret::String, oauth_token:
     #Create a global variable to hold return from this function
     global twittercred
 
-    return twittercred = TWCRED(consumer_key, consumer_secret, oauth_token, oauth_secret)
+    return twittercred = TWCredential(consumer_key, consumer_secret, oauth_token, oauth_secret)
 
 end
 

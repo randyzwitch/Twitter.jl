@@ -6,7 +6,7 @@
 
 function to_TWEETS(object::Dict)
 
-    return   TWEETS(get(object, "contributors", nothing),                   #    contributors
+    return   Tweets(get(object, "contributors", nothing),                   #    contributors
                     get(object, "coordinates", nothing),                    #    coordinates
                     get(object, "created_at", nothing),                     #    created_at
                     get(object, "current_user_retweet", nothing),           #    current_user_retweet
@@ -14,7 +14,7 @@ function to_TWEETS(object::Dict)
                     get(object, "favorite_count", nothing),                 #    favorite_count
                     get(object, "favorited", nothing),                      #    favorited
                     get(object, "filter_level", nothing),                   #    filter_level
-                    get(object, "full_text", nothing),                           #    full_text
+                    get(object, "full_text", nothing),                      #    full_text
                     get(object, "id", nothing),                             #    id
                     get(object, "id_str", nothing),                         #    id_str
                     get(object, "in_reply_to_screen_name", nothing),        #    in_reply_to_screen_name
@@ -43,13 +43,13 @@ end
 #Vectorize function manually for better output control
 function to_TWEETS(object::Array)
 
-     return TWEETS[to_TWEETS(tweet) for tweet in object]
+     return Tweets[to_TWEETS(tweet) for tweet in object]
 
 end
 
 function to_USERS(object::Dict)
 
-    return USERS(   get(object, "contributors_enabled", nothing),                     #  contributors_enabled
+    return Users(   get(object, "contributors_enabled", nothing),                     #  contributors_enabled
                     get(object, "created_at", nothing),                               #  created_at
                     get(object, "default_profile", nothing),                          #  default_profile
                     get(object, "default_profile_image", nothing),                    #  default_profile_image
@@ -96,13 +96,13 @@ end
 #Vectorize function manually for better output control
 function to_USERS(object::Array)
 
-     return USERS[to_USERS(tweet) for tweet in object]
+     return Users[to_USERS(tweet) for tweet in object]
 
 end
 
 function to_PLACES(object::Dict)
 
-    return PLACES(  get(object, "attributes", nothing),          #attributes
+    return Places(  get(object, "attributes", nothing),          #attributes
                     get(object, "bounding_box", nothing),        #bounding_box
                     get(object, "country", nothing),             #country
                     get(object, "country_code", nothing),        #country_code
@@ -118,13 +118,13 @@ end
 #Vectorize function manually for better output control
 function to_PLACES(object::Array)
 
-     return PLACES[to_PLACES(tweet) for tweet in object]
+     return Places[to_PLACES(tweet) for tweet in object]
 
 end
 
 function to_LISTS(object::Dict)
 
-     return LISTS( get(object, "created_at", nothing),                     #created_at
+     return Lists( get(object, "created_at", nothing),                     #created_at
                    get(object, "description", nothing),                    #description
                    get(object, "following", nothing),                      #following
                    get(object, "full_name", nothing),                      #full_name
@@ -144,6 +144,6 @@ end
 #Vectorize function manually for better output control
 function to_LISTS(object::Array)
 
-     return LISTS[to_LISTS(tweet) for tweet in object]
+     return Lists[to_LISTS(tweet) for tweet in object]
 
 end

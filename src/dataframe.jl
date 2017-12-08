@@ -5,13 +5,13 @@
 #############################################################
 
 #Should really try to generate this code, only difference is data type in array
-function DataFrame(array::Array{TWEETS, 1})
+function DataFrame(array::Array{Tweets, 1})
 
     #Empty df as container for results
     resultdf = DataFrame()
 
     #Get array of field names as symbols from composite type
-    cols = fieldnames(TWEETS)
+    cols = fieldnames(Tweets)
 
     #For each field in composite type...
     for column in cols
@@ -37,19 +37,19 @@ function DataFrame(array::Array{TWEETS, 1})
 end
 
 #Convert single returned composite type to array
-function DataFrame(response::TWEETS)
+function DataFrame(response::Tweets)
 
     return DataFrame([response])
 
 end
 
-function DataFrame(array::Array{USERS, 1})
+function DataFrame(array::Array{Users, 1})
 
     #Empty df as container for results
     resultdf = DataFrame()
 
     #Get array of field names as symbols from composite type
-    cols = names(USERS)
+    cols = names(Users)
 
     #For each field in composite type...
     for column in cols
@@ -75,19 +75,19 @@ function DataFrame(array::Array{USERS, 1})
 end
 
 #Convert single returned composite type to array
-function DataFrame(response::USERS)
+function DataFrame(response::Users)
 
     return DataFrame([response])
 
 end
 
-function DataFrame(array::Array{PLACES, 1})
+function DataFrame(array::Array{Places, 1})
 
     #Empty df as container for results
     resultdf = DataFrame()
 
     #Get array of field names as symbols from composite type
-    cols = names(PLACES)
+    cols = names(Places)
 
     #For each field in composite type...
     for column in cols
@@ -113,19 +113,19 @@ function DataFrame(array::Array{PLACES, 1})
 end
 
 #Convert single returned composite type to array
-function DataFrame(response::PLACES)
+function DataFrame(response::Places)
 
     return DataFrame([response])
 
 end
 
-function DataFrame(array::Array{LISTS, 1})
+function DataFrame(array::Array{Lists, 1})
 
     #Empty df as container for results
     resultdf = DataFrame()
 
     #Get array of field names as symbols from composite type
-    cols = names(LISTS)
+    cols = names(Lists)
 
     #For each field in composite type...
     for column in cols
@@ -151,7 +151,7 @@ function DataFrame(array::Array{LISTS, 1})
 end
 
 #Convert single returned composite type to array
-function DataFrame(response::LISTS)
+function DataFrame(response::Lists)
 
     return DataFrame([response])
 
