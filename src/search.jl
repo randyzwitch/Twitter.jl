@@ -15,6 +15,6 @@ function get_search_tweets(q::String; options=Dict{String, String}())
     #Evaluate returning a custom type where one field parsed array of tweets, one field metadata
     #metadata = r["search_metadata"]
 
-    return r.status == 200 ? JSON.parse(String(r.data)) : error("Twitter API returned $(r.status) status")
+    return r.status == 200 ? JSON.parse(String(r.body)) : error("Twitter API returned $(r.status) status")
 
 end

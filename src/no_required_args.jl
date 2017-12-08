@@ -76,7 +76,7 @@ for (verb, func, endp) in endpoint_tuple
 
                 r = ($verb)($"https://api.twitter.com/1.1/$endp", options)
 
-                return r.status == 200 ? JSON.parse(String(r.data)) : error("Twitter API returned $(r.status) status")
+                return r.status == 200 ? JSON.parse(String(r.body)) : error("Twitter API returned $(r.status) status")
 
             end
     end

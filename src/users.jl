@@ -12,7 +12,7 @@ function post_update_profile_image(image; options=Dict{String, String}())
 
     r = post_oauth("https://api.twitter.com/1.1/account/update_profile_image.json", options)
 
-    return r.status == 200 ? JSON.parse(String(r.data)) : error("Twitter API returned $(r.status) status")
+    return r.status == 200 ? JSON.parse(String(r.body)) : error("Twitter API returned $(r.status) status")
 
 end
 
@@ -24,7 +24,7 @@ function get_users_search(q::String; options=Dict{String, String}())
     r = get_oauth("https://api.twitter.com/1.1/users/search.json", options)
 
     #return to_USERS(r)
-    return r.status == 200 ? JSON.parse(String(r.data)) : error("Twitter API returned $(r.status) status")
+    return r.status == 200 ? JSON.parse(String(r.body)) : error("Twitter API returned $(r.status) status")
 
 end
 
@@ -36,6 +36,6 @@ function post_account_update_profile_banner(banner::String; options=Dict{String,
 
     r = post_oauth("https://api.twitter.com/1.1/account/update_profile_banner.json", options)
 
-    return r.status == 200 ? JSON.parse(String(r.data)) : error("Twitter API returned $(r.status) status")
+    return r.status == 200 ? JSON.parse(String(r.body)) : error("Twitter API returned $(r.status) status")
 
 end
