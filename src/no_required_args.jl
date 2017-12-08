@@ -1,10 +1,5 @@
-#########################################################################
-#
-# Endpoints with no required arguments
-#
-#########################################################################
-
 endpoint_tuple = [
+            #no required arguments
             (:get_oauth, :get_help_configuration, "help/configuration.json"),
             (:get_oauth, :get_help_languages, "help/languages.json"),
             (:get_oauth, :get_help_privacy, "help/privacy.json"),
@@ -67,12 +62,38 @@ endpoint_tuple = [
             (:post_oauth, :post_blocks_create, "blocks/create.json"),
             (:post_oauth, :post_blocks_destroy, "blocks/destroy.json"),
             (:post_oauth, :post_account_remove_profile_banner, "account/remove_profile_banner.json"),
+            #have required arguments
+            (:get_oauth, :get_direct_messages_show, "direct_messages/show.json"),
+            (:post_oauth, :post_direct_messages_destroy, "direct_messages/destroy.json"),
+            (:post_oauth, :post_direct_messages_send, "direct_messages/new.json"),
+            (:post_oauth, :post_favorites_destroy, "favorites/destroy.json"),
+            (:post_oauth, :post_favorites_create, "favorites/create.json"),
+            (:get_oauth, :get_geo_reverse_geocode, "geo/reverse_geocode.json"),
+            (:get_oauth, :get_geo_search, "geo/search.json"),
+            (:get_oauth, :get_geo_similar_places, "geo/similar_places.json"),
+            (:post_oauth, :post_lists_create, "lists/create.json"),
+            (:get_oauth, :get_search_tweets, "search/tweets.json"),
+            (:get_oauth, :get_trends_place, "trends/place.json"),
+            (:get_oauth, :get_trends_closest, "trends/closest.json"),
+            (:get_oauth, :get_single_tweet_id, "statuses/show.json"),
+            (:post_oauth, :post_status_update, "statuses/update.json"),
+            (:get_oauth, :get_retweeters_id, "statuses/retweeters/ids.json"),
+            (:get_oauth, :get_users_search, "users/search.json"),
+
+
+
 
 ]
 
 for (verb, func, endp) in endpoint_tuple
     @eval begin
-            function ($func)(; options=Dict{String, String}())
+            function ($func)(;kwargs...)
+
+                options = Dict{String, Any}()
+
+                for arg in kwargs
+                    options[string(arg[1])] = string(arg[2])
+                end
 
                 r = ($verb)($"https://api.twitter.com/1.1/$endp", options)
 

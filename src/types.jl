@@ -1,9 +1,3 @@
-#############################################################
-#
-# Custom Types
-#
-#############################################################
-
 #Type to hold Twitter API credentials
 mutable struct TWCredential
     consumer_key::String
