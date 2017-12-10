@@ -1,9 +1,3 @@
-#############################################################
-#
-# DataFrame methods to parse typed arrays
-#
-#############################################################
-
 function DataFrame(array::Array{T, 1}) where T <: TwitterType
 
     #Empty df as container for results

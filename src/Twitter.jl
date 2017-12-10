@@ -85,7 +85,6 @@ export  get_direct_messages,
         post_destroy_single_tweet_id,
         post_status_update,
         post_status_retweet_id,
-        post_status_update_media,
         get_oembed,
         get_retweeters_id,
         get_account_settings,
@@ -116,11 +115,9 @@ export  get_direct_messages,
 ##############################################################################
 
 include("general.jl")
-include("geo.jl")
-include("no_required_args.jl")
+include("macrogenerated.jl")
+include("othermethods.jl")
 include("parse.jl")
-include("suggestedusers.jl")
-include("tweets.jl")
 include("types.jl")
 include("dataframe.jl")
 
