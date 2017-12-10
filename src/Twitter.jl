@@ -106,7 +106,11 @@ export  get_direct_messages,
         post_account_remove_profile_banner,
         post_account_update_profile_banner,
         get_profile_banner,
-        DataFrame
+        DataFrame,
+        Lists,
+        Users,
+        Places,
+        Tweets
 
 ##############################################################################
 ##
@@ -117,7 +121,6 @@ export  get_direct_messages,
 include("general.jl")
 include("macrogenerated.jl")
 include("othermethods.jl")
-include("parse.jl")
 include("types.jl")
 include("dataframe.jl")
 
