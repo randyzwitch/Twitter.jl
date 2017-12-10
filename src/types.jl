@@ -1,5 +1,7 @@
+abstract type TwitterType end
+
 #Type to hold Twitter API credentials
-mutable struct TWCredential
+mutable struct TWCredential <: TwitterType
     consumer_key::String
     consumer_secret::String
     oauth_token::String
@@ -7,7 +9,7 @@ mutable struct TWCredential
 end
 
 #Places response object
-mutable struct Places
+mutable struct Places <: TwitterType
     attributes::Union{Dict, Void}
     bounding_box::Union{Dict, Void}
     country::Union{String, Void}
@@ -20,7 +22,7 @@ mutable struct Places
 end
 
 #Users response object
-mutable struct Users
+mutable struct Users <: TwitterType
     contributors_enabled::Union{Bool, Void}
     created_at::Union{String, Void}
     default_profile::Union{Bool, Void}
@@ -64,7 +66,7 @@ mutable struct Users
 end
 
 #Tweets response object
-mutable struct Tweets
+mutable struct Tweets <: TwitterType
     contributors::Union{Dict, Void}
     coordinates::Union{Dict, Void}
     created_at::Union{String, Void}
@@ -98,7 +100,7 @@ mutable struct Tweets
 end
 
 #Lists response object
-mutable struct Lists
+mutable struct Lists <: TwitterType
     created_at::Union{String, Void}
     description::Union{String, Void}
     following::Union{Bool, Void}
