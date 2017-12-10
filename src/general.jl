@@ -14,16 +14,7 @@ function twitterauth(consumer_key::String, consumer_secret::String, oauth_token:
 
 end
 
-#General function for OAuth authenticated GET request
-function get_oauth(endpoint::String, options::Dict)
+#General functions for OAuth authenticated GET/POST request
+get_oauth(endpoint::String, options::Dict) = oauth_request_resource(endpoint, "GET", options, twittercred.consumer_key, twittercred.consumer_secret, twittercred.oauth_token, twittercred.oauth_secret)
 
-    oauth_request_resource(endpoint, "GET", options, twittercred.consumer_key, twittercred.consumer_secret, twittercred.oauth_token, twittercred.oauth_secret)
-
-end
-
-#General function for OAuth authenticated POST request
-function post_oauth(endpoint::String, options::Dict)
-
-    oauth_request_resource(endpoint, "POST", options, twittercred.consumer_key, twittercred.consumer_secret, twittercred.oauth_token, twittercred.oauth_secret)
-
-end
+post_oauth(endpoint::String, options::Dict) = oauth_request_resource(endpoint, "POST", options, twittercred.consumer_key, twittercred.consumer_secret, twittercred.oauth_token, twittercred.oauth_secret)

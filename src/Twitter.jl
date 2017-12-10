@@ -70,11 +70,6 @@ export  get_direct_messages,
         get_saved_searches_list,
         get_search_tweets,
         post_users_report_spam,
-        post_streaming_filtered,
-        get_streaming_sample,
-        get_firehose,
-        get_user_streaming,
-        get_site_streaming,
         get_user_suggestions_slug,
         get_user_suggestions,
         get_user_suggestions_slug_members,
@@ -112,12 +107,6 @@ export  get_direct_messages,
         post_account_remove_profile_banner,
         post_account_update_profile_banner,
         get_profile_banner,
-        get_oauth_authenticate,
-        get_oauth_authorize,
-        post_oauth_access_token,
-        post_oauth_request_token,
-        post_oauth2_token,
-        post_oauth2_invalidate_token,
         DataFrame
 
 ##############################################################################
@@ -129,13 +118,10 @@ export  get_direct_messages,
 include("general.jl")
 include("geo.jl")
 include("no_required_args.jl")
-include("oauth.jl")
 include("parse.jl")
-include("streaming.jl")
 include("suggestedusers.jl")
 include("tweets.jl")
 include("types.jl")
-include("users.jl")
 include("dataframe.jl")
 
 end # module
