@@ -4,7 +4,7 @@ Linux: [![Build Status](https://travis-ci.org/randyzwitch/Twitter.jl.png)](https
 <br>
 Windows: [![Build status](https://ci.appveyor.com/api/projects/status/09qykgs7l2fakcvh?svg=true)](https://ci.appveyor.com/project/randyzwitch/twitter-jl)
 
-Twitter.jl is a Julia package to work with the Twitter API v1.1. Currently, only the REST API methods are supported; Twitter's streaming APIs aren't implemented at this time.
+Twitter.jl is a Julia package to work with the Twitter API v1.1. Currently, only the REST API methods are supported; streaming API endpoints aren't implemented at this time.
 
 ## Twitter.jl API
 
@@ -43,9 +43,6 @@ Twitter.jl is licensed under the [MIT "Expat" license](https://github.com/randyz
 
 General:
 - Incorporate cursoring for methods returning many pages of results (MOST IMPORTANT TO SOLVE)
-
-Nice to have (timeline uncertain):
-
 - Clean up column types for DataFrame methods
 - DataFrame methods for generic `Dict` responses
 - Keyword arguments for returning DataFrame (to remove step in data retrieval process)
