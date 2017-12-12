@@ -5,10 +5,6 @@ environment:
   - JULIAVERSION: "julianightlies/bin/winnt/x86/julia-latest-win32.exe"
   - JULIAVERSION: "julianightlies/bin/winnt/x64/julia-latest-win64.exe"
 
-  allow_failures:
-  - JULIAVERSION: "julianightlies/bin/winnt/x86/julia-latest-win32.exe"
-  - JULIAVERSION: "julianightlies/bin/winnt/x64/julia-latest-win64.exe"
-
   CONSUMER_KEY:
       secure: rlPc5EFOqvJ2tqCaGRJ21V5lKk1GBw7uNiZ4vwxjawg=
   CONSUMER_SECRET:
@@ -17,6 +13,13 @@ environment:
       secure: rM6oip93TNEuyIOvZW9GbEIGlazCEWHoMeCq0Nm2Ai7NuRd+p0O86nWU1QUGN2MrQ27VCpkV/ewR92ngFl94ZA==
   ACCESS_TOKEN_SECRET:
       secure: z2R9SZGVG0bQCUdyXUwc1Vf7u+zSYwSJwoUDKM9re1ydL2SW/rEG2YP/jiyXAwYX
+
+# uncomment the following lines to allow failures on nightly julia
+# (tests will run but not make your overall status red)
+matrix:
+ allow_failures:
+ - JULIAVERSION: "https://julialangnightlies-s3.julialang.org/bin/winnt/x86/julia-latest-win32.exe"
+ - JULIAVERSION: "https://julialangnightlies-s3.julialang.org/bin/winnt/x64/julia-latest-win64.exe"
 
 branches:
   only:
