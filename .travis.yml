@@ -1,14 +1,23 @@
 language: julia
 os:
-  - linux
-  - osx
+- linux
 julia:
-  - 0.6
-  - nightly
+- 0.6
+- nightly
+matrix:
+  allow_failures:
+  - julia: nightly
 notifications:
   email: false
 script:
-    - if [[ -a .git/shallow ]]; then git fetch --unshallow; fi
-    - julia -e 'Pkg.clone(pwd()); Pkg.test("Twitter"; coverage=true)'
+- if [[ -a .git/shallow ]]; then git fetch --unshallow; fi
+- julia -e 'Pkg.clone(pwd()); Pkg.test("Twitter"; coverage=true)'
 after_success:
-  - julia -e 'cd(Pkg.dir("Twitter")); Pkg.add("Coverage"); using Coverage; Coveralls.submit(process_folder()); Codecov.submit(process_folder())'
+- julia -e 'cd(Pkg.dir("Twitter")); Pkg.add("Coverage"); using Coverage; Coveralls.submit(process_folder());
+  Codecov.submit(process_folder())'
+env:
+  global:
+  - secure: gH6CXT/X9TX32qIQQFWOa8Y/jq0cQPR1ehweF9K8sKjMNgHf1E3/aydROgOIcI6JutiVdjfotocRKlpIyY0b9tN/EJPcAC3SiEZEjwzQQnHPu5BSa4wEKl3fe6NZ285Oywig9cYgstrWN9isLcjVrGZedH3Y/S3zZaRu9pVEM2U=
+  - secure: ANC1swVjActSbw7Gjf8ReO4mKT1jiHyvCq+F7Stx0CU/64bGPs0MoZnEzZi6lQ5NORSORD896v62zBiylKWSbiOPhHDbppDsfBa5ezlCZhBrifJ7+50Jgac/cqdZx98MUO3bSpeUkGjCVsIlDQCiLsRNBmgGVi6fMz60DecfMXA=
+  - secure: MQR5gv/nUaMZBZ7bK2/fIM0qOfeYQ5igbpkJUgqvkuFRcWUZs6n0pJTxWBpGLjwqQQZpZ49UOmpGlJGRHi50iuRu01SQmra0he2BcXRBHLLuJhbuADsTseqZ2tEt4E1yKxVoGxNfzh8GskbFhPljiMez+pxLTAMyvLeBBqozCik=
+  - secure: GhMhwRruxih1KewQaMNvI+PUucbqU11Pe5CMVknZmDsBuEF1m2kj+pnNC61yBE0/RufZXCvSrzvGVbGwqyG7jQFP+0Tdqw/YAGd5hLjKrdJ7MkFW9KefTsOrPA5eyf/L8s7NDK4U8HRA2Onp+wI68pXgjs4qPi5fmqCTC42s3XA=

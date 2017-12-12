@@ -1,4 +1,4 @@
-__precompile__()
+__precompile__(true)
 
 module Twitter
 
@@ -8,7 +8,7 @@ module Twitter
 ##
 ##############################################################################
 
-using DataFrames, OAuth, Requests
+using DataFrames, OAuth, JSON
 import DataFrames: DataFrame
 
 ##############################################################################
@@ -65,19 +65,11 @@ export  get_direct_messages,
         post_lists_create,
         get_lists_show,
         get_lists_subscriptions,
-        post_lists_members_destroyall,
+        post_lists_members_destroy_all,
         get_lists_ownerships,
         get_saved_searches_list,
-        get_saved_searches_show_id,
-        post_saved_searches_create,
-        post_saved_searches_destroy_id,
         get_search_tweets,
         post_users_report_spam,
-        post_streaming_filtered,
-        get_streaming_sample,
-        get_firehose,
-        get_user_streaming,
-        get_site_streaming,
         get_user_suggestions_slug,
         get_user_suggestions,
         get_user_suggestions_slug_members,
@@ -93,7 +85,6 @@ export  get_direct_messages,
         post_destroy_single_tweet_id,
         post_status_update,
         post_status_retweet_id,
-        post_status_update_media,
         get_oembed,
         get_retweeters_id,
         get_account_settings,
@@ -102,7 +93,6 @@ export  get_direct_messages,
         post_update_delivery_device,
         post_update_profile,
         post_update_profile_background,
-        post_update_profile_colors,
         post_update_profile_image,
         get_blocks_list,
         get_blocks_ids,
@@ -116,13 +106,11 @@ export  get_direct_messages,
         post_account_remove_profile_banner,
         post_account_update_profile_banner,
         get_profile_banner,
-        get_oauth_authenticate,
-        get_oauth_authorize,
-        post_oauth_access_token,
-        post_oauth_request_token,
-        post_oauth2_token,
-        post_oauth2_invalidate_token,
-        DataFrame
+        DataFrame,
+        Lists,
+        Users,
+        Places,
+        Tweets
 
 ##############################################################################
 ##
@@ -130,25 +118,10 @@ export  get_direct_messages,
 ##
 ##############################################################################
 
-include("dm.jl")
-include("favorites.jl")
-include("friendsfollowers.jl")
 include("general.jl")
-include("geo.jl")
-include("get_no_required_args.jl")
-include("lists.jl")
-include("oauth.jl")
-include("parse.jl")
-include("savedsearches.jl")
-include("search.jl")
-include("spam.jl")
-include("streaming.jl")
-include("suggestedusers.jl")
-include("timelines.jl")
-include("trends.jl")
-include("tweets.jl")
+include("macrogenerated.jl")
+include("othermethods.jl")
 include("types.jl")
-include("users.jl")
 include("dataframe.jl")
 
 end # module

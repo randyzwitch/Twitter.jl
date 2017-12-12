@@ -1,11 +1,7 @@
-#############################################################
-#
-# Custom Types
-#
-#############################################################
+abstract type TwitterType end
 
 #Type to hold Twitter API credentials
-mutable struct TWCRED
+mutable struct TWCredential <: TwitterType
     consumer_key::String
     consumer_secret::String
     oauth_token::String
@@ -13,7 +9,7 @@ mutable struct TWCRED
 end
 
 #Places response object
-mutable struct PLACES
+mutable struct Places <: TwitterType
     attributes::Union{Dict, Void}
     bounding_box::Union{Dict, Void}
     country::Union{String, Void}
@@ -26,7 +22,7 @@ mutable struct PLACES
 end
 
 #Users response object
-mutable struct USERS
+mutable struct Users <: TwitterType
     contributors_enabled::Union{Bool, Void}
     created_at::Union{String, Void}
     default_profile::Union{Bool, Void}
@@ -70,7 +66,7 @@ mutable struct USERS
 end
 
 #Tweets response object
-mutable struct TWEETS
+mutable struct Tweets <: TwitterType
     contributors::Union{Dict, Void}
     coordinates::Union{Dict, Void}
     created_at::Union{String, Void}
@@ -104,7 +100,7 @@ mutable struct TWEETS
 end
 
 #Lists response object
-mutable struct LISTS
+mutable struct Lists <: TwitterType
     created_at::Union{String, Void}
     description::Union{String, Void}
     following::Union{Bool, Void}
@@ -119,3 +115,108 @@ mutable struct LISTS
     uri::Union{String, Void}
     user::Union{Dict, Void}
 end
+
+#Methods to convert JSON/Dict to Twitter types
+Tweets(object::Dict) =
+    Tweets(get(object, "contributors", nothing),
+            get(object, "coordinates", nothing),
+            get(object, "created_at", nothing),
+            get(object, "current_user_retweet", nothing),
+            get(object, "entities", nothing),
+            get(object, "favorite_count", nothing),
+            get(object, "favorited", nothing),
+            get(object, "filter_level", nothing),
+            get(object, "full_text", nothing),
+            get(object, "id", nothing),
+            get(object, "id_str", nothing),
+            get(object, "in_reply_to_screen_name", nothing),
+            get(object, "in_reply_to_status_id", nothing),
+            get(object, "in_reply_to_status_id_str", nothing),
+            get(object, "in_reply_to_user_id", nothing),
+            get(object, "in_reply_to_user_id_str", nothing),
+            get(object, "lang", nothing),
+            get(object, "place", nothing),
+            get(object, "possibly_sensitive", nothing),
+            get(object, "scopes", nothing),
+            get(object, "retweet_count", nothing),
+            get(object, "retweeted", nothing),
+            get(object, "retweeted_status", nothing),
+            get(object, "source", nothing),
+            get(object, "text", nothing),
+            get(object, "truncated", nothing),
+            get(object, "user", nothing),
+            get(object, "withheld_copyright", nothing),
+            get(object, "withheld_in_countries", nothing),
+            get(object, "withheld_scope", nothing)
+            )
+
+Users(object::Dict) =
+    Users(get(object, "contributors_enabled", nothing),
+            get(object, "created_at", nothing),
+            get(object, "default_profile", nothing),
+            get(object, "default_profile_image", nothing),
+            get(object, "description", nothing),
+            get(object, "entities", nothing),
+            get(object, "favourites_count", nothing),
+            get(object, "follow_request_sent", nothing),
+            get(object, "followers_count", nothing),
+            get(object, "friends_count", nothing),
+            get(object, "geo_enabled", nothing),
+            get(object, "id", nothing),
+            get(object, "id_str", nothing),
+            get(object, "is_translator", nothing),
+            get(object, "listed_count", nothing),
+            get(object, "location", nothing),
+            get(object, "name", nothing),
+            get(object, "profile_background_color", nothing),
+            get(object, "profile_background_image_url", nothing),
+            get(object, "profile_background_image_url_https", nothing),
+            get(object, "profile_backround_tile", nothing),
+            get(object, "profile_banner_url", nothing),
+            get(object, "profile_image_url", nothing),
+            get(object, "profile_image_url_https", nothing),
+            get(object, "profile_link_color", nothing),
+            get(object, "profile_sidebar_border_color", nothing),
+            get(object, "profile_sidebar_fill_color", nothing),
+            get(object, "profile_text_color", nothing),
+            get(object, "profile_use_background_image", nothing),
+            get(object, "protected", nothing),
+            get(object, "screen_name", nothing),
+            get(object, "show_all_inline_media", nothing),
+            get(object, "status", nothing),
+            get(object, "statuses_count", nothing),
+            get(object, "time_zone", nothing),
+            get(object, "url", nothing),
+            get(object, "utc_offset", nothing),
+            get(object, "verified", nothing),
+            get(object, "withheld_in_countries", nothing),
+            get(object, "withheld_scope", nothing)
+            )
+
+Places(object::Dict) =
+    Places(get(object, "attributes", nothing),
+            get(object, "bounding_box", nothing),
+            get(object, "country", nothing),
+            get(object, "country_code", nothing),
+            get(object, "full_name", nothing),
+            get(object, "id", nothing),
+            get(object, "name", nothing),
+            get(object, "place_type", nothing),
+            get(object, "url", nothing)
+            )
+
+Lists(object::Dict) =
+    Lists(get(object, "created_at", nothing),
+            get(object, "description", nothing),
+            get(object, "following", nothing),
+            get(object, "full_name", nothing),
+            get(object, "id", nothing),
+            get(object, "id_str", nothing),
+            get(object, "member_count", nothing),
+            get(object, "mode", nothing),
+            get(object, "name", nothing),
+            get(object, "slug", nothing),
+            get(object, "subscriber_count", nothing),
+            get(object, "uri", nothing),
+            get(object, "user", nothing)
+            )
