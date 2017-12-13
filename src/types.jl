@@ -220,3 +220,8 @@ Lists(object::Dict) =
             get(object, "uri", nothing),
             get(object, "user", nothing)
             )
+
+Tweets(response::Vector) = Tweets[Tweets(x) for x in response]
+Users(response::Vector) = Users[Users(x) for x in response]
+Lists(response::Vector) = Lists[Lists(x) for x in response]
+Places(response::Vector) = Places[Places(x) for x in response]
