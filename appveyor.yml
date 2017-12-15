@@ -1,8 +1,6 @@
 environment:
   matrix:
-  - JULIAVERSION: "julialang/bin/winnt/x86/0.6/julia-0.6-latest-win32.exe"
   - JULIAVERSION: "julialang/bin/winnt/x64/0.6/julia-0.6-latest-win64.exe"
-  - JULIAVERSION: "julianightlies/bin/winnt/x86/julia-latest-win32.exe"
   - JULIAVERSION: "julianightlies/bin/winnt/x64/julia-latest-win64.exe"
 
   CONSUMER_KEY:
@@ -18,7 +16,6 @@ environment:
 # (tests will run but not make your overall status red)
 matrix:
  allow_failures:
- - JULIAVERSION: "https://julialangnightlies-s3.julialang.org/bin/winnt/x86/julia-latest-win32.exe"
  - JULIAVERSION: "https://julialangnightlies-s3.julialang.org/bin/winnt/x64/julia-latest-win64.exe"
 
 branches:
