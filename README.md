@@ -32,12 +32,14 @@ This package does not currently support OAuth authentication.
 
 See [runtests.jl](https://github.com/randyzwitch/Twitter.jl/blob/master/test/runtests.jl) for example function calls.
 
-## TODO
+## Contributing/TODO
+
+Contributions to Twitter.jl are absolutely welcomed and very appropriate for beginners to Julia! Areas for improvement are identified below, but if you have a different idea, please open an issue (then, create a pull request):
 
 General:
 - Incorporate cursoring for methods returning many pages of results (MOST IMPORTANT TO SOLVE)
-- Clean up column types for DataFrame methods
-- DataFrame methods for generic `Dict` responses
+- Clean up API to move away from required arguments to keyword-only
+- Clean up column types for DataFrame methods (switch `eltypes` from `Any` to `Union{T, Missing}`)
 - Keyword arguments for returning DataFrame (to remove step in data retrieval process)
 - Ability to save authentication keys to file, remove need for authentication each time
 - Create detailed documentation
