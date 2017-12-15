@@ -6,13 +6,13 @@ environment:
   - JULIAVERSION: "julianightlies/bin/winnt/x64/julia-latest-win64.exe"
 
   CONSUMER_KEY:
-      secure: rlPc5EFOqvJ2tqCaGRJ21V5lKk1GBw7uNiZ4vwxjawg=
+      secure: K8wqrb6KFCnlyWse5KWZxdA0C0rGSFMFZmqm9qjgdwk=
   CONSUMER_SECRET:
-      secure: hixmZco4nRcYa4jb/uCp5zb48b+NpDklF84k5WLB+dawozyyPUIXGAdn91xPb3plm/mQ2fy6W7+DyMvCXV2qVw==
+      secure: ywaH4rrRg7d06FeiVQV/7KL/hp3WgDCyEfY98FkF8ZmhWDcPHaM84FGwKFoQ0aXYOd8tjJlXNneVvA2QhOqJpA==
   ACCESS_TOKEN:
-      secure: rM6oip93TNEuyIOvZW9GbEIGlazCEWHoMeCq0Nm2Ai7NuRd+p0O86nWU1QUGN2MrQ27VCpkV/ewR92ngFl94ZA==
+      secure: rM6oip93TNEuyIOvZW9GbPgoOCntZq5rfHFojxt7MEjSPTtxgy7ORGTgCmE6ybEiNY5hEQJb2ZGQYu/k9zO6JQ==
   ACCESS_TOKEN_SECRET:
-      secure: z2R9SZGVG0bQCUdyXUwc1Vf7u+zSYwSJwoUDKM9re1ydL2SW/rEG2YP/jiyXAwYX
+      secure: XJCNe4nb4us8j/eApc/g3jGODZZk1TKBZ9rvd/sv2kyU9fkbAIioWTIIszaFfD6/
 
 # uncomment the following lines to allow failures on nightly julia
 # (tests will run but not make your overall status red)
