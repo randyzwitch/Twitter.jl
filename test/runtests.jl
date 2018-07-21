@@ -1,4 +1,4 @@
-using Twitter, Base.Test
+using Twitter, Test
 
 twitterauth(ENV["CONSUMER_KEY"], ENV["CONSUMER_SECRET"], ENV["ACCESS_TOKEN"], ENV["ACCESS_TOKEN_SECRET"])
 
