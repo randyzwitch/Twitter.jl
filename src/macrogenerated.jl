@@ -63,9 +63,9 @@ endpoint_tuple = [
             (:post_oauth, :post_blocks_destroy, "blocks/destroy.json", nothing),
             (:post_oauth, :post_account_remove_profile_banner, "account/remove_profile_banner.json", nothing),
             #have required arguments: no argument checking currently
-            (:get_oauth, :get_direct_messages_show, "direct_messages/show.json", :Tweets),
+            (:get_oauth, :get_direct_messages_show, "direct_messages/events/show.json", :Tweets),
             (:post_oauth, :post_direct_messages_destroy, "direct_messages/destroy.json", :Tweets),
-            (:post_oauth, :post_direct_messages_send, "direct_messages/new.json", :Tweets),
+            (:post_oauth, :post_direct_messages_send, "direct_messages/events/new.json", :Tweets),
             (:post_oauth, :post_favorites_destroy, "favorites/destroy.json", :Tweets),
             (:post_oauth, :post_favorites_create, "favorites/create.json", :Tweets),
             (:get_oauth, :get_geo_reverse_geocode, "geo/reverse_geocode.json", nothing),
