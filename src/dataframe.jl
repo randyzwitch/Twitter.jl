@@ -18,12 +18,12 @@ function DataFrame(array::Array{T, 1}) where T <: TwitterType
         end
 
         #Append each column to df
-        resultdf = hcat(resultdf, temp)
+        resultdf = hcat(resultdf, temp, makeunique=true)
 
     end
 
     #Use cols array above to properly name df columns
-    names!(resultdf, cols)
+    names!(resultdf, [x for x in cols])
 
     return resultdf
 
