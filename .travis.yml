@@ -1,18 +1,21 @@
+## Documentation: http://docs.travis-ci.com/user/languages/julia/
+sudo: required
 language: julia
 os:
-- linux
+  - linux
 julia:
-- 0.7
-- 1.0
-- nightly
+  - 1.0
+  - 1.1
+  - 1.2
+  - 1.3
+  - nightly
 matrix:
   allow_failures:
   - julia: nightly
 notifications:
   email: false
 after_success:
-- julia -e 'using Pkg;cd(Pkg.dir("Twitter")); Pkg.add("Coverage"); using Coverage; Coveralls.submit(process_folder());
-  Codecov.submit(process_folder())'
+  - julia -e 'using Pkg; cd(Pkg.dir("Twitter")); Pkg.add("Coverage"); using Coverage; Codecov.submit(Codecov.process_folder())'
 env:
   global:
   - secure: C4k0b/3yhISWDPl5BuYg8oo4GNeeO/cvhnpe2ESLD7rek1eSgeYmbLz6D6HRu5V6lQjjoUEGpnMid5Drx51jsumov11Br2XiQf7JmUc9Bks0gXcUA7b7HGaZCaG3bUChrL7B/75CU2FCj+7gmZXNJtMTOqYdabsijICOqzqxptY=
