@@ -34,7 +34,7 @@ mutable struct Users <: TwitterType
     followers_count::Union{Int, Nothing}
     friends_count::Union{Int, Nothing}
     geo_enabled::Union{Bool, Nothing}
-    id::Union{Int, Nothing}
+    id::Union{Int64, Nothing}
     id_str::Union{String, Nothing}
     is_translator::Union{Bool, Nothing}
     listed_count::Union{Int, Nothing}
@@ -76,12 +76,12 @@ mutable struct Tweets <: TwitterType
     favorited::Union{Bool, Nothing}
     filter_level::Union{String, Nothing}
     full_text::Union{String, Nothing}
-    id::Union{Int, Nothing}
+    id::Union{Int64, Nothing}
     id_str::Union{String, Nothing}
     in_reply_to_screen_name::Union{String, Nothing}
-    in_reply_to_status_id::Union{Int, Nothing}
+    in_reply_to_status_id::Union{Int64, Nothing}
     in_reply_to_status_id_str::Union{String, Nothing}
-    in_reply_to_user_id::Union{Int, Nothing}
+    in_reply_to_user_id::Union{Int64, Nothing}
     in_reply_to_user_id_str::Union{String, Nothing}
     lang::Union{String, Nothing}
     place::Union{Dict, Nothing}
@@ -105,7 +105,7 @@ mutable struct Lists <: TwitterType
     description::Union{String, Nothing}
     following::Union{Bool, Nothing}
     full_name::Union{String, Nothing}
-    id::Union{Int, Nothing}
+    id::Union{Int64, Nothing}
     id_str::Union{String, Nothing}
     member_count::Union{Int, Nothing}
     mode::Union{String, Nothing}
