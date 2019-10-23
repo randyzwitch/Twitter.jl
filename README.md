@@ -17,7 +17,7 @@ DataFrame methods are defined for functions returning composite types: `Tweets`,
 Authentication is accomplished by creating an application on [dev.twitter.com](https://dev.twitter.com). Once your application is setup, you can access your consumer_key, consumer_token, oauth_token and oauth_secret from the "Details" tab of the application.
 
 ```julia
-Using Twitter
+using Twitter
 
 twitterauth("6nOtpXmf...",
             "sES5Zlj096S...",
