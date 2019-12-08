@@ -43,3 +43,31 @@ unfollow_df = DataFrame(unfollow)
 @test typeof(add_friend) == Users
 @test typeof(unfollow) == Users
 @test size(unfollow_df)[2] == 40
+
+# testing the cursor functions
+
+# create a cursor for friend ids
+mycursor = Cursorable(Dict(), "stefanjwojcik", -1, get_friends_ids)
+
+test_friend_ids = fill(0, 0)
+
+for element in mycursor
+    if "ids" ∈ keys(element.body)
+        append!(test_friend_ids, element.body["ids"])
+    end
+end
+
+@test length(test_friend_ids) > 200 > 300
+
+# create a test cursor for followers ids
+mycursor = Cursorable(Dict(), "stefanjwojcik", -1, get_followers_ids)
+
+test_follower_ids = fill(0, 0)
+
+for element in mycursor
+    if "ids" ∈ keys(element.body)
+        append!(test_follower_ids, element.body["ids"])
+    end
+end
+
+@test length(test_follower_ids) > 500 > 600
