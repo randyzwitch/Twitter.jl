@@ -1,18 +1,8 @@
-
-
 using Twitter
 using JSON
+using OAuth
 
-twitterauth(ENV["CONSUMER_KEY"],ENV["CONSUMER_SECRET"],ENV["ACCESS_TOKEN"],ENV["ACCESS_TOKEN_SECRET"])
-
-mentions_timeline_default = get_mentions_timeline()
-tw = mentions_timeline_default[1]
-tw_df = DataFrame(mentions_timeline_default)
-@test 0 <= length(mentions_timeline_default) <= 20
-@test typeof(mentions_timeline_default) == Vector{Tweets}
-@test typeof(tw) == Tweets
-@test size(tw_df)[2] == 30
-
+TWITTERCRED = twitterauth(ENV["CONSUMER_KEY"],ENV["CONSUMER_SECRET"],ENV["ACCESS_TOKEN"],ENV["ACCESS_TOKEN_SECRET"])
 
 user_timeline_default = get_user_timeline(screen_name = "randyzwitch")
 
@@ -61,9 +51,6 @@ function Base.iterate(T::Cursorable, cursor)
 for element in mycursor
     println(element)
 end
-
-
-
 
 
 # create a cursor for friend ids
@@ -210,14 +197,6 @@ end
 
 # breaking down general functions into bite-size pieces
 
-function parse_options(kwargs)
-    options = Dict{String, Any}()
-    for arg in kwargs
-        options[string(arg[1])] = string(arg[2])
-    end
-    options
-end
-
 # cursorize
 
 # made to be the same for all cursorizeable ID-like functions
@@ -239,10 +218,8 @@ end
 
 """
 get_followers_ids(; kwargs...)
-
 Get a Dict object of follower ids from a particular Twitter user. This function will call the API as
 many times as allowed or until the desired `max_records` is reached, whichever comes first.
-
 # Examples
 ```julia-repl
 julia> get_followers_ids(screen_name = "jack", min_records = 10_000)
@@ -273,39 +250,110 @@ function get_followers_2(; kwargs...)
     newdata
 end
 
-
-
-
-macro time(ex)
-    quote
-        local t0 = time()
-        local val = $(esc(ex))
-        local t1 = time()
-        println("elapsed time: ", t1-t0, " seconds")
-        val
-    end
-end
-
 # this macro reads the intended function and alters the expression before running
 # TODO: add 'cursorize' as info in endpoint_tuple
 # @twitter get_follow_ids(screen_name = "stefanjwojcik", min_ids = 1)
 # @twitter get_user_timeline(screen_name = "stefanjwojcik")
 
+# for flattening the arguments of an expression
+function flattenall(a::AbstractArray)
+    while any(x->typeof(x)<:AbstractArray, a)
+        a = collect(Base.flatten(a))
+    end
+    return a
+end
+
+# The new idea of this macro is simply to monitor the api and make sure you're within limits
 macro twitter(ex)
     quote
-        func = string(ex.args[1])
+		# Preliminaries: get the arguments, unpack them, parse them
+        args = flattenall(ex.args) # get all the args
+		func = string(args[1])
+		cursor_functions = ["get_followers_ids", "get_friends_ids", "get_user_timeline", "get_home_timeline"]
+		# if the function is one of TK, then put in a cursor loop
+		if curso
         verb = func[1:3]=="get" ? "get_oauth" : "post_oauth" # parse get vs. post
         # do tuple lookup to reference the app. endpoint
         endp = [z for (x,y,z,w) in endpoint_tuple if string(y)==func]
         # parse args, call endpoint, cursorize
         options = parse_options(ex)
+        #if id_cursorable
+        #    cursorize(func, endp, options)
+        #elseif tweet_cursorable
+        #    tweet_cursorize(func, endp, options)
+        #else
+        #    call_endpoint(endp, func, options)
+    end
+end
 
-        if id_cursorable
-            cursorize(func, endp, options)
-        elseif text_cursorable
-            text_cursorize(func, endp, options)
+
+macro twitter(ex)
+    quote
+        func = string($(esc(ex.args[1])))
+		verb = func[1:3]=="get" ? "get_oauth" : "post_oauth"
+		show($(esc(ex.args)))
+    end
+end
+
+
+
+########### JUNKA
+"""
+get_endpoint(endp, options)
+
+Internal function. Makes a single call to the specified endpoint using the get_oauth function.
+    See also post_endpoint.
+
+# Examples
+```julia-repl
+julia>  get_endpoint("application/rate_limit_status.json", options)
+...
+```
+"""
+function get_endpoint(endp, options)
+    r = get_oauth("https://api.twitter.com/1.1/$endp", options)
+
+    #If successful API call, return JSON as Julia data structure, otherwise return error
+    if r.status == 200
+        success = JSON.parse(String(r.body))
+
+        #If type known, parse
+        if ($t) != nothing && ($t) <: TwitterType
+            return ($t)(success)
         else
-            call_endpoint(endp, func, options)
+            return success
+        end
+    else
+        error("Twitter API returned $(r.status) status")
+    end
+end
 
+"""
+post_endpoint(endp, options)
+
+Internal function. Makes a single call to the specified endpoint using the get_oauth function.
+    See also post_endpoint.
+
+# Examples
+```julia-repl
+julia>  post_endpoint("application/rate_limit_status.json", options)
+...
+```
+"""
+function call_endpoint(endp, func, options)
+    r = ($func)("https://api.twitter.com/1.1/$endp", options)
+
+    #If successful API call, return JSON as Julia data structure, otherwise return error
+    if r.status == 200
+        success = JSON.parse(String(r.body))
+
+        #If type known, parse
+        if ($t) != nothing && ($t) <: TwitterType
+            return ($t)(success)
+        else
+            return success
+        end
+    else
+        error("Twitter API returned $(r.status) status")
     end
 end
