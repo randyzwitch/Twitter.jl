@@ -44,30 +44,16 @@ unfollow_df = DataFrame(unfollow)
 @test typeof(unfollow) == Users
 @test size(unfollow_df)[2] == 40
 
-# testing the cursor functions
+# create a cursor for follower ids
+follow_cursor_test = get_followers_ids(screen_name = "twitter", count = 15_000)
+@test length(follow_cursor_test["ids"]) == 15_000
 
 # create a cursor for friend ids
-mycursor = Cursorable(Dict(), "stefanjwojcik", -1, get_friends_ids)
+friend_cursor_test = get_friends_ids(screen_name = "twitter", count = 15_000)
+@test length(friend_cursor_test["ids"]) == 15_000
 
-test_friend_ids = fill(0, 0)
+# create a test for timelines
+user_t = get_user_timeline(screen_name = "twitter", count = 1_000)
 
-for element in mycursor
-    if "ids" ∈ keys(element.body)
-        append!(test_friend_ids, element.body["ids"])
-    end
-end
-
-@test length(test_friend_ids) > 200 > 300
-
-# create a test cursor for followers ids
-mycursor = Cursorable(Dict(), "stefanjwojcik", -1, get_followers_ids)
-
-test_follower_ids = fill(0, 0)
-
-for element in mycursor
-    if "ids" ∈ keys(element.body)
-        append!(test_follower_ids, element.body["ids"])
-    end
-end
-
-@test length(test_follower_ids) > 500 > 600
+# create a test for home timelines
+home_t = get_home_timeline(count = 700)
