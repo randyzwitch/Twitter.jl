@@ -119,10 +119,10 @@ export  get_direct_messages,
 ##############################################################################
 
 include("general.jl")
+include("cursoring.jl")
 include("macrogenerated.jl")
 include("othermethods.jl")
 include("types.jl")
 include("dataframe.jl")
-include("cursoring.jl")
 
 end # module
