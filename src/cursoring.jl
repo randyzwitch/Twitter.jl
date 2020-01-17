@@ -213,7 +213,7 @@ julia> get_hone_timeline(count = 1000)
 function get_home_timeline(; kwargs...)
     # Could be doing some pre-allocation here to optimize performance,
     # but since this is an API function that only deals with 25K records at most...
-    endp = "statuses/statuses/home_timeline.json"
+    endp = "statuses/home_timeline.json"
     options = parse_options(kwargs)
 
     if "count" ∈ keys(options)
