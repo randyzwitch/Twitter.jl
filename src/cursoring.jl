@@ -91,7 +91,7 @@ function cursor(cursorable::Bool, newdata::Array, options::Dict, endp::String, c
         if haskey(api_options, "max_id") | haskey(api_options, "since_id")
             cur_count += length(newdata)
             cursorable = cur_count < parse(Int, api_options["count"])
-            api_options["max_id"] = minimum([x.id for x in newdata]-1  # get min id
+            api_options["max_id"] = minimum([x.id for x in newdata])-1  # get min id
         else
             cur_count += length(newdata)
             cursorable = cur_count < parse(Int, api_options["count"])
