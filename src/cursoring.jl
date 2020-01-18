@@ -83,7 +83,7 @@ function cursor(cursorable::Bool, newdata::Array, options::Dict, endp::String, c
     if r.status == 200
         # parse and put into proper type form
         newdata = [Tweets(x) for x in JSON.parse(String(r.body))]
-        length(newdata) == 0 && return cursorable, newdata, api_options, endp, cur_count
+        length(newdata) == 0 && return false, newdata, api_options, endp, cur_count
         # tree of options for max_id or since id
         if haskey(api_options, "max_id")
             cur_count += length(newdata)
