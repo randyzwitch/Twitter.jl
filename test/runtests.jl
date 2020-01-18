@@ -56,10 +56,31 @@ friend_cursor_test = get_friends_ids(screen_name = "BarackObama", count = 10_000
 user_t = get_user_timeline(screen_name = "twitter", count = 1_000)
 @test length(user_t) == 1_000
 
-# get tweet max id 
-max_tweets = get_user_timeline(screen_name = "randyzwitch", max_id = 434685122671939584, count = 201)
-
-
 # create a test for home timelines
 home_t = get_home_timeline(count = 700)
 @test length(home_t) > 1
+
+# get tweet max id
+tweets = get_user_timeline(screen_name = "randyzwitch", count = 400)
+# cut this
+minid = minimum([x.id for x in tweets])
+
+# the function i want to work:
+Juno.@enter get_user_timeline(screen_name = "randyzwitch", since_id = minid, count = 300) # returns only 199
+
+function parse_options(;kwargs...)
+    options = Dict{String, Any}()
+    for arg in kwargs
+        options[string(arg[1])] = string(arg[2])
+    end
+    options
+end
+
+
+options = parse_options(screen_name = "randyzwitch", since_id = maxid, count = 300)
+api_options = copy(options)
+endp = "statuses/user_timeline.json"
+cur_count = 0
+# make the first call to the API
+cursorable = true
+newdata = []
