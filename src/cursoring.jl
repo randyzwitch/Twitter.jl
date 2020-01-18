@@ -77,13 +77,13 @@ julia>  while cursorable & (length(newdata["ids"]) < count)
 """
 function cursor(cursorable::Bool, newdata::Array, options::Dict, endp::String, cur_count::Integer)
     cursorable == false && return cursorable, newdata, options, endp, cur_count
-    data_holder = newdata # save existing ids
+    data_holder = copy(newdata) # save existing ids
     api_options = copy(options) # the get_oauth overwrites options, so store the correct data here
     r = get_oauth("https://api.twitter.com/1.1/$endp", options)
     if r.status == 200
         # parse and put into proper type form
         newdata = [Tweets(x) for x in JSON.parse(String(r.body))]
-        length(newdata) == 0 && return false, newdata, api_options, endp, cur_count
+        length(newdata) == 0 && return false, data_holder, api_options, endp, cur_count
         # tree of options for max_id or since id
         if haskey(api_options, "max_id")
             cur_count += length(newdata)
