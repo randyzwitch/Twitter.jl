@@ -90,11 +90,11 @@ function cursor(cursorable::Bool, newdata::Array, options::Dict, endp::String, c
         # tree of options for max_id or since id
         if haskey(api_options, "max_id") | haskey(api_options, "since_id")
             cur_count += length(newdata)
-            cursorable = cur_count < parse(Int, api_options["count"])
+            cursorable = cur_count < api_options["count"]
             api_options["max_id"] = minimum([x.id for x in newdata])-1  # get min id
         else
             cur_count += length(newdata)
-            cursorable = cur_count < parse(Int, api_options["count"])
+            cursorable = cur_count < api_options["count"]
         end
         newdata = vcat(data_holder, newdata)
         cursorable, newdata, api_options, endp, cur_count
