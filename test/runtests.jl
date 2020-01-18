@@ -1,4 +1,5 @@
 using Twitter, Test
+using JSON, OAuth
 
 twitterauth(ENV["CONSUMER_KEY"], ENV["CONSUMER_SECRET"], ENV["ACCESS_TOKEN"], ENV["ACCESS_TOKEN_SECRET"])
 
@@ -66,7 +67,7 @@ tweets = get_user_timeline(screen_name = "randyzwitch", count = 400)
 minid = minimum([x.id for x in tweets])
 
 # the function i want to work:
-Juno.@enter get_user_timeline(screen_name = "randyzwitch", since_id = minid, count = 300) # returns only 199
+#Juno.@enter get_user_timeline(screen_name = "randyzwitch", since_id = minid, count = 300) # returns only 199
 
 function parse_options(;kwargs...)
     options = Dict{String, Any}()
@@ -77,10 +78,12 @@ function parse_options(;kwargs...)
 end
 
 
-options = parse_options(screen_name = "randyzwitch", since_id = maxid, count = 300)
+options = parse_options(screen_name = "randyzwitch", since_id = 1209175355363336195, count = 300)
 api_options = copy(options)
 endp = "statuses/user_timeline.json"
 cur_count = 0
 # make the first call to the API
 cursorable = true
 newdata = []
+
+Juno.@enter cursor(cursorable, newdata, options, endp, cur_count)

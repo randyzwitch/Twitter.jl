@@ -68,6 +68,9 @@ Internal function for gathering . Takes a tuple and returns a tuple of equal siz
     Note: when an ARRAY object is provided as the data, this function assumes you are gathering
     a tweet timeline.
 
+    Note: when  retrieving tweets, the API always starts with the most recent. Therefore,
+    if you want a chunk of older tweets, you must specify both since_id, and max_id when cursoring.
+
 # Examples
 ```julia-repl
 julia>  while cursorable & (length(newdata["ids"]) < count)
@@ -85,17 +88,13 @@ function cursor(cursorable::Bool, newdata::Array, options::Dict, endp::String, c
         newdata = [Tweets(x) for x in JSON.parse(String(r.body))]
         length(newdata) == 0 && return false, data_holder, api_options, endp, cur_count
         # tree of options for max_id or since id
-        if haskey(api_options, "max_id")
+        if haskey(api_options, "max_id") | haskey(api_options, "since_id")
             cur_count += length(newdata)
-            cursorable = cur_count < api_options["count"]
-            api_options["max_id"] = minimum([x.id for x in newdata])  # get min id
-        elseif haskey(api_options, "since_id")
-            cur_count += length(newdata)
-            cursorable = cur_count < api_options["count"]
-            api_options["since_id"] = maximum([x.id for x in newdata])
+            cursorable = cur_count < parse(Int, api_options["count"])
+            api_options["max_id"] = minimum([x.id for x in newdata]-1  # get min id
         else
             cur_count += length(newdata)
-            cursorable = cur_count < api_options["count"]
+            cursorable = cur_count < parse(Int, api_options["count"])
         end
         newdata = vcat(data_holder, newdata)
         cursorable, newdata, api_options, endp, cur_count
