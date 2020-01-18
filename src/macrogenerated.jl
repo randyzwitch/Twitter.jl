@@ -72,7 +72,7 @@ endpoint_tuple = [
             (:get_oauth, :get_geo_search, "geo/search.json", nothing),
             (:get_oauth, :get_geo_similar_places, "geo/similar_places.json", nothing),
             (:post_oauth, :post_lists_create, "lists/create.json", nothing),
-            (:get_oauth, :get_search_tweets, "search/tweets.json", nothing),
+            #(:get_oauth, :get_search_tweets, "search/tweets.json", nothing),
             (:get_oauth, :get_trends_place, "trends/place.json", nothing),
             (:get_oauth, :get_trends_closest, "trends/closest.json", nothing),
             (:get_oauth, :get_single_tweet_id, "statuses/show.json", :Tweets),
