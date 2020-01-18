@@ -96,6 +96,7 @@ function cursor(cursorable::Bool, newdata::Array, options::Dict, endp::String, c
             cur_count += length(newdata)
             cursorable = cur_count < api_options["count"]
         end
+        println("max_id = "*string(api_options["max_id"]))
         newdata = vcat(data_holder, newdata)
         cursorable, newdata, api_options, endp, cur_count
     else
