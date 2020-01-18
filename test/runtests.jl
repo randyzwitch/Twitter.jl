@@ -45,15 +45,21 @@ unfollow_df = DataFrame(unfollow)
 @test size(unfollow_df)[2] == 40
 
 # create a cursor for follower ids
-follow_cursor_test = get_followers_ids(screen_name = "twitter", count = 15_000)
-@test length(follow_cursor_test["ids"]) == 15_000
+follow_cursor_test = get_followers_ids(screen_name = "twitter", count = 10_000)
+@test length(follow_cursor_test["ids"]) == 10_000
 
-# create a cursor for friend ids
-friend_cursor_test = get_friends_ids(screen_name = "twitter", count = 15_000)
-@test length(friend_cursor_test["ids"]) == 15_000
+# create a cursor for friend ids - use barackobama because he follows a lot!
+friend_cursor_test = get_friends_ids(screen_name = "BarackObama", count = 10_000)
+@test length(friend_cursor_test["ids"]) == 10_000
 
 # create a test for timelines
 user_t = get_user_timeline(screen_name = "twitter", count = 1_000)
+@test length(user_t) == 1_000
+
+# get tweet max id 
+max_tweets = get_user_timeline(screen_name = "randyzwitch", max_id = 434685122671939584, count = 201)
+
 
 # create a test for home timelines
 home_t = get_home_timeline(count = 700)
+@test length(home_t) > 1

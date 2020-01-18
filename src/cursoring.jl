@@ -83,6 +83,8 @@ function cursor(cursorable::Bool, newdata::Array, options::Dict, endp::String, c
     if r.status == 200
         # parse and put into proper type form
         newdata = [Tweets(x) for x in JSON.parse(String(r.body))]
+        length(newdata) == 0 && return cursorable, newdata, api_options, endp, cur_count
+        # tree of options for max_id or since id
         if haskey(api_options, "max_id")
             cur_count += length(newdata)
             cursorable = cur_count < api_options["count"]
@@ -170,6 +172,40 @@ function get_friends_ids(; kwargs...)
     newdata
 end
 
+########################## OTHER TYPE:
+
+"""
+get_mentions_timeline(; kwargs...)
+Get an array object of timeline tweets from a particular Twitter user. This function will call the API until the
+desired `count` is reached or the API runs out, whichever comes first.
+# Examples
+```julia-repl
+julia> get_mentions_timeline(screen_name = "twitter", count = 1000)
+```
+"""
+function get_mentions_timeline(; kwargs...)
+    # Could be doing some pre-allocation here to optimize performance,
+    # but since this is an API function that only deals with 25K records at most...
+    endp = "statuses/mentions_timeline.json"
+    options = parse_options(kwargs)
+
+    if "count" ∈ keys(options)
+        count = options["count"]
+    else
+        count = 1
+    end
+    cur_count = 0
+    # make the first call to the API
+    cursorable = true
+    newdata = []
+
+    while cursorable & (length(newdata) < count)
+        cursorable, newdata, options, endp, cur_count = cursor(cursorable, newdata, options, endp, cur_count)
+    end
+    newdata
+end
+
+
 """
 get_user_timeline(; kwargs...)
 Get an array object of timeline tweets from a particular Twitter user. This function will call the API until the
@@ -214,6 +250,68 @@ function get_home_timeline(; kwargs...)
     # Could be doing some pre-allocation here to optimize performance,
     # but since this is an API function that only deals with 25K records at most...
     endp = "statuses/home_timeline.json"
+    options = parse_options(kwargs)
+
+    if "count" ∈ keys(options)
+        count = options["count"]
+    else
+        count = 1
+    end
+    cur_count = 0
+    # make the first call to the API
+    cursorable = true
+    newdata = []
+
+    while cursorable & (length(newdata) < count)
+        cursorable, newdata, options, endp, cur_count = cursor(cursorable, newdata, options, endp, cur_count)
+    end
+    newdata
+end
+
+"""
+get_retweets_of_me(; kwargs...)
+Get an array object of retweets from the owning user. This function will call the API until the
+desired `count` is reached or the API runs out, whichever comes first.
+# Examples
+```julia-repl
+julia> get_retweets_of_me(count = 1000)
+```
+"""
+function get_retweets_of_me(; kwargs...)
+    # Could be doing some pre-allocation here to optimize performance,
+    # but since this is an API function that only deals with 25K records at most...
+    endp = "statuses/retweets_of_me.json"
+    options = parse_options(kwargs)
+
+    if "count" ∈ keys(options)
+        count = options["count"]
+    else
+        count = 1
+    end
+    cur_count = 0
+    # make the first call to the API
+    cursorable = true
+    newdata = []
+
+    while cursorable & (length(newdata) < count)
+        cursorable, newdata, options, endp, cur_count = cursor(cursorable, newdata, options, endp, cur_count)
+    end
+    newdata
+end
+
+"""
+get_retweets_of_me(; kwargs...)
+Get an array object of retweets from the owning user. This function will call the API until the
+desired `count` is reached or the API runs out, whichever comes first.
+# Examples
+```julia-repl
+julia> get_retweets_of_me(count = 1000)
+```
+"""
+function get_search_tweets(; kwargs...)
+    # Could be doing some pre-allocation here to optimize performance,
+    # but since this is an API function that only deals with 25K records at most...
+    endp = "search/tweets.json"
     options = parse_options(kwargs)
 
     if "count" ∈ keys(options)
