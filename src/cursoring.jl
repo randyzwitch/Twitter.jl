@@ -88,15 +88,9 @@ function cursor(cursorable::Bool, newdata::Array, options::Dict, endp::String, c
         newdata = [Tweets(x) for x in JSON.parse(String(r.body))]
         length(newdata) == 0 && return false, data_holder, api_options, endp, cur_count
         # tree of options for max_id or since id
-        if haskey(api_options, "max_id") | haskey(api_options, "since_id")
-            cur_count += length(newdata)
-            cursorable = cur_count < api_options["count"]
-            api_options["max_id"] = minimum([x.id for x in newdata])-1  # get min id
-        else
-            cur_count += length(newdata)
-            cursorable = cur_count < api_options["count"]
-        end
-        println("max_id = "*string(api_options["max_id"]))
+        cur_count += length(newdata)
+        cursorable = cur_count < api_options["count"]
+        api_options["max_id"] = minimum([x.id for x in newdata])-1  # get min id
         newdata = vcat(data_holder, newdata)
         cursorable, newdata, api_options, endp, cur_count
     else
