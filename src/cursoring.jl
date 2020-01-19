@@ -75,6 +75,7 @@ function parse_results(cursorable, newdata::Array, api_options, data_holder, cur
     api_options["max_id"] = minimum([x.id for x in newdata])-1  # get min id
     newdata = vcat(data_holder, newdata)
     cursorable, newdata, api_options, cur_count
+end
 """
 cursor(cursorable::Bool, newdata::Dict, options::Dict, endp::String, cur_count::Integer)
 
