@@ -19,6 +19,62 @@ function parse_options(kwargs)
     end
     options
 end
+
+"""
+parse_results(cursorable, newdata::Dict, api_options, data_holder, cur_count)
+
+Internal function. parses Twitter API results by determining the type of data and organizing appropriately.
+    Takes a DICT object, indicating a set of user IDs or search results.
+    returns cursorable, newdata, api_options, cur_count
+
+# Examples
+```julia-repl
+julia> parse_results(cursorable, newdata::Dict, api_options, data_holder, cur_count)
+  ...
+```
+"""
+function parse_results(cursorable, newdata::Dict, api_options, data_holder, cur_count)
+    # Handle data type to cursor
+    if haskey(newdata, "ids")
+        newdata["ids"] = vcat(data_holder, newdata["ids"])
+        cur_count += length(newdata["ids"])
+        cursorable = (newdata["next_cursor"] != 0) & (cur_count < api_options["count"] )
+        api_options["cursor"] = newdata["next_cursor"]
+    elseif haskey(newdata, "statuses")
+        out = [Tweets(x) for x in newdata["statuses"]]
+        newdata["statuses"] = vcat(data_holder, out)
+        cur_count += length(newdata["statuses"])
+        cursorable = cur_count < api_options["count"]
+        api_options["max_id"] = newdata["search_metadata"]["max_id"]
+    else
+        cur_count += length(newdata)
+        cursorable = cur_count < api_options["count"]
+    end
+    cursorable, newdata, api_options, cur_count
+end
+
+"""
+parse_results(cursorable, newdata::Array, api_options, data_holder, cur_count)
+
+Internal function. parses Twitter API results by determining the type of data and organizing appropriately.
+    Takes a ARRAY object, indicating a set of Tweets.
+    returns cursorable, newdata, api_options, cur_count
+
+# Examples
+```julia-repl
+julia> parse_results(cursorable, newdata::Array, api_options, data_holder, cur_count)
+  ...
+```
+"""
+function parse_results(cursorable, newdata::Array, api_options, data_holder, cur_count)
+    newdata = [Tweets(x) for x in newdata]
+    length(newdata) == 0 && return false, data_holder, api_options, cur_count
+    # tree of options for max_id or since id
+    cur_count += length(newdata)
+    cursorable = cur_count < api_options["count"]
+    api_options["max_id"] = minimum([x.id for x in newdata])-1  # get min id
+    newdata = vcat(data_holder, newdata)
+    cursorable, newdata, api_options, cur_count
 """
 cursor(cursorable::Bool, newdata::Dict, options::Dict, endp::String, cur_count::Integer)
 
@@ -38,21 +94,12 @@ julia>  while cursorable & (length(newdata["ids"]) < min_records)
 ################# cursor when new data is a Dict object - like followers or friends IDS
 function cursor(cursorable::Bool, newdata::Dict, options::Dict, endp::String, cur_count::Integer)
     cursorable == false && return cursorable, newdata, options, endp, cur_count
-    data_holder = haskey(newdata, "ids") ? newdata["ids"] : [] # save existing ids
+    data_holder = haskey(newdata, "ids") ? newdata["ids"] : haskey(newdata, "statuses") ? newdata["statuses"] : [] # save existing ids
     api_options = copy(options) # the get_oauth overwrites options, so store the correct data here
     r = get_oauth("https://api.twitter.com/1.1/$endp", options)
     if r.status == 200
         newdata = JSON.parse(String(r.body))
-        # Handle data type to cursor
-        if haskey(newdata, "next_cursor")
-            newdata["ids"] = vcat(data_holder, newdata["ids"])
-            cur_count += length(newdata["ids"])
-            cursorable = (newdata["next_cursor"] != 0) & (cur_count < api_options["count"] )
-            api_options["cursor"] = newdata["next_cursor"]
-        else
-            cur_count += length(newdata)
-            cursorable = cur_count < api_options["count"]
-        end
+        cursorable, newdata, api_options, cur_count = parse_results(cursorable, newdata, api_options, data_holder, cur_count)
         cursorable, newdata, api_options, endp, cur_count
     else
         error("Twitter API returned $(r.status) status")
@@ -85,13 +132,8 @@ function cursor(cursorable::Bool, newdata::Array, options::Dict, endp::String, c
     r = get_oauth("https://api.twitter.com/1.1/$endp", options)
     if r.status == 200
         # parse and put into proper type form
-        newdata = [Tweets(x) for x in JSON.parse(String(r.body))]
-        length(newdata) == 0 && return false, data_holder, api_options, endp, cur_count
-        # tree of options for max_id or since id
-        cur_count += length(newdata)
-        cursorable = cur_count < api_options["count"]
-        api_options["max_id"] = minimum([x.id for x in newdata])-1  # get min id
-        newdata = vcat(data_holder, newdata)
+        newdata = JSON.parse(String(r.body))
+        cursorable, newdata, api_options, cur_count = parse_results(cursorable, newdata, api_options, data_holder, cur_count)
         cursorable, newdata, api_options, endp, cur_count
     else
         error("Twitter API returned $(r.status) status")
@@ -170,7 +212,7 @@ end
 
 """
 get_mentions_timeline(; kwargs...)
-Get an array object of timeline tweets from a particular Twitter user. This function will call the API until the
+Get an array object of mentions for a particular Twitter user. This function will call the API until the
 desired `count` is reached or the API runs out, whichever comes first.
 # Examples
 ```julia-repl
