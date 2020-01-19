@@ -45,7 +45,7 @@ function parse_results(cursorable, newdata::Dict, api_options, data_holder, cur_
         newdata["statuses"] = vcat(data_holder, out)
         cur_count += length(newdata["statuses"])
         cursorable = cur_count < api_options["count"]
-        api_options["max_id"] = newdata["search_metadata"]["max_id"]
+        api_options["max_id"] = minimum(x.id for x in newdata["statuses"])
     else
         cur_count += length(newdata)
         cursorable = cur_count < api_options["count"]
