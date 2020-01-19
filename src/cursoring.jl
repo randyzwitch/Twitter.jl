@@ -23,9 +23,11 @@ end
 """
 parse_results(cursorable, newdata::Dict, api_options, data_holder, cur_count)
 
-Internal function. parses Twitter API results by determining the type of data and organizing appropriately.
-    Takes a DICT object, indicating a set of user IDs or search results.
-    returns cursorable, newdata, api_options, cur_count
+Internal function. parses Twitter API results by determining the type of data and organizing
+    for cursorized processing.
+
+    There are two methods, this one takes a DICT object, indicating a set of user IDs or search results.
+    returns cursorable, newdata, api_options, cur_count.
 
 # Examples
 ```julia-repl
@@ -57,7 +59,7 @@ end
 parse_results(cursorable, newdata::Array, api_options, data_holder, cur_count)
 
 Internal function. parses Twitter API results by determining the type of data and organizing appropriately.
-    Takes a ARRAY object, indicating a set of Tweets.
+    There are two methods, this one takes an ARRAY object, indicating a set of Tweets.
     returns cursorable, newdata, api_options, cur_count
 
 # Examples
@@ -142,13 +144,15 @@ function cursor(cursorable::Bool, newdata::Array, options::Dict, endp::String, c
 end
 
 
+########### EXPORTED FUNCTIONS.......
+
 """
 get_followers_ids(; kwargs...)
 Get a Dict object of follower ids from a particular Twitter user. This function will call the API as
 many times as allowed or until the desired `max_records` is reached, whichever comes first.
 # Examples
 ```julia-repl
-julia> get_followers_ids(screen_name = "jack", min_records = 10_000)
+julia> get_followers_ids(screen_name = "jack", count = 10_000)
 Dict{String,Any} with 6 entries:
   "previous_cursor_str" => "0"
   ...
@@ -183,7 +187,7 @@ Get a Dict object of follower ids from a particular Twitter user. This function 
 until the desired `count` is reached or the API runs out, whichever comes first.
 # Examples
 ```julia-repl
-julia> get_friends_ids(screen_name = "twitter", min_records = 1000)
+julia> get_friends_ids(screen_name = "barackobama", count = 1000)
 ```
 """
 function get_friends_ids(; kwargs...)
@@ -280,7 +284,7 @@ Get an array object of timeline tweets from the owning user. This function will 
 desired `count` is reached or the API runs out, whichever comes first.
 # Examples
 ```julia-repl
-julia> get_hone_timeline(count = 1000)
+julia> get_home_timeline(count = 1000)
 ```
 """
 function get_home_timeline(; kwargs...)

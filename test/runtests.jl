@@ -28,7 +28,7 @@ get_tweet_by_id = get_single_tweet_id(id = "434685122671939584")
 @test typeof(get_tweet_by_id) == Tweets
 
 #get_search_tweets
-duke_tweets = get_search_tweets(q = "#Duke", count = 300)
+duke_tweets = get_search_tweets(q = "#Duke", count = 200)
 @test typeof(duke_tweets) <: Dict
 
 #test sending/deleting direct messages
@@ -61,7 +61,7 @@ home_t = get_home_timeline(count = 2)
 @test length(home_t) > 1
 
 # TEST of cursoring functionality on user timelines
-tweets = get_user_timeline(screen_name = "stefanjwojcik", count = 400)
+user_t = get_user_timeline(screen_name = "stefanjwojcik", count = 400)
 @test length(user_t) == 400
 # get the minimum ID of the tweets returned (the earliest)
 minid = minimum(x.id for x in tweets)
