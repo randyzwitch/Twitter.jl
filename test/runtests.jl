@@ -66,6 +66,9 @@ home_t = get_home_timeline(count = 700)
 
 # get tweet max id
 tweets = get_user_timeline(screen_name = "randyzwitch", count = 400)
+# should return 399
+tweets_since = get_user_timeline(screen_name = "randyzwitch", count = 400, since_id = 1209175355363336195)
+
 # cut this
 minid = minimum([x.id for x in tweets])
 
@@ -75,18 +78,29 @@ minid = minimum([x.id for x in tweets])
 function parse_options(;kwargs...)
     options = Dict{String, Any}()
     for arg in kwargs
-        options[string(arg[1])] = string(arg[2])
+        options[string(arg[1])] = arg[2]
     end
     options
 end
 
 
-options = parse_options(screen_name = "randyzwitch", since_id = 1209175355363336195, count = 300)
+TWITTERCRED = twitterauth(ENV["CONSUMER_KEY"], ENV["CONSUMER_SECRET"], ENV["ACCESS_TOKEN"], ENV["ACCESS_TOKEN_SECRET"])
+
+options = parse_options(screen_name = "randyzwitch", since_id = 1209175355363336195, count = 400)
 api_options = copy(options)
-endp = "statuses/user_timeline.json"
 cur_count = 0
-# make the first call to the API
-cursorable = true
-newdata = []
+endp = "statuses/user_timeline.json"
+data_holder = copy(newdata) # save existing ids
+r = get_oauth("https://api.twitter.com/1.1/$endp", options)
+# parse and put into proper type form
+newdata = [Tweets(x) for x in JSON.parse(String(r.body))]
+# tree of options for max_id or since id
+haskey(api_options, "max_id") | haskey(api_options, "since_id")
+cur_count += length(newdata)
+cursorable = cur_count < api_options["count"]
+api_options["max_id"] = minimum([x.id for x in newdata])-1  # get min id
+println("max_id = "*string(api_options["max_id"]))
+newdata = vcat(data_holder, newdata)
+cursorable, newdata, api_options, endp, cur_count
 
 Juno.@enter cursor(cursorable, newdata, options, endp, cur_count)
