@@ -3,9 +3,6 @@ using JSON, OAuth
 
 twitterauth(ENV["CONSUMER_KEY"], ENV["CONSUMER_SECRET"], ENV["ACCESS_TOKEN"], ENV["ACCESS_TOKEN_SECRET"])
 
-TWITTERCRED = twitterauth(ENV["CONSUMER_KEY"], ENV["CONSUMER_SECRET"], ENV["ACCESS_TOKEN"], ENV["ACCESS_TOKEN_SECRET"])
-
-
 #get_mentions_timeline
 mentions_timeline_default = get_mentions_timeline()
 tw = mentions_timeline_default[1]
