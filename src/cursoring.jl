@@ -246,7 +246,7 @@ function get_mentions_timeline(; kwargs...)
     while cursorable & (length(newdata) < count)
         cursorable, newdata, options, endp, cur_count = cursor(cursorable, newdata, options, endp, cur_count)
     end
-    newdata
+    Tweets(newdata)
 end
 
 
