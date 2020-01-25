@@ -69,7 +69,7 @@ tweets_since = get_user_timeline(screen_name = "stefanjwojcik", count = 400, sin
 # testing get_mentions_timeline
 mentions = get_mentions_timeline(screen_name = "stefanjwojcik", count = 300)
 @test length(mentions) >= 300
-@test Tweets<:typeof(tweets[1])
+@test Tweets<:typeof(mentions[1])
 
 # testing retweets_of_me
 my_rts = get_retweets_of_me(count = 300)
