@@ -61,7 +61,7 @@ home_t = get_home_timeline(count = 2)
 user_t = get_user_timeline(screen_name = "stefanjwojcik", count = 400)
 @test length(user_t) == 400
 # get the minimum ID of the tweets returned (the earliest)
-minid = minimum(x.id for x in tweets)
+minid = minimum(x.id for x in user_t)
 # now iterate until you hit that tweet: should return 399
 tweets_since = get_user_timeline(screen_name = "stefanjwojcik", count = 400, since_id = minid, include_rts=1)
 @test length(tweets_since)==399
