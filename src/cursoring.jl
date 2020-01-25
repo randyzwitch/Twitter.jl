@@ -69,7 +69,7 @@ julia> parse_results(cursorable, newdata::Array, api_options, data_holder, cur_c
 ```
 """
 function parse_results(cursorable, newdata::Array, api_options, data_holder, cur_count)
-    newdata = [Tweets(x) for x in newdata]
+    newdata = Tweets[Tweets(x) for x in newdata]
     length(newdata) == 0 && return false, data_holder, api_options, cur_count
     # tree of options for max_id or since id
     cur_count += length(newdata)
@@ -241,12 +241,12 @@ function get_mentions_timeline(; kwargs...)
     cur_count = 0
     # make the first call to the API
     cursorable = true
-    newdata = []
+    newdata = Tweets[]
 
     while cursorable & (length(newdata) < count)
         cursorable, newdata, options, endp, cur_count = cursor(cursorable, newdata, options, endp, cur_count)
     end
-    Tweets(newdata)
+    newdata
 end
 
 
@@ -274,7 +274,7 @@ function get_user_timeline(; kwargs...)
     cur_count = 0
     # make the first call to the API
     cursorable = true
-    newdata = []
+    newdata = Tweets[]
 
     while cursorable & (length(newdata) < count)
         cursorable, newdata, options, endp, cur_count = cursor(cursorable, newdata, options, endp, cur_count)
@@ -306,7 +306,7 @@ function get_home_timeline(; kwargs...)
     cur_count = 0
     # make the first call to the API
     cursorable = true
-    newdata = []
+    newdata = Tweets[]
 
     while cursorable & (length(newdata) < count)
         cursorable, newdata, options, endp, cur_count = cursor(cursorable, newdata, options, endp, cur_count)
@@ -338,7 +338,7 @@ function get_retweets_of_me(; kwargs...)
     cur_count = 0
     # make the first call to the API
     cursorable = true
-    newdata = []
+    newdata = Tweets[]
 
     while cursorable & (length(newdata) < count)
         cursorable, newdata, options, endp, cur_count = cursor(cursorable, newdata, options, endp, cur_count)
@@ -370,7 +370,7 @@ function get_search_tweets(; kwargs...)
     cur_count = 0
     # make the first call to the API
     cursorable = true
-    newdata = []
+    newdata = Tweets[]
 
     while cursorable & (length(newdata) < count)
         cursorable, newdata, options, endp, cur_count = cursor(cursorable, newdata, options, endp, cur_count)
