@@ -167,6 +167,7 @@ function get_followers_ids(; kwargs...)
     if "count" ∈ keys(options)
         count = options["count"]
     else
+        options["count"] = 1
         count = 1 # default to one record
     end
 
@@ -199,6 +200,7 @@ function get_friends_ids(; kwargs...)
     if "count" ∈ keys(options)
         count = options["count"]
     else
+        options["count"] = 1
         count = 1 # default to one record
     end
 
@@ -266,6 +268,7 @@ function get_user_timeline(; kwargs...)
     if "count" ∈ keys(options)
         count = options["count"]
     else
+        options["count"] = 1
         count = 1
     end
     cur_count = 0
@@ -297,6 +300,7 @@ function get_home_timeline(; kwargs...)
     if "count" ∈ keys(options)
         count = options["count"]
     else
+        options["count"] = 1
         count = 1
     end
     cur_count = 0
@@ -328,6 +332,7 @@ function get_retweets_of_me(; kwargs...)
     if "count" ∈ keys(options)
         count = options["count"]
     else
+        options["count"] = 1
         count = 1
     end
     cur_count = 0
@@ -359,6 +364,7 @@ function get_search_tweets(; kwargs...)
     if "count" ∈ keys(options)
         count = options["count"]
     else
+        options["count"] = 1
         count = 1
     end
     cur_count = 0
