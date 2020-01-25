@@ -233,6 +233,7 @@ function get_mentions_timeline(; kwargs...)
     if "count" ∈ keys(options)
         count = options["count"]
     else
+        options["count"] = 1
         count = 1
     end
     cur_count = 0
