@@ -12,21 +12,31 @@ tw_df = DataFrame(mentions_timeline_default)
 @test typeof(tw) == Tweets
 @test size(tw_df)[2] == 30
 
+sleep(2)
+
 #get_user_timeline
 user_timeline_default = get_user_timeline(screen_name = "randyzwitch")
 @test typeof(user_timeline_default) == Vector{Tweets}
+
+sleep(2)
 
 #get_home_timeline
 home_timeline_default = get_home_timeline()
 @test typeof(home_timeline_default) == Vector{Tweets}
 
+sleep(2)
+
 #get_single_tweet_id
 get_tweet_by_id = get_single_tweet_id(id = "434685122671939584")
 @test typeof(get_tweet_by_id) == Tweets
 
+sleep(2)
+
 #get_search_tweets
 duke_tweets = get_search_tweets(q = "#Duke", count = 200)
 @test typeof(duke_tweets) <: Dict
+
+sleep(2)
 
 #test sending/deleting direct messages
 #commenting out because Twitter API changed. Come back to fix
@@ -45,17 +55,25 @@ unfollow_df = DataFrame(unfollow)
 @test typeof(unfollow) == Users
 @test size(unfollow_df)[2] == 40
 
+sleep(2)
+
 # create a cursor for follower ids
 follow_cursor_test = get_followers_ids(screen_name = "twitter", count = 10_000)
 @test length(follow_cursor_test["ids"]) == 10_000
+
+sleep(2)
 
 # create a cursor for friend ids - use barackobama because he follows a lot of accounts!
 friend_cursor_test = get_friends_ids(screen_name = "BarackObama", count = 10_000)
 @test length(friend_cursor_test["ids"]) == 10_000
 
+sleep(2)
+
 # create a test for home timelines
 home_t = get_home_timeline(count = 2)
 @test length(home_t) > 1
+
+sleep(2)
 
 # TEST of cursoring functionality on user timelines
 user_t = get_user_timeline(screen_name = "stefanjwojcik", count = 400)
@@ -66,10 +84,14 @@ minid = minimum(x.id for x in user_t)
 tweets_since = get_user_timeline(screen_name = "stefanjwojcik", count = 400, since_id = minid, include_rts=1)
 @test length(tweets_since)==399
 
+sleep(2)
+
 # testing get_mentions_timeline
 mentions = get_mentions_timeline(screen_name = "stefanjwojcik", count = 300)
 @test length(mentions) >= 200 #sometimes API doesn't return number requested
 @test Tweets<:typeof(tweets[1])
+
+sleep(2)
 
 # testing retweets_of_me
 my_rts = get_retweets_of_me(count = 300)
