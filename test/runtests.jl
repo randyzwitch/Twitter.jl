@@ -95,7 +95,7 @@ sleep(5)
 # testing get_mentions_timeline
 mentions = get_mentions_timeline(screen_name = "stefanjwojcik", count = 300)
 @test length(mentions) >= 200 #sometimes API doesn't return number requested
-@test Tweets<:typeof(tweets[1])
+@test Tweets<:typeof(mentions[1])
 
 sleep(5)
 
