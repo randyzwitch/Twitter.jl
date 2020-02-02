@@ -67,7 +67,7 @@ end
 
 #Tweets response object
 mutable struct Tweets <: TwitterType
-    contributors::Union{Dict, Nothing}
+    contributors::Union{Array, Nothing}
     coordinates::Union{Dict, Nothing}
     created_at::Union{String, Nothing}
     current_user_retweet::Union{Dict, Nothing}
