@@ -37,9 +37,9 @@ function parse_options(;kwargs...)
 end
 
 
-api_info, out = copy(r.headers), copy(r.body)
-remaining_calls = [x.second for x in api_info if x.first=="x-rate-limit-remaining"]
-reset_time = [x.second for x in api_info if x.first=="x-rate-limit-reset"]
+#api_info, out = copy(r.headers), copy(r.body)
+#remaining_calls = [x.second for x in api_info if x.first=="x-rate-limit-remaining"]
+#reset_time = [x.second for x in api_info if x.first=="x-rate-limit-reset"]
 
 # The plan:
 
