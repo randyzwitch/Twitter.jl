@@ -95,7 +95,7 @@ for (verb, func, endp, t) in endpoint_tuple
                 end
 
                 #Call endpoint
-                r = ($verb)($"https://api.twitter.com/1.1/$endp", options)
+                r = :(@backoff) ($verb)($"https://api.twitter.com/1.1/$endp", options)
 
                 #If successful API call, return JSON as Julia data structure, otherwise return error
                 if r.status == 200
