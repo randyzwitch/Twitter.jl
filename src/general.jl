@@ -19,14 +19,14 @@ post_oauth(endpoint::String, options::Dict) = oauth_request_resource(endpoint, "
 # capture the error message
 # capture the length of time until it's ok to continue
 
-using Twitter, Test
-using JSON, OAuth
+#using Twitter, Test
+#using JSON, OAuth
 
-TWITTERCRED = twitterauth(ENV["CONSUMER_KEY"], ENV["CONSUMER_SECRET"], ENV["ACCESS_TOKEN"], ENV["ACCESS_TOKEN_SECRET"])
+#TWITTERCRED = twitterauth(ENV["CONSUMER_KEY"], ENV["CONSUMER_SECRET"], ENV["ACCESS_TOKEN"], ENV["ACCESS_TOKEN_SECRET"])
 
 # This is how you get the current limit from the Pairs r.headers object
 
-endp = "statuses/home_timeline.json"
+#endp = "statuses/home_timeline.json"
 
 function parse_options(;kwargs...)
     options = Dict{String, Any}()
@@ -87,5 +87,5 @@ end
 
 ## TESTING
 
-options = parse_options(count = 1)
-r = @backoff get_oauth("https://api.twitter.com/1.1/$endp", options)
+#options = parse_options(count = 1)
+#r = @backoff get_oauth("https://api.twitter.com/1.1/$endp", options)
