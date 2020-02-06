@@ -58,59 +58,38 @@ unfollow_df = DataFrame(unfollow)
 @test typeof(unfollow) == Users
 @test size(unfollow_df)[2] == 40
 
-<<<<<<< HEAD
-=======
 sleep(5)
 
->>>>>>> 3bc86b2e8d36ec0db11b62d88f3f15814b1618cf
 # create a cursor for follower ids
 follow_cursor_test = get_followers_ids(screen_name = "twitter", count = 10_000)
 @test length(follow_cursor_test["ids"]) == 10_000
 
-<<<<<<< HEAD
-=======
 sleep(5)
 
->>>>>>> 3bc86b2e8d36ec0db11b62d88f3f15814b1618cf
 # create a cursor for friend ids - use barackobama because he follows a lot of accounts!
 friend_cursor_test = get_friends_ids(screen_name = "BarackObama", count = 10_000)
 @test length(friend_cursor_test["ids"]) == 10_000
 
-<<<<<<< HEAD
-=======
 sleep(5)
 
->>>>>>> 3bc86b2e8d36ec0db11b62d88f3f15814b1618cf
 # create a test for home timelines
 home_t = get_home_timeline(count = 2)
 @test length(home_t) > 1
 
-<<<<<<< HEAD
-=======
 sleep(5)
 
->>>>>>> 3bc86b2e8d36ec0db11b62d88f3f15814b1618cf
 # TEST of cursoring functionality on user timelines
 user_t = get_user_timeline(screen_name = "stefanjwojcik", count = 400)
 @test length(user_t) == 400
 # get the minimum ID of the tweets returned (the earliest)
 minid = minimum(x.id for x in user_t)
-<<<<<<< HEAD
-=======
 
 sleep(5)
 
->>>>>>> 3bc86b2e8d36ec0db11b62d88f3f15814b1618cf
 # now iterate until you hit that tweet: should return 399
 tweets_since = get_user_timeline(screen_name = "stefanjwojcik", count = 400, since_id = minid, include_rts=1)
 @test length(tweets_since)==399
 
-<<<<<<< HEAD
-# testing get_mentions_timeline
-mentions = get_mentions_timeline(screen_name = "stefanjwojcik", count = 300)
-@test length(mentions) >= 300
-@test Tweets<:typeof(tweets[1])
-=======
 sleep(5)
 
 # testing get_mentions_timeline
@@ -119,7 +98,6 @@ mentions = get_mentions_timeline(screen_name = "stefanjwojcik", count = 300)
 @test Tweets<:typeof(mentions[1])
 
 sleep(5)
->>>>>>> 3bc86b2e8d36ec0db11b62d88f3f15814b1618cf
 
 # testing retweets_of_me
 my_rts = get_retweets_of_me(count = 300)
