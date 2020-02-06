@@ -1,4 +1,7 @@
-endpoint_tuple = [
+
+# create a tuple map to determine which endpoint is required as a global constant
+
+global const endpoint_map = [
             #no required arguments: works fine
             (:get_oauth, :get_help_configuration, "help/configuration.json", nothing),
             (:get_oauth, :get_help_languages, "help/languages.json", nothing),
@@ -14,8 +17,8 @@ endpoint_tuple = [
             (:get_oauth, :get_saved_searches_list, "saved_searches/list.json", nothing),
             (:get_oauth, :get_lists_subscribers_show, "lists/subscribers/show.json", nothing),
             (:get_oauth, :get_friendships_no_retweets, "friendships/no_retweets/ids.json", nothing),
-            #(:get_oauth, :get_friends_ids, "friends/ids.json", nothing),
-            #(:get_oauth, :get_followers_ids, "followers/ids.json", nothing),
+            (:get_oauth, :get_friends_ids, "friends/ids.json", nothing),
+            (:get_oauth, :get_followers_ids, "followers/ids.json", nothing),
             (:get_oauth, :get_friendships_lookup, "friendships/lookup.json", nothing),
             (:get_oauth, :get_friendships_incoming, "friendships/incoming.json", nothing),
             (:get_oauth, :get_friendships_outgoing, "friendships/outgoing.json", nothing),
@@ -34,10 +37,10 @@ endpoint_tuple = [
             (:get_oauth, :get_lists_show, "lists/show.json", :Lists),
             (:get_oauth, :get_lists_subscriptions, "lists/subscriptions.json", nothing),
             (:get_oauth, :get_lists_ownerships, "lists/ownerships.json", nothing),
-            #(:get_oauth, :get_mentions_timeline, "statuses/mentions_timeline.json", :Tweets),
-            #(:get_oauth, :get_user_timeline, "statuses/user_timeline.json", :Tweets),
-            #(:get_oauth, :get_home_timeline, "statuses/home_timeline.json", :Tweets),
-            #(:get_oauth, :get_retweets_of_me, "statuses/retweets_of_me.json", :Tweets),
+            (:get_oauth, :get_mentions_timeline, "statuses/mentions_timeline.json", :Tweets),
+            (:get_oauth, :get_user_timeline, "statuses/user_timeline.json", :Tweets),
+            (:get_oauth, :get_home_timeline, "statuses/home_timeline.json", :Tweets),
+            (:get_oauth, :get_retweets_of_me, "statuses/retweets_of_me.json", :Tweets),
             (:get_oauth, :get_verify_credentials, "account/verify_credentials.json", :Users),
             (:get_oauth, :get_blocks_list, "blocks/list.json", nothing),
             (:get_oauth, :get_users_lookup, "users/lookup.json", :Users),
@@ -72,7 +75,7 @@ endpoint_tuple = [
             (:get_oauth, :get_geo_search, "geo/search.json", nothing),
             (:get_oauth, :get_geo_similar_places, "geo/similar_places.json", nothing),
             (:post_oauth, :post_lists_create, "lists/create.json", nothing),
-            #(:get_oauth, :get_search_tweets, "search/tweets.json", nothing),
+            (:get_oauth, :get_search_tweets, "search/tweets.json", nothing),
             (:get_oauth, :get_trends_place, "trends/place.json", nothing),
             (:get_oauth, :get_trends_closest, "trends/closest.json", nothing),
             (:get_oauth, :get_single_tweet_id, "statuses/show.json", :Tweets),
@@ -83,34 +86,46 @@ endpoint_tuple = [
             (:post_oauth, :post_account_update_profile_banner, "account/update_profile_banner.json", nothing)
 ]
 
-#dynamically build methods
-for (verb, func, endp, t) in endpoint_tuple
-    @eval begin
-            function ($func)(;kwargs...)
-
-                #Take kwargs array of tuples, create dict needed by OAuth process
-                options = Dict{String, Any}()
-                for arg in kwargs
-                    options[string(arg[1])] = string(arg[2])
-                end
-
-                #Call endpoint
-                r = ($verb)($"https://api.twitter.com/1.1/$endp", options)
-
-                #If successful API call, return JSON as Julia data structure, otherwise return error
-                if r.status == 200
-                    success = JSON.parse(String(r.body))
-
-                    #If type known, parse
-                    if ($t) != nothing && ($t) <: TwitterType
-                        return ($t)(success)
-                    else
-                        return success
-                    end
-                else
-                    error("Twitter API returned $(r.status) status")
-                end
-
-            end
+# retrieve endpoint remaining calls
+get_endpoint_allocation  = function(endp)
+    try
+        api_info = get_application_rate_limit_status()
+        endpoint_match = match( r"^.*/", endp).match # get everything before the slash
+        base_endpoint =  strip(endpoint_match, '/') #remove the slash
+        final_endpoint = replace(endp, ".json" => "") # remove the .json
+        resource_dict = api_info["resources"][base_endpoint]["/"*final_endpoint] # get the final endpoint data
+    catch
+        Dict("remaining" => 0, "reset" => round(Int64, time())+240, "limit" => 0) #if nothing, wait fifteen
     end
+end
+
+# back off loop - this will reconnect when the API says it's OK
+function reconnect(endp, reconnects=0)
+    while get_endpoint_allocation(endp)["remaining"]==0
+        reconnects += 1
+        alloc = get_endpoint_allocation(endp)
+        cur_time = round(Int64, time())
+        sleeptime = abs(alloc["reset"] - cur_time)
+        println("Endpoint exhausted, sleeping for $sleeptime seconds..")
+        sleep(sleeptime^reconnects)
+    end
+    return get_endpoint_allocation(endp)
+end
+
+# lookup function
+function fn_to_endp(fn)
+    for (verb, func, endp, t) in endpoint_map
+        if func==fn
+            return endp
+        end
+    end
+end
+
+macro backoff(ex)
+    local endp = fn_to_endp(ex.args[1])
+    cur_alloc = reconnect(eval(endp)) # start reconnect loop
+    remaining_calls = cur_alloc["remaining"]
+    println("$remaining_calls calls left on this endpoint.")
+    sleep(rand(1:3))
+    eval(ex)
 end
