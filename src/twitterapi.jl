@@ -93,6 +93,10 @@ get_endpoint_allocation  = function(endp)
     base_endpoint =  strip(endpoint_match, '/') #remove the slash
     final_endpoint = replace(endp, ".json" => "") # remove the .json
     resource_dict = api_info["resources"][base_endpoint]["/"*final_endpoint] # get the final endpoint data
+    base_keys = keys(api_info["resources"][base_endpoint])
+    endp_array = [match(Regex("/$(final_endpoint)(.*)"), x) for x in String.(base_keys)]
+    endp_name = [x.match for x in endp_array if x != nothing][1]
+    api_info["resources"][base_endpoint][endp_name]
 end
 
 # back off loop - this will reconnect when the API says it's OK
