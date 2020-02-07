@@ -91,6 +91,7 @@ get_endpoint_allocation  = function(endp)
     api_info = get_application_rate_limit_status()
     endpoint_match = match( r"^.*/", endp).match # get everything before the slash
     base_endpoint =  strip(endpoint_match, '/') #remove the slash
+    final_endpoint = replace(endp, ".json" => "") # remove the .json
     base_keys = keys(api_info["resources"][base_endpoint])
     endp_array = [match(Regex("/$(final_endpoint)(.*)"), x) for x in String.(base_keys)]
     endp_name = [x.match for x in endp_array if x != nothing][1]
