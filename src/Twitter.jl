@@ -110,7 +110,8 @@ export  get_direct_messages,
         Lists,
         Users,
         Places,
-        Tweets
+        Tweets,
+        backoff
 
 ##############################################################################
 ##
