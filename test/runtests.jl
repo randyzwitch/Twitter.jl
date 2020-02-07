@@ -5,8 +5,8 @@ twitterauth(ENV["CONSUMER_KEY"], ENV["CONSUMER_SECRET"], ENV["ACCESS_TOKEN"], EN
 
 #get_mentions_timeline
 mentions_timeline_default = @twitter get_mentions_timeline()
-tw = @twitter mentions_timeline_default[1]
-tw_df = @twitter DataFrame(mentions_timeline_default)
+tw = mentions_timeline_default[1]
+tw_df = DataFrame(mentions_timeline_default)
 @test 0 <= length(mentions_timeline_default) <= 20
 @test typeof(mentions_timeline_default) == Vector{Tweets}
 @test typeof(tw) == Tweets

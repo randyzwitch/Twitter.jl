@@ -95,7 +95,7 @@ get_endpoint_allocation  = function(endp)
         final_endpoint = replace(endp, ".json" => "") # remove the .json
         resource_dict = api_info["resources"][base_endpoint]["/"*final_endpoint] # get the final endpoint data
     catch
-        Dict("remaining" => 0, "reset" => round(Int64, time())+240, "limit" => 0) #if nothing, wait fifteen
+        error("Endpoint not found. Is this a Twitter.jl call?") #if nothing, wait fifteen
     end
 end
 
