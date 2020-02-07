@@ -88,15 +88,11 @@ global const endpoint_map = [
 
 # retrieve endpoint remaining calls
 get_endpoint_allocation  = function(endp)
-    try
-        api_info = get_application_rate_limit_status()
-        endpoint_match = match( r"^.*/", endp).match # get everything before the slash
-        base_endpoint =  strip(endpoint_match, '/') #remove the slash
-        final_endpoint = replace(endp, ".json" => "") # remove the .json
-        resource_dict = api_info["resources"][base_endpoint]["/"*final_endpoint] # get the final endpoint data
-    catch
-        error("Endpoint not found. Is this a Twitter.jl call?") #if nothing, wait fifteen
-    end
+    api_info = get_application_rate_limit_status()
+    endpoint_match = match( r"^.*/", endp).match # get everything before the slash
+    base_endpoint =  strip(endpoint_match, '/') #remove the slash
+    final_endpoint = replace(endp, ".json" => "") # remove the .json
+    resource_dict = api_info["resources"][base_endpoint]["/"*final_endpoint] # get the final endpoint data
 end
 
 # back off loop - this will reconnect when the API says it's OK
