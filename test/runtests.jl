@@ -4,9 +4,9 @@ using JSON, OAuth
 twitterauth(ENV["CONSUMER_KEY"], ENV["CONSUMER_SECRET"], ENV["ACCESS_TOKEN"], ENV["ACCESS_TOKEN_SECRET"])
 
 #get_mentions_timeline
-mentions_timeline_default = get_mentions_timeline()
-tw = mentions_timeline_default[1]
-tw_df = DataFrame(mentions_timeline_default)
+mentions_timeline_default = @twitter get_mentions_timeline()
+tw = @twitter mentions_timeline_default[1]
+tw_df = @twitter DataFrame(mentions_timeline_default)
 @test 0 <= length(mentions_timeline_default) <= 20
 @test typeof(mentions_timeline_default) == Vector{Tweets}
 @test typeof(tw) == Tweets

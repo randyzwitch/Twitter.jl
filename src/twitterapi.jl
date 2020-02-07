@@ -121,7 +121,7 @@ function fn_to_endp(fn)
     end
 end
 
-macro backoff(ex)
+macro twitter(ex)
     local endp = fn_to_endp(ex.args[1])
     cur_alloc = reconnect(eval(endp)) # start reconnect loop
     remaining_calls = cur_alloc["remaining"]

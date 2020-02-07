@@ -111,7 +111,7 @@ export  get_direct_messages,
         Users,
         Places,
         Tweets,
-        @backoff
+        @twitter
 
 ##############################################################################
 ##
@@ -125,5 +125,5 @@ include("macrogenerated.jl")
 include("othermethods.jl")
 include("types.jl")
 include("dataframe.jl")
-include("backoff.jl")
+include("twitterapi.jl")
 end # module
