@@ -111,7 +111,7 @@ export  get_direct_messages,
         Users,
         Places,
         Tweets,
-        @twitter
+        @twitterapi
 
 ##############################################################################
 ##

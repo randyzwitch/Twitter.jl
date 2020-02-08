@@ -134,7 +134,7 @@ end
 #    eval(ex)
 #end
 
-macro twitter(ex)
+macro twitterapi(ex)
     local endp = fn_to_endp(ex.args[1])
     cur_alloc = reconnect(eval(endp)) # start reconnect loop
     remaining_calls = cur_alloc["remaining"]
