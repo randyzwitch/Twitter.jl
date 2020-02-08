@@ -62,11 +62,14 @@ home_t = @twitterapi get_home_timeline(count = 2)
 user_t = @twitterapi get_user_timeline(screen_name = "stefanjwojcik", count = 400)
 @test length(user_t) == 400
 # get the minimum ID of the tweets returned (the earliest)
-minid = minimum(x.id for x in user_t)
+minid = minimum(x.id for x in user_t);
 
 # now iterate until you hit that tweet: should return 399
-tweets_since = @twitterapi get_user_timeline(screen_name = "stefanjwojcik", count = 400, since_id = minid, include_rts=1)
-@test length(tweets_since)==399
+# WARNING: current versions of julia cannot use keywords in macros? read here: https://github.com/JuliaLang/julia/pull/29261
+# eventually replace since_id = minid
+tweets_since = @twitterapi get_user_timeline(screen_name = "stefanjwojcik", count = 400, since_id = 1001808621053898752, include_rts=1)
+
+@test length(tweets_since)>=399
 
 # testing get_mentions_timeline
 mentions = @twitterapi get_mentions_timeline(screen_name = "stefanjwojcik", count = 300)

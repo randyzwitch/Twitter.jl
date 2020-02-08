@@ -123,24 +123,16 @@ function fn_to_endp(fn)
     end
 end
 
-#macro twitterapi(ex)
-#    local endp = fn_to_endp(ex.args[1])
-#    cur_alloc = reconnect(eval(endp)) # start reconnect loop
-#    remaining_calls = cur_alloc["remaining"]
-#    sleep(rand(1:3))
-#    if remaining_calls != -1
-#        println("$remaining_calls calls left on this endpoint.")
-#        eval(ex)
-#    else
-#        println("API returned no call info for this endpoint")
-#        eval(ex)
-#    end
-#end
-
 macro twitterapi(ex)
-    #local endp = fn_to_endp(ex.args[1])
-    #cur_alloc = reconnect(eval(endp)) # start reconnect loop
-    #remaining_calls = cur_alloc["remaining"]
-    #sleep(rand(1:3))
-    ex
+    local endp = fn_to_endp(ex.args[1])
+    cur_alloc = reconnect(eval(endp)) # start reconnect loop
+    remaining_calls = cur_alloc["remaining"]
+    sleep(rand(1:3))
+    if remaining_calls != -1
+        println("$remaining_calls calls left on this endpoint.")
+        eval(ex)
+    else
+        println("API returned no call info for this endpoint")
+        eval(ex)
+    end
 end
