@@ -103,7 +103,6 @@ end
 
 # back off loop - this will reconnect when the API says it's OK
 function reconnect(endp, reconnects=0)
-    get_endpoint_allocation(endp)==nothing
     while get_endpoint_allocation(endp)["remaining"]==0
         reconnects += 1
         alloc = get_endpoint_allocation(endp)
@@ -132,5 +131,10 @@ macro twitter(ex)
         println("$remaining_calls calls left on this endpoint.")
     end
     sleep(rand(1:3))
+    eval(ex)
+end
+
+macro dothis(ex)
+    println("ok")
     eval(ex)
 end
