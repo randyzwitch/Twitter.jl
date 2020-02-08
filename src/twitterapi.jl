@@ -94,12 +94,16 @@ get_endpoint_allocation  = function(endp)
     final_endpoint = replace(endp, ".json" => "") # remove the .json
     base_keys = keys(api_info["resources"][base_endpoint])
     endp_array = [match(Regex("/$(final_endpoint)(.*)"), x) for x in String.(base_keys)]
+    no_limit = sum([x!=nothing for x in endp_array])==0 #endp not in list, end eval
+    no_limit && return Dict("remaining"=>-1, "reset"=>0, "limit"=-1)
     endp_name = [x.match for x in endp_array if x != nothing][1]
     api_info["resources"][base_endpoint][endp_name]
+    # add a branch here to pass through if endpoint not found
 end
 
 # back off loop - this will reconnect when the API says it's OK
 function reconnect(endp, reconnects=0)
+    get_endpoint_allocation(endp)==nothing
     while get_endpoint_allocation(endp)["remaining"]==0
         reconnects += 1
         alloc = get_endpoint_allocation(endp)
@@ -124,7 +128,9 @@ macro twitter(ex)
     local endp = fn_to_endp(ex.args[1])
     cur_alloc = reconnect(eval(endp)) # start reconnect loop
     remaining_calls = cur_alloc["remaining"]
-    println("$remaining_calls calls left on this endpoint.")
+    if remaining_calls != -1
+        println("$remaining_calls calls left on this endpoint.")
+    end
     sleep(rand(1:3))
     eval(ex)
 end
