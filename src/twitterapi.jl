@@ -95,7 +95,7 @@ get_endpoint_allocation  = function(endp)
     base_keys = keys(api_info["resources"][base_endpoint])
     endp_array = [match(Regex("/$(final_endpoint)(.*)"), x) for x in String.(base_keys)]
     no_limit = sum([x!=nothing for x in endp_array])==0 #endp not in list, end eval
-    no_limit && return Dict("remaining"=>-1, "reset"=>0, "limit"=-1)
+    no_limit && return Dict("remaining" => -1, "reset" => 0, "limit"=> -1)
     endp_name = [x.match for x in endp_array if x != nothing][1]
     api_info["resources"][base_endpoint][endp_name]
     # add a branch here to pass through if endpoint not found
