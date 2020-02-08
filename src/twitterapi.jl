@@ -142,5 +142,5 @@ macro twitterapi(ex)
     #cur_alloc = reconnect(eval(endp)) # start reconnect loop
     #remaining_calls = cur_alloc["remaining"]
     #sleep(rand(1:3))
-    eval(ex)
+    ex
 end
