@@ -100,6 +100,7 @@ function cursor(cursorable::Bool, newdata::Dict, options::Dict, endp::String, cu
     data_holder = haskey(newdata, "ids") ? newdata["ids"] : haskey(newdata, "statuses") ? newdata["statuses"] : [] # save existing ids
     api_options = copy(options) # the get_oauth overwrites options, so store the correct data here
     cur_alloc = reconnect("$endp") # start reconnect loop
+    println(cur_alloc)
     #remaining_calls = cur_alloc["remaining"]
     #sleep(rand(1:3))
     #println("$remaining_calls calls left on this endpoint.")
