@@ -95,7 +95,7 @@ end
 function reconnect(endp, reconnects=0)
     while get_endpoint_allocation(endp)["remaining"]==0
         reconnects += 1
-        alloc = get_endpoint_allocation(endp)
+        alloc = get_endpoint_allocation(eval(endp))
         cur_time = round(Int64, time())
         sleeptime = abs(alloc["reset"] - cur_time)
         println("Endpoint exhausted, sleeping for $sleeptime seconds..")
