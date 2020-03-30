@@ -129,10 +129,10 @@ macro twitterapi(ex)
     remaining_calls = cur_alloc["remaining"]
     sleep(rand(1:3))
     if remaining_calls != -1
-        println("$remaining_calls calls left on this endpoint.")
+        @debug "$remaining_calls calls left on this endpoint."
         eval(ex)
     else
-        println("API returned no call info for this endpoint")
+        @debug "API returned no call info for this endpoint"
         eval(ex)
     end
 end
