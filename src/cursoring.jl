@@ -170,6 +170,7 @@ function get_followers_ids(; kwargs...)
     # Could be doing some pre-allocation here to optimize performance,
     # but since this is an API function that only deals with 25K records at most...
     endp = "followers/ids.json"
+    println(endp)
     options = parse_options(kwargs)
 
     if "count" ∈ keys(options)
@@ -185,7 +186,6 @@ function get_followers_ids(; kwargs...)
     newdata["ids"] = [] #Array{String,1}[]
 
     while cursorable & (length(newdata["ids"]) < count)
-        println(endp)
         cursorable, newdata, options, endp, cur_count = cursor(cursorable, newdata, options, endp, cur_count)
     end
     newdata
