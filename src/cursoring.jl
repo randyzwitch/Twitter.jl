@@ -185,6 +185,7 @@ function get_followers_ids(; kwargs...)
     newdata["ids"] = [] #Array{String,1}[]
 
     while cursorable & (length(newdata["ids"]) < count)
+        println(endp)
         cursorable, newdata, options, endp, cur_count = cursor(cursorable, newdata, options, endp, cur_count)
     end
     newdata
