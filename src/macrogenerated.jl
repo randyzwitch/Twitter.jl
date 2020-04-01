@@ -4,7 +4,7 @@ endpoint_tuple = [
             (:get_oauth, :get_help_languages, "help/languages.json", nothing),
             (:get_oauth, :get_help_privacy, "help/privacy.json", nothing),
             (:get_oauth, :get_help_tos, "help/tos.json", nothing),
-            (:get_oauth, :get_application_rate_limit_status, "application/rate_limit_status.json", nothing),
+            #(:get_oauth, :get_application_rate_limit_status, "application/rate_limit_status.json", nothing),
             (:get_oauth, :get_profile_banner, "users/profile_banner.json", nothing),
             (:get_oauth, :get_blocks_ids, "blocks/ids.json", nothing),
             (:get_oauth, :get_account_settings, "account/settings.json", nothing),
@@ -76,6 +76,28 @@ endpoint_tuple = [
             (:post_oauth, :post_account_update_profile_banner, "account/update_profile_banner.json", nothing)
 ]
 
+# Need to define get_application_rate_limit_status in order to make it available to get_endpoint_allocation
+function get_application_rate_limit_status(;kwargs...)
+    endp = "application/rate_limit_status.json"
+    #Take kwargs array of tuples, create dict needed by OAuth process
+    options = Dict{String, Any}()
+    for arg in kwargs
+        options[string(arg[1])] = string(arg[2])
+    end
+
+    # defines the functions
+    r = get_oauth("https://api.twitter.com/1.1/$endp", options)
+
+    #If successful API call, return JSON as Julia data structure, otherwise return error
+    if r.status == 200
+        success = JSON.parse(String(r.body))
+    else
+        error("Twitter API returned $(r.status) status")
+    end
+
+end
+
+
 # retrieve endpoint remaining calls
 get_endpoint_allocation  = function(endp)
     api_info = get_application_rate_limit_status()
@@ -115,12 +137,12 @@ for (verb, func, endp, t) in endpoint_tuple
                 for arg in kwargs
                     options[string(arg[1])] = string(arg[2])
                 end
-
-                #Call endpoint
-                cur_alloc = reconnect(endp) # start reconnect loop
+                cur_alloc = reconnect(eval(endp)) # start reconnect loop
                 remaining_calls = cur_alloc["remaining"]
                 sleep(rand(1:3))
-                println("$remaining_calls calls left on this endpoint.")
+                @show "$remaining_calls calls left on this endpoint."
+
+                # defines the functions
                 r = ($verb)($"https://api.twitter.com/1.1/$endp", options)
 
                 #If successful API call, return JSON as Julia data structure, otherwise return error
