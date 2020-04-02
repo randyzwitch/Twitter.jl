@@ -102,7 +102,7 @@ function cursor(cursorable::Bool, newdata::Dict, options::Dict, endp::String, cu
     cur_alloc = reconnect($endp) # start reconnect loop
     remaining_calls = cur_alloc["remaining"]
     sleep(rand(1:3))
-    @debug "$remaining_calls calls left on this endpoint.")
+    @debug "$remaining_calls calls left on this endpoint."
     r = get_oauth("https://api.twitter.com/1.1/$endp", options)
     if r.status == 200
         newdata = JSON.parse(String(r.body))
@@ -139,7 +139,7 @@ function cursor(cursorable::Bool, newdata::Array, options::Dict, endp::String, c
     cur_alloc = reconnect($endp) # start reconnect loop
     remaining_calls = cur_alloc["remaining"]
     sleep(rand(1:3))
-    @debug "$remaining_calls calls left on this endpoint.")
+    @debug "$remaining_calls calls left on this endpoint."
     r = get_oauth("https://api.twitter.com/1.1/$endp", options)
     if r.status == 200
         # parse and put into proper type form
