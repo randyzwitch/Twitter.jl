@@ -126,7 +126,6 @@ function reconnect(endp, reconnects=0)
     return get_endpoint_allocation(endp)
 end
 
-
 #dynamically build methods
 for (verb, func, endp, t) in endpoint_tuple
     @eval begin
@@ -137,10 +136,10 @@ for (verb, func, endp, t) in endpoint_tuple
                 for arg in kwargs
                     options[string(arg[1])] = string(arg[2])
                 end
-                cur_alloc = reconnect(eval(endp)) # start reconnect loop
+                cur_alloc = reconnect($endp) # start reconnect loop
                 remaining_calls = cur_alloc["remaining"]
                 sleep(rand(1:3))
-                @show "$remaining_calls calls left on this endpoint."
+                @debug "$remaining_calls calls left on this endpoint."
 
                 # defines the functions
                 r = ($verb)($"https://api.twitter.com/1.1/$endp", options)

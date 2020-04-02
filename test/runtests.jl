@@ -1,12 +1,12 @@
 using Twitter, Test
 using JSON, OAuth
 
-TWITTERCRED = twitterauth(ENV["CONSUMER_KEY"], ENV["CONSUMER_SECRET"], ENV["ACCESS_TOKEN"], ENV["ACCESS_TOKEN_SECRET"])
-
-get_followers_ids(screen_name = "twitter", count = 10)
-
+#TWITTERCRED =
+twitterauth(ENV["CONSUMER_KEY"], ENV["CONSUMER_SECRET"], ENV["ACCESS_TOKEN"], ENV["ACCESS_TOKEN_SECRET"])
 
 get_single_tweet_id(id = "434685122671939584")
+
+get_followers_ids(screen_name = "twitter", count = 10)
 
 
 ###### TESTS
