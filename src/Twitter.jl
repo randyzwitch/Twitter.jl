@@ -125,5 +125,4 @@ include("cursoring.jl")
 include("othermethods.jl")
 include("types.jl")
 include("dataframe.jl")
-#include("twitterapi.jl")
 end # module
