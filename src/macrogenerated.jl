@@ -138,7 +138,6 @@ for (verb, func, endp, t) in endpoint_tuple
                 end
                 cur_alloc = reconnect($endp) # start reconnect loop
                 remaining_calls = cur_alloc["remaining"]
-                sleep(rand(1:3))
                 @debug "$remaining_calls calls left on this endpoint."
 
                 # defines the functions
