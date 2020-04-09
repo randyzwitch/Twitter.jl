@@ -99,6 +99,9 @@ function cursor(cursorable::Bool, newdata::Dict, options::Dict, endp::String, cu
     cursorable == false && return cursorable, newdata, options, endp, cur_count
     data_holder = haskey(newdata, "ids") ? newdata["ids"] : haskey(newdata, "statuses") ? newdata["statuses"] : [] # save existing ids
     api_options = copy(options) # the get_oauth overwrites options, so store the correct data here
+    cur_alloc = reconnect("$endp") # start reconnect loop
+    remaining_calls = cur_alloc["remaining"]
+    @debug "$remaining_calls calls left on this endpoint."
     r = get_oauth("https://api.twitter.com/1.1/$endp", options)
     if r.status == 200
         newdata = JSON.parse(String(r.body))
@@ -132,6 +135,9 @@ function cursor(cursorable::Bool, newdata::Array, options::Dict, endp::String, c
     cursorable == false && return cursorable, newdata, options, endp, cur_count
     data_holder = copy(newdata) # save existing ids
     api_options = copy(options) # the get_oauth overwrites options, so store the correct data here
+    cur_alloc = reconnect("$endp") # start reconnect loop
+    remaining_calls = cur_alloc["remaining"]
+    @debug "$remaining_calls calls left on this endpoint."
     r = get_oauth("https://api.twitter.com/1.1/$endp", options)
     if r.status == 200
         # parse and put into proper type form

@@ -110,7 +110,8 @@ export  get_direct_messages,
         Lists,
         Users,
         Places,
-        Tweets
+        Tweets,
+        reconnect
 
 ##############################################################################
 ##
@@ -119,10 +120,9 @@ export  get_direct_messages,
 ##############################################################################
 
 include("general.jl")
-include("cursoring.jl")
 include("macrogenerated.jl")
+include("cursoring.jl")
 include("othermethods.jl")
 include("types.jl")
 include("dataframe.jl")
-
 end # module

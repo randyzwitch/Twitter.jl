@@ -1,6 +1,9 @@
 using Twitter, Test
 using JSON, OAuth
 
+# set debugging
+ENV["JULIA_DEBUG"]=Twitter
+
 twitterauth(ENV["CONSUMER_KEY"], ENV["CONSUMER_SECRET"], ENV["ACCESS_TOKEN"], ENV["ACCESS_TOKEN_SECRET"])
 
 #get_mentions_timeline
@@ -12,31 +15,21 @@ tw_df = DataFrame(mentions_timeline_default)
 @test typeof(tw) == Tweets
 @test size(tw_df)[2] == 30
 
-sleep(5)
-
 #get_user_timeline
 user_timeline_default = get_user_timeline(screen_name = "randyzwitch")
 @test typeof(user_timeline_default) == Vector{Tweets}
-
-sleep(5)
 
 #get_home_timeline
 home_timeline_default = get_home_timeline()
 @test typeof(home_timeline_default) == Vector{Tweets}
 
-sleep(5)
-
 #get_single_tweet_id
 get_tweet_by_id = get_single_tweet_id(id = "434685122671939584")
 @test typeof(get_tweet_by_id) == Tweets
 
-sleep(5)
-
 #get_search_tweets
 duke_tweets = get_search_tweets(q = "#Duke", count = 200)
 @test typeof(duke_tweets) <: Dict
-
-sleep(5)
 
 #test sending/deleting direct messages
 #commenting out because Twitter API changed. Come back to fix
@@ -50,54 +43,41 @@ sleep(5)
 #creating/destroying friendships
 add_friend = post_friendships_create(screen_name = "kyrieirving")
 
-sleep(5)
-
 unfollow = post_friendships_destroy(screen_name = "kyrieirving")
 unfollow_df = DataFrame(unfollow)
 @test typeof(add_friend) == Users
 @test typeof(unfollow) == Users
 @test size(unfollow_df)[2] == 40
 
-sleep(5)
-
 # create a cursor for follower ids
 follow_cursor_test = get_followers_ids(screen_name = "twitter", count = 10_000)
 @test length(follow_cursor_test["ids"]) == 10_000
-
-sleep(5)
 
 # create a cursor for friend ids - use barackobama because he follows a lot of accounts!
 friend_cursor_test = get_friends_ids(screen_name = "BarackObama", count = 10_000)
 @test length(friend_cursor_test["ids"]) == 10_000
 
-sleep(5)
-
 # create a test for home timelines
 home_t = get_home_timeline(count = 2)
 @test length(home_t) > 1
-
-sleep(5)
 
 # TEST of cursoring functionality on user timelines
 user_t = get_user_timeline(screen_name = "stefanjwojcik", count = 400)
 @test length(user_t) == 400
 # get the minimum ID of the tweets returned (the earliest)
-minid = minimum(x.id for x in user_t)
-
-sleep(5)
+minid = minimum(x.id for x in user_t);
 
 # now iterate until you hit that tweet: should return 399
-tweets_since = get_user_timeline(screen_name = "stefanjwojcik", count = 400, since_id = minid, include_rts=1)
-@test length(tweets_since)==399
+# WARNING: current versions of julia cannot use keywords in macros? read here: https://github.com/JuliaLang/julia/pull/29261
+# eventually replace since_id = minid
+tweets_since = get_user_timeline(screen_name = "stefanjwojcik", count = 400, since_id = 1001808621053898752, include_rts=1)
 
-sleep(5)
+@test length(tweets_since)>=399
 
 # testing get_mentions_timeline
 mentions = get_mentions_timeline(screen_name = "stefanjwojcik", count = 300)
 @test length(mentions) >= 200 #sometimes API doesn't return number requested
 @test Tweets<:typeof(mentions[1])
-
-sleep(5)
 
 # testing retweets_of_me
 my_rts = get_retweets_of_me(count = 300)
