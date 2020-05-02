@@ -101,14 +101,21 @@ function cursor(cursorable::Bool, newdata::Dict, options::Dict, endp::String, cu
     api_options = copy(options) # the get_oauth overwrites options, so store the correct data here
     # Option to use reconnect or not
     # Check for reconnect argument
+    if haskey(options, "skip_reconnect") && options["skip_reconnect"]==true
+        @debug "skipping reconnect loop. Warning, you could be rate limited!"
+    else
+        cur_alloc = reconnect(`$endp`) # start reconnect loop
+        remaining_calls = cur_alloc["remaining"]
+        @debug " $remaining_calls calls left on this endpoint."
+    end
 
-    r = get_oauth("https://api.twitter.com/1.1/`$endp`", options)
+    r = get_oauth("https://api.twitter.com/1.1/$endp", options)
     if r.status == 200
         newdata = JSON.parse(String(r.body))
         cursorable, newdata, api_options, cur_count = parse_results(cursorable, newdata, api_options, data_holder, cur_count)
         cursorable, newdata, api_options, endp, cur_count
     else
-        error("Twitter API returned `$(r.status)` status")
+        error("Twitter API returned $(r.status) status")
     end
 end
 
@@ -140,7 +147,7 @@ function cursor(cursorable::Bool, newdata::Array, options::Dict, endp::String, c
     if haskey(options, "skip_reconnect") && options["skip_reconnect"]==true
         @debug "skipping reconnect loop. Warning, you could be rate limited!"
     else
-        cur_alloc = reconnect($endp) # start reconnect loop
+        cur_alloc = reconnect(`$endp`) # start reconnect loop
         remaining_calls = cur_alloc["remaining"]
         @debug "`$remaining_calls` calls left on this endpoint."
     end
