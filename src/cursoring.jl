@@ -106,7 +106,7 @@ function cursor(cursorable::Bool, newdata::Dict, options::Dict, endp::String, cu
     else
         cur_alloc = reconnect($endp) # start reconnect loop
         remaining_calls = cur_alloc["remaining"]
-        @debug "$remaining_calls calls left on this endpoint."
+        @debug "``$remaining_calls` calls left on this endpoint."
     end
 
     r = get_oauth("https://api.twitter.com/1.1/$endp", options)
@@ -149,7 +149,7 @@ function cursor(cursorable::Bool, newdata::Array, options::Dict, endp::String, c
     else
         cur_alloc = reconnect($endp) # start reconnect loop
         remaining_calls = cur_alloc["remaining"]
-        @debug "$remaining_calls calls left on this endpoint."
+        @debug "`$remaining_calls` calls left on this endpoint."
     end
 
     r = get_oauth("https://api.twitter.com/1.1/$endp", options)
