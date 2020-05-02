@@ -138,7 +138,7 @@ for (verb, func, endp, t) in endpoint_tuple
                 end
                 # Check for reconnect argument
                 @debug println(options)
-                if haskey(options, "skip_reconnect") && options["skip_reconnect"]==true
+                if haskey(options, "skip_reconnect") && options["skip_reconnect"]
                     @debug "skipping reconnect loop. Warning, you could be rate limited!"
                 else
                     cur_alloc = reconnect($endp) # start reconnect loop
