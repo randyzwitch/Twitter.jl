@@ -101,7 +101,7 @@ function cursor(cursorable::Bool, newdata::Dict, options::Dict, endp::String, cu
     api_options = copy(options) # the get_oauth overwrites options, so store the correct data here
     # Option to use reconnect or not
     # Check for reconnect argument
-    if haskey(options, "skip_reconnect") && options["skip_reconnect"]==true
+    if haskey(options, "skip_reconnect") && options["skip_reconnect"]=="true"
         @debug "skipping reconnect loop. Warning, you could be rate limited!"
     else
         cur_alloc = reconnect(`$endp`) # start reconnect loop
@@ -144,7 +144,7 @@ function cursor(cursorable::Bool, newdata::Array, options::Dict, endp::String, c
     api_options = copy(options) # the get_oauth overwrites options, so store the correct data here
 
     # Check for reconnect argument
-    if haskey(options, "skip_reconnect") && options["skip_reconnect"]==true
+    if haskey(options, "skip_reconnect") && options["skip_reconnect"]=="true"
         @debug "skipping reconnect loop. Warning, you could be rate limited!"
     else
         cur_alloc = reconnect(`$endp`) # start reconnect loop
