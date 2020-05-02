@@ -136,9 +136,14 @@ for (verb, func, endp, t) in endpoint_tuple
                 for arg in kwargs
                     options[string(arg[1])] = string(arg[2])
                 end
-                cur_alloc = reconnect($endp) # start reconnect loop
-                remaining_calls = cur_alloc["remaining"]
-                @debug "$remaining_calls calls left on this endpoint."
+                # Check for reconnect argument
+                if haskey(options, "skip_reconnect") && options["skip_reconnect"]==true
+                    @debug "skipping reconnect loop. Warning, you could be rate limited!"
+                else
+                    cur_alloc = reconnect($endp) # start reconnect loop
+                    remaining_calls = cur_alloc["remaining"]
+                    @debug "$remaining_calls calls left on this endpoint."
+                end
 
                 # defines the functions
                 r = ($verb)($"https://api.twitter.com/1.1/$endp", options)
