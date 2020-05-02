@@ -137,7 +137,6 @@ for (verb, func, endp, t) in endpoint_tuple
                     options[string(arg[1])] = string(arg[2])
                 end
                 # Check for reconnect argument
-                @debug println(options)
                 if haskey(options, "skip_reconnect") && options["skip_reconnect"]=="true"
                     @debug "skipping reconnect loop. Warning, you could be rate limited!"
                 else
