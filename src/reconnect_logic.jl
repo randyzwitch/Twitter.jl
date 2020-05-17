@@ -39,7 +39,7 @@ get_endpoint_allocation  = function(endp, endp_deduction=0)
     no_limit && return Dict("remaining" => -1, "reset" => 0, "limit"=> -1)
     endp_name = [x.match for x in endp_array if x != nothing][1]
     # subtract the deduction if necessary
-    API_INFO["resources"][base_endpoint][endp_name] -= endp_deduction
+    API_INFO["resources"][base_endpoint][endp_name]["remaining"] -= endp_deduction
     return API_INFO["resources"][base_endpoint][endp_name]
 end
 
@@ -47,7 +47,7 @@ end
 function reconnect(endp, reconnects=0)
     while get_endpoint_allocation(endp)["remaining"]==0
         reconnects += 1
-        global API_INFO = nothing # reset the API INFO because 
+        global API_INFO = nothing # reset the API INFO because
         alloc = get_endpoint_allocation(eval(endp))
         cur_time = round(Int64, time())
         sleeptime = abs(alloc["reset"] - cur_time)
