@@ -120,7 +120,7 @@ export  get_direct_messages,
 ##############################################################################
 
 include("general.jl")
-includ("reconnect_logic.jl")
+include("reconnect_logic.jl")
 include("macrogenerated.jl")
 include("cursoring.jl")
 include("othermethods.jl")
