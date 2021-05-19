@@ -61,7 +61,6 @@ mutable struct Users <: TwitterType
     url::Union{String, Nothing}
     utc_offset::Union{Int, Nothing}
     verified::Union{Bool, Nothing}
-    #withheld_in_countries::Union{String, Nothing}
     withheld_in_countries::Union{Array, Nothing}
     withheld_scope::Union{String, Nothing}
 end
