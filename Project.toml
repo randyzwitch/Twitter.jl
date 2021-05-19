@@ -11,7 +11,7 @@ OAuth = "22d8b318-f366-56fb-a292-a93f7d76c017"
 [compat]
 DataFrames = "0.18 - 1"
 JSON = "^0.21.0"
-OAuth = "^0.7.0"
+OAuth = "0.7.0 - 1"
 julia = "^1.0"
 
 [extras]
