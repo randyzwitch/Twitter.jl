@@ -44,3 +44,11 @@ function post_status_retweet_id(id::String; options=Dict{String, String}())
     return r.status == 200 ? Tweets(JSON.parse(String(r.body))) : error("Twitter API returned $(r.status) status")
 
 end
+
+function post_status_unretweet_id(id::String; options=Dict{String, String}())
+
+    r = post_oauth("https://api.twitter.com/1.1/statuses/unretweet/$(id).json", options)
+
+    return r.status == 200 ? Tweets(JSON.parse(String(r.body))) : error("Twitter API returned $(r.status) status")
+
+end

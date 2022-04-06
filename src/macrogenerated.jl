@@ -73,9 +73,7 @@ endpoint_tuple = [
             (:get_oauth, :get_retweeters_id, "statuses/retweeters/ids.json", nothing),
             (:get_oauth, :get_users_search, "users/search.json", :Users),
             (:post_oauth, :post_update_profile_image, "account/update_profile_image.json", nothing),
-            (:post_oauth, :post_account_update_profile_banner, "account/update_profile_banner.json", nothing),
-            #brand new, untested
-            (:get_oauth, :post_statuses_destroy, "statuses/destroy/ids.json", nothing)
+            (:post_oauth, :post_account_update_profile_banner, "account/update_profile_banner.json", nothing)
 ]
 
 #dynamically build methods
