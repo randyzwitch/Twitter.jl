@@ -23,7 +23,16 @@ function DataFrame(array::Array{T, 1}) where T <: TwitterType
     end
 
     #Use cols array above to properly name df columns
-    names!(resultdf, [x for x in cols])
+    try 
+      names!(resultdf, [x for x in cols])
+    catch err
+      if isa(err, UndefVarError)
+        rename!(resultdf, [x for x in cols])
+      else
+        throw(err)
+      end
+    end
+    
 
     return resultdf
 

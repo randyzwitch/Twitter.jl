@@ -75,8 +75,8 @@ tweets_since = get_user_timeline(screen_name = "stefanjwojcik", count = 400, sin
 @test length(tweets_since)>=399
 
 # testing get_mentions_timeline
-mentions = get_mentions_timeline(screen_name = "stefanjwojcik", count = 300)
-@test length(mentions) >= 200 #sometimes API doesn't return number requested
+mentions = get_mentions_timeline(screen_name = "stefanjwojcik", count = 300) 
+@test length(mentions) >= 50 #sometimes API doesn't return number requested (twitter API specifies count is the max returned, may be much lower)
 @test Tweets<:typeof(mentions[1])
 
 # testing retweets_of_me
