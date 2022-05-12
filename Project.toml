@@ -1,6 +1,6 @@
 name = "Twitter"
 uuid = "92393bbf-ba23-5323-a3fa-fbe1e5f35af8"
-version = "0.8.2"
+version = "0.9.0"
 
 [deps]
 CSV = "336ed68f-0bac-5ca0-87d4-7b16caf5d00b"
