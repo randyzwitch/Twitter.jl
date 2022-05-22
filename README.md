@@ -20,7 +20,7 @@ Before one can make use of this package, you must create an application on the [
 
 Once your application is approved, you can access your dashboard/portal to grab your authentication credentials from the "Details" tab of the application.
 
-Note that you will also want to ensure that your App was Read / Write access should want to post tweets or the like. You can find out more about this [on Stack Overflow](https://stackoverflow.com/a/70958807/7619808).
+Note that you will also want to ensure that your App has Read / Write OAuth access in order to post tweets. You can find out more about this [on Stack Overflow](https://stackoverflow.com/a/70958807/7619808).
 
 ## Installation
 
