@@ -37,13 +37,13 @@ To run Twitter.jl, enter the following command in your Julia REPL
 julia> using Twitter
 ```
 
-Then the a global variable has to be declared with the `twitterauth` function. This function holds the `consumer_key`, `consumer_secret`, `oauth_token`, and `oauth_secret` respectively.
+Then the a global variable has to be declared with the `twitterauth` function. This function holds the `consumer_key`(API Key), `consumer_secret`(API Key Secret), `oauth_token`(Access Token), and `oauth_secret`(Access Token Secret) respectively.
 
 ```julia
-twitterauth("6nOtpXmf...",
-            "sES5Zlj096S...",
-            "98689850-Hj...",
-            "UroqCVpWKIt...")
+twitterauth("6nOtpXmf...", # API Key
+            "sES5Zlj096S...", # API Key Secret
+            "98689850-Hj...", # Access Token
+            "UroqCVpWKIt...") # Access Token Secret
 ```
 * Ensure you put your credentials in an env file to avoid pushing your secrets to the public 🙀.
 
